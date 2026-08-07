@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LMV Creative Fellowship
 
-## Getting Started
+The "coming soon" site for the LMV Creative Fellowship — a single landing page
+with the `_love made visible` wordmark and a notify-me signup form.
 
-First, run the development server:
+Built with [Next.js](https://nextjs.org) (App Router) and Tailwind CSS v4.
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Other scripts:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build   # production build
+npm start       # serve the production build
+npm run lint    # eslint
+```
 
-## Learn More
+## Signup form
 
-To learn more about Next.js, take a look at the following resources:
+The form on `app/page.tsx` posts to the `subscribe` Server Action in
+`app/actions.ts`, which validates the name, email, and newsletter consent on the
+server before handing the signup off.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Where signups go
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Delivery is configured with a single environment variable:
 
-## Deploy on Vercel
+| Variable                  | Description                                                            |
+| ------------------------- | ---------------------------------------------------------------------- |
+| `LMV_SIGNUP_WEBHOOK_URL`  | Endpoint that receives a `POST` with the signup as JSON. Optional.      |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The request body looks like:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```json
+{
+  "name": "Ada Lovelace",
+  "email": "ada@example.com",
+  "source": "lmv-coming-soon",
+  "submittedAt": "2026-08-07T19:36:44.295Z"
+}
+```
+
+Point this at the mailing list provider's inbound hook (Mailchimp, Beehiiv,
+Zapier, a Google Apps Script, etc.).
+
+> **Until `LMV_SIGNUP_WEBHOOK_URL` is set, signups are not stored anywhere.**
+> The visitor still sees a confirmation, but the server only logs a warning.
+> Set the variable before sharing the site publicly.
+
+## Project structure
+
+```
+app/
+  layout.tsx        root layout, fonts, metadata
+  page.tsx          the landing page
+  signup-form.tsx   client component for the form (useActionState)
+  actions.ts        "use server" — validation + delivery
+  signup-state.ts   shared form state type shared by the two above
+  globals.css       Tailwind theme tokens
+```
+
+`signup-state.ts` is separate from `actions.ts` because a `"use server"` module
+may only export async functions.
