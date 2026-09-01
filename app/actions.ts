@@ -1,25 +1,22 @@
 "use server";
 
+import { sendSignupNotification, sendWelcomeEmail } from "./emails";
 import type { SignupState } from "./signup-state";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_NAME_LENGTH = 100;
 const MAX_EMAIL_LENGTH = 254;
 
+type Signup = { name: string; email: string };
+
 /**
- * Hands the signup off to whatever list the fellowship is using. Configure
- * LMV_SIGNUP_WEBHOOK_URL to point at the mailing list provider's inbound hook;
- * until then signups are only recorded in the server logs.
+ * Posts the signup to whatever list the fellowship is using. Configure
+ * LMV_SIGNUP_WEBHOOK_URL to point at the mailing list provider's inbound hook.
  */
-async function deliverSignup(signup: { name: string; email: string }) {
+async function postToWebhook(signup: Signup) {
   const webhookUrl = process.env.LMV_SIGNUP_WEBHOOK_URL;
 
-  if (!webhookUrl) {
-    console.warn(
-      `LMV_SIGNUP_WEBHOOK_URL is not set — signup for ${signup.email} was not delivered anywhere.`,
-    );
-    return;
-  }
+  if (!webhookUrl) return false;
 
   const response = await fetch(webhookUrl, {
     method: "POST",
@@ -33,6 +30,59 @@ async function deliverSignup(signup: { name: string; email: string }) {
 
   if (!response.ok) {
     throw new Error(`Signup webhook responded with ${response.status}`);
+  }
+
+  return true;
+}
+
+/**
+ * Records the signup and thanks the person who made it.
+ *
+ * The webhook and the notification to the fellowship's inbox are the two
+ * channels that actually record a signup, so the visitor is only shown an
+ * error when every configured one of them failed — losing the address is the
+ * thing worth retrying for. The thank-you note is a courtesy on top: if it
+ * bounces, the signup still stands and we only log it.
+ */
+async function deliverSignup(signup: Signup) {
+  const emailConfigured = Boolean(
+    process.env.RESEND_API_KEY && process.env.LMV_FROM_EMAIL,
+  );
+
+  if (!process.env.LMV_SIGNUP_WEBHOOK_URL && !emailConfigured) {
+    console.warn(
+      `No signup delivery is configured — the signup for ${signup.email} was not recorded anywhere. ` +
+        "Set LMV_SIGNUP_WEBHOOK_URL, or RESEND_API_KEY and LMV_FROM_EMAIL.",
+    );
+    return;
+  }
+
+  const [webhook, notification, welcome] = await Promise.allSettled([
+    postToWebhook(signup),
+    emailConfigured ? sendSignupNotification(signup) : null,
+    emailConfigured ? sendWelcomeEmail(signup) : null,
+  ]);
+
+  if (webhook.status === "rejected") {
+    console.error("Failed to post signup to the webhook", webhook.reason);
+  }
+  if (notification.status === "rejected") {
+    console.error("Failed to send the signup notification", notification.reason);
+  }
+  if (welcome.status === "rejected") {
+    console.error(
+      `Failed to send the thank-you email to ${signup.email}`,
+      welcome.reason,
+    );
+  }
+
+  const recorded =
+    webhook.status === "fulfilled" && webhook.value === true
+      ? true
+      : notification.status === "fulfilled" && emailConfigured;
+
+  if (!recorded) {
+    throw new Error(`Every delivery channel failed for ${signup.email}`);
   }
 }
 
@@ -83,7 +133,8 @@ export async function subscribe(
 
   return {
     status: "success",
-    message: "You're on the list — we'll be in touch soon.",
+    message:
+      "You're on the list — check your inbox for a note from us. We'll be in touch soon.",
     errors: {},
     values: { name: "", email: "", consent: false },
   };
