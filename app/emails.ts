@@ -10,6 +10,14 @@
 
 const RESEND_ENDPOINT = "https://api.resend.com/emails";
 
+/**
+ * Email clients can't resolve relative URLs, so images have to be absolute.
+ * Override with LMV_SITE_URL if the canonical host ever changes.
+ */
+const SITE_URL = (
+  process.env.LMV_SITE_URL ?? "https://www.lmvfellowship.com"
+).replace(/\/$/, "");
+
 export const NOTIFICATION_RECIPIENT =
   process.env.LMV_NOTIFICATION_EMAIL ?? "contact@lmvfellowship.com";
 
@@ -119,9 +127,13 @@ export async function sendWelcomeEmail(signup: Signup) {
     html: `
       <div style="background:#000;padding:40px 24px;">
         <div style="max-width:520px;margin:0 auto;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:16px;line-height:1.7;color:#fff;">
-          <p style="margin:0 0 28px;font-family:'Sacramento','Brush Script MT',cursive;font-size:40px;line-height:1;color:#fff;">
-            _love made visible
-          </p>
+          <img
+            src="${SITE_URL}/email-wordmark.png"
+            alt="_love made visible"
+            width="242"
+            height="26"
+            style="display:block;border:0;outline:none;margin:0 0 28px;width:242px;height:auto;"
+          />
           <p style="margin:0 0 20px;">Hi ${name},</p>
           <p style="margin:0 0 20px;">
             Thank you for staying updated with the LMV Creative Fellowship.
