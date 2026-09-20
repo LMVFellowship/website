@@ -1,6 +1,7 @@
 "use server";
 
 import { sendSignupNotification, sendWelcomeEmail } from "./emails";
+import { appendToSheet, isSheetConfigured } from "./sheets";
 import type { SignupState } from "./signup-state";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -35,34 +36,48 @@ async function postToWebhook(signup: Signup) {
   return true;
 }
 
+/** Whether a channel was configured and actually recorded the signup. */
+function didRecord(result: PromiseSettledResult<boolean>) {
+  return result.status === "fulfilled" && result.value === true;
+}
+
 /**
  * Records the signup and thanks the person who made it.
  *
- * The webhook and the notification to the fellowship's inbox are the two
- * channels that actually record a signup, so the visitor is only shown an
- * error when every configured one of them failed — losing the address is the
- * thing worth retrying for. The thank-you note is a courtesy on top: if it
- * bounces, the signup still stands and we only log it.
+ * The Google Sheet, the webhook, and the notification to the fellowship's inbox
+ * are the three channels that actually record a signup, so the visitor is only
+ * shown an error when every configured one of them failed — losing the address
+ * is the thing worth retrying for. The thank-you note is a courtesy on top: if
+ * it bounces, the signup still stands and we only log it.
  */
 async function deliverSignup(signup: Signup) {
   const emailConfigured = Boolean(
     process.env.RESEND_API_KEY && process.env.LMV_FROM_EMAIL,
   );
 
-  if (!process.env.LMV_SIGNUP_WEBHOOK_URL && !emailConfigured) {
+  if (
+    !isSheetConfigured() &&
+    !process.env.LMV_SIGNUP_WEBHOOK_URL &&
+    !emailConfigured
+  ) {
     console.warn(
       `No signup delivery is configured — the signup for ${signup.email} was not recorded anywhere. ` +
-        "Set LMV_SIGNUP_WEBHOOK_URL, or RESEND_API_KEY and LMV_FROM_EMAIL.",
+        "Set LMV_SHEETS_WEBHOOK_URL and LMV_SHEETS_SHARED_SECRET, LMV_SIGNUP_WEBHOOK_URL, " +
+        "or RESEND_API_KEY and LMV_FROM_EMAIL.",
     );
     return;
   }
 
-  const [webhook, notification, welcome] = await Promise.allSettled([
+  const [sheet, webhook, notification, welcome] = await Promise.allSettled([
+    appendToSheet(signup),
     postToWebhook(signup),
-    emailConfigured ? sendSignupNotification(signup) : null,
+    emailConfigured ? sendSignupNotification(signup).then(() => true) : false,
     emailConfigured ? sendWelcomeEmail(signup) : null,
   ]);
 
+  if (sheet.status === "rejected") {
+    console.error("Failed to append the signup to the Google Sheet", sheet.reason);
+  }
   if (webhook.status === "rejected") {
     console.error("Failed to post signup to the webhook", webhook.reason);
   }
@@ -77,9 +92,7 @@ async function deliverSignup(signup: Signup) {
   }
 
   const recorded =
-    webhook.status === "fulfilled" && webhook.value === true
-      ? true
-      : notification.status === "fulfilled" && emailConfigured;
+    didRecord(sheet) || didRecord(webhook) || didRecord(notification);
 
   if (!recorded) {
     throw new Error(`Every delivery channel failed for ${signup.email}`);
