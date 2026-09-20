@@ -1,303 +1,239 @@
 import type { Metadata } from "next";
-import Logo from "../logo";
+import Link from "next/link";
 import SignupForm from "../signup-form";
 
 export const metadata: Metadata = {
   title: "Love Made Visible — LMV Creative Fellowship",
   description:
-    "A year-long fellowship built for artists, by artists. Love Made Visible helps emerging visual artists advance their careers through education, relationships, and real opportunities.",
+    "A year-long fellowship built for artists, by artists. Love Made Visible helps emerging visual artists in Miami advance their careers.",
   openGraph: {
     title: "Love Made Visible — LMV Creative Fellowship",
     description:
-      "A year-long fellowship built for artists, by artists. Love Made Visible helps emerging visual artists advance their careers through education, relationships, and real opportunities.",
+      "A year-long fellowship built for artists, by artists. Love Made Visible helps emerging visual artists in Miami advance their careers.",
     type: "website",
   },
 };
 
-const FACTS = ["10 artists", "One year", "Miami"];
-
-const OUTCOMES = [
-  "A professional website or stronger portfolio",
-  "A refined artist profile and clear pricing structure",
-  "A group exhibition or pathway toward a solo show",
-  "A new collector or institutional relationship",
-  "A commission or acquisition",
-  "Greater readiness for public art, residencies, and other opportunities",
-  "A clear 1–3 year career strategy",
-];
-
-const CONTRIBUTIONS = [
-  "Teach something",
-  "Make an introduction",
-  "Mentor an artist",
-  "Open a space",
-  "Host an experience",
-  "Commission work",
-  "Acquire work",
-  "Create an exhibition opportunity",
-  "Provide a professional service",
-  "Fund part of the fellowship",
-  "Bring another person into the circle",
-];
-
 const CONTACT_EMAIL = "contact@lmvfellowship.com";
 
-function Eyebrow({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="font-display text-[11px] font-light uppercase tracking-[0.3em] text-white/45 sm:text-xs">
-      {children}
-    </p>
-  );
-}
+const FACTS = [
+  { value: "10", label: "Artists" },
+  { value: "1", label: "Year" },
+  { value: "Miami", label: "Based in" },
+];
 
-/**
- * Numbered editorial section: the number and title sit in a narrow left rail
- * on wide screens and stack above the prose on narrow ones.
- */
-function Section({
-  index,
-  title,
+/** Short answers only — the page should skim, not read. */
+const DETAILS = [
+  {
+    q: "What is Love Made Visible?",
+    a: "A year-long fellowship for a curated cohort of ten emerging visual artists, combining education on the business of art with relationships, cultural experiences, and real opportunities.",
+  },
+  {
+    q: "Why does it exist?",
+    a: "There isn’t a shortage of talent in Miami — there’s a shortage of access. LMV shortens the distance between making strong work and knowing the people who can move a career forward.",
+  },
+  {
+    q: "What do fellows leave with?",
+    a: "Tangible progress: a stronger portfolio, a clear pricing structure, new collector and institutional relationships, exhibition pathways, and a career strategy for the next one to three years.",
+  },
+  {
+    q: "How can I get involved?",
+    a: "Teach, mentor, introduce, host, commission, acquire, or fund. The question worth asking is what you have access to that could create motion for an artist.",
+  },
+];
+
+const COHORT_SIZE = 10;
+
+function Pill({
+  href,
   children,
+  solid = false,
 }: {
-  index: string;
-  title: string;
+  href: string;
   children: React.ReactNode;
+  solid?: boolean;
 }) {
   return (
-    <section className="border-t border-white/15">
-      <div className="mx-auto grid max-w-5xl gap-8 px-6 py-20 sm:py-28 lg:grid-cols-[170px_1fr] lg:gap-16">
-        <div className="lg:pt-1">
-          <Eyebrow>{index}</Eyebrow>
-          <h2 className="mt-4 font-display text-xl font-light uppercase leading-snug tracking-[0.14em] sm:text-2xl">
-            {title}
-          </h2>
-        </div>
-        <div className="max-w-2xl space-y-6 text-base leading-relaxed text-white/75 sm:text-lg sm:leading-relaxed">
-          {children}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function PullQuote({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="border-l border-white/25 pl-6 font-script text-3xl leading-tight text-white sm:text-4xl">
+    <a
+      href={href}
+      className={`inline-flex h-12 items-center justify-center rounded-full px-7 font-sans text-sm tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 ${
+        solid
+          ? "bg-white text-black hover:bg-white/85"
+          : "border border-white/50 text-white hover:border-white"
+      }`}
+    >
       {children}
-    </p>
+    </a>
   );
 }
 
 export default function HomePage() {
   return (
-    <main className="flex-1">
-      {/* Hero */}
-      <section className="px-6 pb-20 pt-20 sm:pb-24 sm:pt-28">
-        <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
-          <Eyebrow>A year-long fellowship built for artists, by artists</Eyebrow>
-
-          <div className="mt-10 flex w-full justify-center sm:mt-12">
-            <Logo />
-          </div>
-
-          <p className="mt-10 max-w-2xl text-base leading-relaxed text-white/75 sm:mt-12 sm:text-lg sm:leading-relaxed">
-            Love Made Visible is designed to help emerging visual artists
-            advance their careers — surrounding a curated cohort with education
-            on the business of art, relationships, cultural experiences, and
-            real opportunities.
-          </p>
-
-          <ul className="mt-10 flex flex-wrap items-center justify-center gap-x-4 gap-y-3 font-display text-[11px] uppercase tracking-[0.25em] text-white/55 sm:gap-x-6 sm:text-xs">
-            {FACTS.map((fact, i) => (
-              <li key={fact} className="flex items-center gap-4 sm:gap-6">
-                {i > 0 ? (
-                  <span aria-hidden="true" className="text-white/25">
-                    /
-                  </span>
-                ) : null}
-                {fact}
-              </li>
-            ))}
-          </ul>
-
-          <div className="mt-12 flex flex-col gap-4 sm:flex-row sm:gap-5">
+    <div className="flex-1">
+      {/* Nav */}
+      <header className="border-b border-white/15">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-5">
+          <Link href="/" className="font-script text-2xl leading-none">
+            <span aria-hidden="true">_</span>love made visible
+          </Link>
+          <nav className="flex items-center gap-6">
+            <a
+              href="#details"
+              className="hidden font-display text-[11px] uppercase tracking-[0.2em] text-white/70 transition-colors hover:text-white sm:block"
+            >
+              Fellowship
+            </a>
+            <a
+              href="#cohort"
+              className="hidden font-display text-[11px] uppercase tracking-[0.2em] text-white/70 transition-colors hover:text-white sm:block"
+            >
+              Cohort
+            </a>
             <a
               href={`mailto:${CONTACT_EMAIL}`}
-              className="flex h-12 items-center justify-center border border-[#6f7c99] bg-[#2f3f61] px-8 font-sans text-base text-white transition-colors hover:bg-[#3a4d75] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+              className="inline-flex h-10 items-center rounded-full bg-white px-5 font-display text-[11px] uppercase tracking-[0.2em] text-black transition-colors hover:bg-white/85"
             >
               Get involved
             </a>
+          </nav>
+        </div>
+      </header>
+
+      <main>
+        {/* Hero */}
+        <section className="mx-auto max-w-6xl px-6 pb-20 pt-16 sm:pb-28 sm:pt-24">
+          <h1 className="font-condensed text-[clamp(3.5rem,11vw,9.5rem)] leading-[0.88] tracking-[-0.02em]">
+            Love Made
+            <br />
+            Visible
+          </h1>
+
+          <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-20">
+            <p className="max-w-2xl text-lg leading-relaxed text-white/75 sm:text-xl sm:leading-relaxed">
+              A year-long fellowship built for artists, by artists — helping a
+              curated cohort of emerging visual artists in Miami turn talent
+              into motion.
+            </p>
+
+            <div className="flex flex-wrap gap-3">
+              <Pill href="#details" solid>
+                The fellowship
+              </Pill>
+              <Pill href="#stay-updated">Stay updated</Pill>
+            </div>
+          </div>
+
+          {/* Facts */}
+          <dl className="mt-16 grid grid-cols-3 border-t border-white/15 sm:mt-20">
+            {FACTS.map((fact) => (
+              <div
+                key={fact.label}
+                className="border-r border-white/15 py-7 pr-4 last:border-r-0"
+              >
+                <dt className="font-display text-[10px] uppercase tracking-[0.25em] text-white/45">
+                  {fact.label}
+                </dt>
+                <dd className="mt-2 font-condensed text-4xl leading-none tracking-tight sm:text-5xl">
+                  {fact.value}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+
+        {/* Details accordion */}
+        <section id="details" className="border-t border-white/15">
+          <div className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
+            <h2 className="font-condensed text-[clamp(2.25rem,6vw,4.5rem)] leading-[0.95] tracking-[-0.01em]">
+              Fellowship details
+            </h2>
+
+            <div className="mt-12 border-t border-white/20">
+              {DETAILS.map((item) => (
+                <details
+                  key={item.q}
+                  className="group border-b border-white/20"
+                >
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-6 text-lg text-white transition-colors hover:text-white/70 sm:text-xl [&::-webkit-details-marker]:hidden">
+                    {item.q}
+                    <span
+                      aria-hidden="true"
+                      className="relative size-5 shrink-0"
+                    >
+                      <span className="absolute left-0 top-1/2 h-px w-5 -translate-y-1/2 bg-white" />
+                      <span className="absolute left-1/2 top-0 h-5 w-px -translate-x-1/2 bg-white transition-transform group-open:scale-y-0" />
+                    </span>
+                  </summary>
+                  <p className="max-w-3xl pb-7 text-base leading-relaxed text-white/70 sm:text-lg sm:leading-relaxed">
+                    {item.a}
+                  </p>
+                </details>
+              ))}
+            </div>
+
             <a
-              href="#stay-updated"
-              className="flex h-12 items-center justify-center border border-white/50 px-8 font-sans text-base text-white transition-colors hover:border-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+              href={`mailto:${CONTACT_EMAIL}`}
+              className="mt-10 inline-flex items-center gap-2 text-base text-white/80 transition-colors hover:text-white"
             >
-              Stay updated
+              Get involved
+              <span aria-hidden="true">→</span>
             </a>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <Section index="01" title="What is Love Made Visible?">
-        <p>
-          Love Made Visible is a year-long fellowship built for artists, by
-          artists, designed to help emerging visual artists advance their
-          careers.
-        </p>
-        <p>
-          We’re starting with a curated cohort of 10 artists and surrounding
-          them with education on the business-of-art, relationships, cultural
-          experiences, and real opportunities.
-        </p>
-        <p>
-          That means helping artists strengthen the infrastructure around their
-          talent while creating pathways toward exhibitions, commissions,
-          acquisitions, collector relationships, institutional opportunities,
-          and other meaningful additions to their CV.
-        </p>
-        <PullQuote>
-          The talent is already there. We’re here to give it motion.
-        </PullQuote>
-      </Section>
-
-      <Section index="02" title="Why LMV exists">
-        <PullQuote>
-          There isn’t a shortage of talent in Miami. There’s a shortage of
-          access.
-        </PullQuote>
-        <p>
-          An artist can create incredible work and still be several
-          relationships away from the curator who might exhibit it, the
-          collector who might acquire it, the organization looking to commission
-          an artist, or simply someone who can explain how these opportunities
-          actually happen.
-        </p>
-        <p>LMV is designed to shorten that distance.</p>
-        <p>
-          We’re building the bridge between making strong work and having the
-          relationships, knowledge, visibility, and professional infrastructure
-          needed to move a career forward.
-        </p>
-      </Section>
-
-      <Section index="03" title="What actually happens for an artist">
-        <p>
-          We measure success by what changes for an artist over the course of
-          the fellowship. We want artists to leave with tangible progress.
-          Depending on where an artist begins, that could mean:
-        </p>
-
-        <ul className="grid gap-px border border-white/15 bg-white/15 sm:grid-cols-2">
-          {OUTCOMES.map((outcome, i) => (
-            <li
-              key={outcome}
-              className={`bg-background px-5 py-5 text-base leading-snug text-white/85 ${
-                // An odd number of outcomes would otherwise leave the last
-                // grid cell empty, showing through as a stray filled box.
-                i === OUTCOMES.length - 1 && OUTCOMES.length % 2 === 1
-                  ? "sm:col-span-2"
-                  : ""
-              }`}
-            >
-              {outcome}
-            </li>
-          ))}
-        </ul>
-
-        <p>
-          Not every fellow will need the same support or achieve the same
-          milestones. That’s why we’re intentionally starting with only 10
-          artists — we want to understand what each artist needs and help them
-          take meaningful next steps.
-        </p>
-      </Section>
-
-      <Section index="04" title="Why Miami Art Week">
-        <p>
-          Miami is an international arts destination. We’re turning Miami Art
-          Week into a live classroom.
-        </p>
-        <p>
-          Every December, an extraordinary concentration of galleries,
-          collectors, museums, artists, brands, and art-world capital comes to
-          Miami. We want our fellows to do more than attend. We want them to
-          understand how the rooms work.
-        </p>
-        <p>
-          They’ll learn about collecting, gallery relationships, commissions,
-          pricing, intellectual property, institutional pathways, and the
-          economics behind the art world — while experiencing those systems in
-          real time.
-        </p>
-        <p>
-          And Art Week isn’t the end of LMV. The rest of the fellowship gives
-          artists time and support to build on what they learned, follow up with
-          the people they met, and pursue the opportunities that surfaced during
-          December.
-        </p>
-      </Section>
-
-      <Section index="05" title="How to get involved">
-        <p>
-          We’re building a circle around the artists, not simply a list of
-          sponsors. Funding matters, but money isn’t the only valuable resource
-          in this ecosystem.
-        </p>
-        <p className="text-white/55">There are many ways to contribute:</p>
-
-        <ul className="flex flex-wrap gap-2">
-          {CONTRIBUTIONS.map((item) => (
-            <li
-              key={item}
-              className="border border-white/25 px-4 py-2 text-sm text-white/85"
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-
-        <p>
-          A collector, artist, curator, museum professional, gallerist,
-          foundation officer, attorney, hospitality partner, business owner, or
-          simply someone who loves art can all contribute differently.
-        </p>
-
-        <p className="text-white/55">
-          The question we want people asking themselves is:
-        </p>
-        <PullQuote>
-          What do I have access to that could create motion for an artist?
-        </PullQuote>
-
-        <p>
-          <a
-            href={`mailto:${CONTACT_EMAIL}`}
-            className="inline-block border-b border-white/40 pb-1 text-white transition-colors hover:border-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
-          >
-            {CONTACT_EMAIL}
-          </a>
-        </p>
-      </Section>
-
-      {/* Signup */}
-      <section id="stay-updated" className="border-t border-white/15">
-        <div className="mx-auto flex max-w-5xl flex-col items-center px-6 py-20 text-center sm:py-28">
-          <h2 className="font-display text-xl font-light uppercase leading-snug tracking-[0.14em] sm:text-2xl">
-            Stay updated
-          </h2>
-          <p className="mt-5 max-w-lg text-base leading-relaxed text-white/70">
-            Be the first to hear about the cohort, the programming, and ways to
-            get involved.
-          </p>
-          {/* text-left: the surrounding section is centered, but the form's
-              labels and errors should read as a normal left-aligned form. */}
-          <div className="mt-12 flex w-full justify-center text-left">
-            <SignupForm />
+        {/* Cohort */}
+        <section id="cohort" className="border-t border-white/15">
+          <div className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
+            <h2 className="font-condensed text-[clamp(2.25rem,6vw,4.5rem)] leading-[0.95] tracking-[-0.01em]">
+              The inaugural cohort
+            </h2>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/70">
+              Ten artists. Announced soon.
+            </p>
           </div>
-        </div>
-      </section>
+
+          <ul className="grid grid-cols-2 border-t border-white/15 sm:grid-cols-3 lg:grid-cols-5">
+            {Array.from({ length: COHORT_SIZE }, (_, i) => (
+              <li
+                key={i}
+                className="border-b border-r border-white/15 p-5 last:border-r-0"
+              >
+                {/* Deliberate empty frame — reads as a reserved slot rather
+                    than a failed image until the cohort is announced. */}
+                <div className="flex aspect-[4/5] items-center justify-center border border-white/15 bg-white/[0.06]">
+                  <span className="font-condensed text-3xl text-white/25">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                </div>
+                <p className="mt-4 text-sm text-white/45">To be announced</p>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        {/* Signup */}
+        <section id="stay-updated" className="border-t border-white/15">
+          <div className="mx-auto grid max-w-6xl gap-12 px-6 py-20 sm:py-28 lg:grid-cols-2 lg:gap-20">
+            <div>
+              <h2 className="font-condensed text-[clamp(2.25rem,6vw,4.5rem)] leading-[0.95] tracking-[-0.01em]">
+                Sign up
+                <br />
+                for updates
+              </h2>
+              <p className="mt-6 max-w-md text-lg leading-relaxed text-white/70">
+                Be the first to hear about the cohort, the programming, and ways
+                to get involved.
+              </p>
+            </div>
+            <div className="lg:pt-3">
+              <SignupForm />
+            </div>
+          </div>
+        </section>
+      </main>
 
       <footer className="border-t border-white/15">
-        <div className="mx-auto flex max-w-5xl flex-col items-center gap-3 px-6 py-12 text-center sm:flex-row sm:justify-between sm:text-left">
+        <div className="mx-auto flex max-w-6xl flex-col items-start gap-4 px-6 py-10 sm:flex-row sm:items-center sm:justify-between">
           <p className="font-script text-2xl leading-none">
             <span aria-hidden="true">_</span>love made visible
           </p>
@@ -309,6 +245,6 @@ export default function HomePage() {
           </a>
         </div>
       </footer>
-    </main>
+    </div>
   );
 }
