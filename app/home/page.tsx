@@ -142,7 +142,7 @@ export default function HomePage() {
                 <dt className="font-display text-[10px] uppercase tracking-[0.25em] text-white/45">
                   {fact.label}
                 </dt>
-                <dd className="mt-2 font-condensed text-4xl leading-none tracking-tight sm:text-5xl">
+                <dd className="mt-3 font-display text-4xl font-light leading-none sm:text-5xl">
                   {fact.value}
                 </dd>
               </div>
@@ -153,7 +153,7 @@ export default function HomePage() {
         {/* Details accordion */}
         <section id="details" className="border-t border-white/15">
           <div className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
-            <h2 className="font-condensed text-[clamp(2.25rem,6vw,4.5rem)] leading-[0.95] tracking-[-0.01em]">
+            <h2 className="font-display text-2xl font-light uppercase leading-snug tracking-[0.2em] sm:text-3xl">
               Fellowship details
             </h2>
 
@@ -193,7 +193,7 @@ export default function HomePage() {
         {/* Cohort */}
         <section id="cohort" className="border-t border-white/15">
           <div className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
-            <h2 className="font-condensed text-[clamp(2.25rem,6vw,4.5rem)] leading-[0.95] tracking-[-0.01em]">
+            <h2 className="font-display text-2xl font-light uppercase leading-snug tracking-[0.2em] sm:text-3xl">
               The inaugural cohort
             </h2>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/70">
@@ -201,7 +201,9 @@ export default function HomePage() {
             </p>
           </div>
 
-          <ul className="grid grid-cols-2 border-t border-white/15 sm:grid-cols-3 lg:grid-cols-5">
+          {/* Seven across on wide screens so the row completes — a 5-up grid
+              leaves a ragged half-empty second row. */}
+          <ul className="grid grid-cols-2 border-t border-white/15 sm:grid-cols-4 lg:grid-cols-7">
             {Array.from({ length: COHORT_SIZE }, (_, i) => (
               <li
                 key={i}
@@ -210,7 +212,7 @@ export default function HomePage() {
                 {/* Deliberate empty frame — reads as a reserved slot rather
                     than a failed image until the cohort is announced. */}
                 <div className="flex aspect-[4/5] items-center justify-center border border-white/15 bg-white/[0.06]">
-                  <span className="font-condensed text-3xl text-white/25">
+                  <span className="font-display text-2xl font-light tracking-[0.1em] text-white/25">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                 </div>
@@ -224,10 +226,8 @@ export default function HomePage() {
         <section id="stay-updated" className="border-t border-white/15">
           <div className="mx-auto grid max-w-6xl gap-12 px-6 py-20 sm:py-28 lg:grid-cols-2 lg:gap-20">
             <div>
-              <h2 className="font-condensed text-[clamp(2.25rem,6vw,4.5rem)] leading-[0.95] tracking-[-0.01em]">
-                Sign up
-                <br />
-                for updates
+              <h2 className="font-display text-2xl font-light uppercase leading-snug tracking-[0.2em] sm:text-3xl">
+                Sign up for updates
               </h2>
               <p className="mt-6 max-w-md text-lg leading-relaxed text-white/70">
                 Be the first to hear about the cohort, the programming, and ways

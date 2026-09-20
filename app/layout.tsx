@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
-import { Anton, Geist, Montserrat, Sacramento } from "next/font/google";
+import { Figtree, Sacramento } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
-  subsets: ["latin"],
-});
-
-// Heavy condensed grotesque for the large editorial headings on /home.
-const anton = Anton({
-  variable: "--font-anton",
-  weight: "400",
+/**
+ * Brand type.
+ *
+ * The brand specifies Proxima Nova for subheaders and body copy, and Retro
+ * Signature as the script accent. Both are commercial licences, so the site
+ * currently ships free stand-ins: Figtree for Proxima Nova (the nearest
+ * geometric-humanist sans) and Sacramento for Retro Signature. Swapping in
+ * the real faces is a change to these two declarations and nothing else,
+ * because everything downstream uses the --font-sans / --font-display /
+ * --font-script tokens.
+ */
+const figtree = Figtree({
+  variable: "--font-figtree",
   subsets: ["latin"],
 });
 
@@ -45,7 +44,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${montserrat.variable} ${sacramento.variable} ${anton.variable} h-full antialiased`}
+      className={`${figtree.variable} ${sacramento.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         {children}

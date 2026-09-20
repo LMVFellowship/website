@@ -8,10 +8,12 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-display: var(--font-montserrat);
+  /* Proxima Nova stand-in: one family for both body and subheaders,
+     matching the brand spec. See app/layout.tsx. */
+  --font-sans: var(--font-figtree);
+  --font-display: var(--font-figtree);
+  /* Retro Signature stand-in. */
   --font-script: var(--font-sacramento);
-  --font-condensed: var(--font-anton);
 }
 
 body {
