@@ -30,7 +30,7 @@ async function readLogo() {
   }
 }
 
-export default async function Logo() {
+export default async function Logo({ className }: { className?: string } = {}) {
   const logo = await readLogo();
 
   if (!logo) {
@@ -50,7 +50,7 @@ export default async function Logo() {
       // Optimization would flatten the animation to a still frame.
       unoptimized
       priority
-      className="h-auto w-full max-w-[560px]"
+      className={className ?? "h-auto w-full max-w-[560px]"}
     />
   );
 }

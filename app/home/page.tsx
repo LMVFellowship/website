@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
+import Logo from "../logo";
 import SignupForm from "../signup-form";
 
 export const metadata: Metadata = {
@@ -17,7 +19,7 @@ export const metadata: Metadata = {
 const CONTACT_EMAIL = "contact@lmvfellowship.com";
 
 const FACTS = [
-  { value: "10", label: "Artists" },
+  { value: "7", label: "Artists" },
   { value: "1", label: "Year" },
   { value: "Miami", label: "Based in" },
 ];
@@ -26,7 +28,7 @@ const FACTS = [
 const DETAILS = [
   {
     q: "What is Love Made Visible?",
-    a: "A year-long fellowship for a curated cohort of ten emerging visual artists, combining education on the business of art with relationships, cultural experiences, and real opportunities.",
+    a: "A year-long fellowship for a curated cohort of seven emerging visual artists, combining education on the business of art with relationships, cultural experiences, and real opportunities.",
   },
   {
     q: "Why does it exist?",
@@ -42,7 +44,7 @@ const DETAILS = [
   },
 ];
 
-const COHORT_SIZE = 10;
+const COHORT_SIZE = 7;
 
 function Pill({
   href,
@@ -73,8 +75,15 @@ export default function HomePage() {
       {/* Nav */}
       <header className="border-b border-white/15">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-5">
-          <Link href="/" className="font-script text-2xl leading-none">
-            <span aria-hidden="true">_</span>love made visible
+          <Link href="/" className="shrink-0">
+            <Image
+              src="/lmv-mark.png"
+              alt="LMV — Love Made Visible"
+              width={448}
+              height={159}
+              priority
+              className="h-8 w-auto sm:h-10"
+            />
           </Link>
           <nav className="flex items-center gap-6">
             <a
@@ -102,10 +111,10 @@ export default function HomePage() {
       <main>
         {/* Hero */}
         <section className="mx-auto max-w-6xl px-6 pb-20 pt-16 sm:pb-28 sm:pt-24">
-          <h1 className="font-condensed text-[clamp(3.5rem,11vw,9.5rem)] leading-[0.88] tracking-[-0.02em]">
-            Love Made
-            <br />
-            Visible
+          {/* The animated wordmark is the page title; its alt text carries
+              the heading for screen readers and search engines. */}
+          <h1>
+            <Logo className="h-auto w-full max-w-[880px]" />
           </h1>
 
           <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-20">
@@ -188,7 +197,7 @@ export default function HomePage() {
               The inaugural cohort
             </h2>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/70">
-              Ten artists. Announced soon.
+              Seven artists. Announced soon.
             </p>
           </div>
 
