@@ -1,6 +1,6 @@
-# LMV Creative Fellowship
+# LMV Fellowship
 
-The "coming soon" site for the LMV Creative Fellowship — a single landing page
+The "coming soon" site for the LMV Fellowship, a single landing page
 with the `_love made visible` wordmark and a notify-me signup form.
 
 Built with [Next.js](https://nextjs.org) (App Router) and Tailwind CSS v4.
@@ -35,7 +35,7 @@ Delivery is configured with environment variables:
 | Variable                  | Description                                                                                  |
 | ------------------------- | -------------------------------------------------------------------------------------------- |
 | `RESEND_API_KEY`          | [Resend](https://resend.com) API key. Required to send either email.                           |
-| `LMV_FROM_EMAIL`          | Sender, e.g. `LMV Creative Fellowship <hello@lmvfellowship.com>`. Required to send either email. |
+| `LMV_FROM_EMAIL`          | Sender, e.g. `LMV Fellowship <hello@lmvfellowship.com>`. Required to send either email. |
 | `LMV_NOTIFICATION_EMAIL`  | Who gets told about new signups. Defaults to `contact@lmvfellowship.com`.                       |
 | `LMV_SIGNUP_WEBHOOK_URL`  | Optional endpoint that receives a `POST` with the signup as JSON.                               |
 
@@ -49,7 +49,7 @@ messages (`app/emails.ts`):
 
 1. **A notification** to `LMV_NOTIFICATION_EMAIL` with the name, email, and
    timestamp. `Reply-To` is the subscriber, so replying reaches them directly.
-2. **A thank-you** to the subscriber — "Thank you for staying updated" — with
+2. **A thank-you** to the subscriber, "Thank you for staying updated", with
    `Reply-To` set to the fellowship's address.
 
 #### Webhook
@@ -68,12 +68,19 @@ The request body looks like:
 Point this at the mailing list provider's inbound hook (Mailchimp, Beehiiv,
 Zapier, a Google Apps Script, etc.).
 
+`scripts/sheets-webhook.gs` is a ready-made Google Apps Script that appends
+each signup to a Google Sheet. Setup steps are in the comments at the top of
+that file. Two things to know going in: the Apps Script editor is desktop web
+only and is not available in the mobile Sheets app, and a web app deployed to
+"Anyone" is a public endpoint, so the script requires a shared secret passed
+as a `?token=` query parameter on the webhook URL.
+
 #### How failures are handled
 
 The webhook and the notification email are the two channels that actually
 *record* a signup; the thank-you is a courtesy on top. All three are attempted
 in parallel, and the visitor only sees an error when **every** configured
-recording channel failed — a thank-you that bounces never costs you the
+recording channel failed, a thank-you that bounces never costs you the
 address. Failures are logged either way.
 
 > **With none of these variables set, signups are not stored anywhere.**
@@ -95,7 +102,7 @@ app/
   page.tsx          the landing page
   logo.tsx          the logo (public/logo.gif, or the wordmark fallback)
   signup-form.tsx   client component for the form (useActionState)
-  actions.ts        "use server" — validation + delivery
+  actions.ts        "use server", validation + delivery
   emails.ts         notification + thank-you email via Resend
   signup-state.ts   shared form state type shared by the two above
   globals.css       Tailwind theme tokens

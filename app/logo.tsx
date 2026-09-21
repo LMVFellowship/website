@@ -16,7 +16,7 @@ async function readLogo() {
     const header = (await readFile(LOGO_PATH)).subarray(0, 10);
 
     if (header.length < 10 || header.subarray(0, 3).toString("latin1") !== "GIF") {
-      console.warn(`public/${LOGO_FILE} is not a GIF — falling back to the wordmark.`);
+      console.warn(`public/${LOGO_FILE} is not a GIF, falling back to the wordmark.`);
       return null;
     }
 
@@ -25,7 +25,7 @@ async function readLogo() {
       height: header.readUInt16LE(8),
     };
   } catch {
-    // No logo dropped in yet — the text wordmark stands in for it.
+    // No logo dropped in yet, the text wordmark stands in for it.
     return null;
   }
 }
@@ -35,7 +35,7 @@ export default async function Logo({ className }: { className?: string } = {}) {
 
   if (!logo) {
     return (
-      <p className="text-center font-script text-6xl font-normal leading-none [word-spacing:0.35em] sm:text-7xl">
+      <p className="text-center font-display text-3xl font-light uppercase leading-snug tracking-[0.2em] sm:text-4xl">
         <span aria-hidden="true">_</span>love made visible
       </p>
     );

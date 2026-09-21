@@ -3,159 +3,375 @@ import Image from "next/image";
 import Link from "next/link";
 import Logo from "../logo";
 import SignupForm from "../signup-form";
+import Splash from "../splash";
 
 export const metadata: Metadata = {
-  title: "Love Made Visible — LMV Creative Fellowship",
+  title: "Love Made Visible | LMV Fellowship",
   description:
-    "A year-long fellowship built for artists, by artists. Love Made Visible helps emerging visual artists in Miami advance their careers.",
+    "A year-long fellowship built for artists, by artists, designed to help emerging visual artists advance their careers.",
   openGraph: {
-    title: "Love Made Visible — LMV Creative Fellowship",
+    title: "Love Made Visible | LMV Fellowship",
     description:
-      "A year-long fellowship built for artists, by artists. Love Made Visible helps emerging visual artists in Miami advance their careers.",
+      "A year-long fellowship built for artists, by artists, designed to help emerging visual artists advance their careers.",
     type: "website",
   },
 };
 
 const CONTACT_EMAIL = "contact@lmvfellowship.com";
 
-const FACTS = [
+/**
+ * All prose on this page is taken verbatim from the fellowship's talking
+ * points, with one exception: the cohort size is seven, not the ten the
+ * document states. Nothing here is written from scratch. If a section
+ * needs new wording, it has to come from the document.
+ */
+
+const SECTION_NAV = [
+  { href: "#about", label: "About" },
+  { href: "#fellows-get", label: "What Fellows Get" },
+  { href: "#numbers", label: "By The Numbers" },
+  { href: "#team", label: "Meet The Team" },
+  { href: "#cohort", label: "The Cohort" },
+  { href: "#stay-updated", label: "Stay Updated" },
+];
+
+/** Verbatim: "Depending on where an artist begins, that could mean:" */
+const OUTCOMES = [
+  "A professional website or stronger portfolio",
+  "A refined artist profile and clear pricing structure",
+  "A group exhibition or pathway toward a solo show",
+  "A new collector or institutional relationship",
+  "A commission or acquisition",
+  "Greater readiness for public art, residencies, and other opportunities",
+  "A clear 1–3 year career strategy",
+];
+
+const NUMBERS = [
   { value: "7", label: "Artists" },
   { value: "1", label: "Year" },
   { value: "Miami", label: "Based in" },
 ];
 
-/** Short answers only — the page should skim, not read. */
-const DETAILS = [
-  {
-    q: "What is Love Made Visible?",
-    a: "A year-long fellowship for a curated cohort of seven emerging visual artists, combining education on the business of art with relationships, cultural experiences, and real opportunities.",
-  },
-  {
-    q: "Why does it exist?",
-    a: "There isn’t a shortage of talent in Miami — there’s a shortage of access. LMV shortens the distance between making strong work and knowing the people who can move a career forward.",
-  },
-  {
-    q: "What do fellows leave with?",
-    a: "Tangible progress: a stronger portfolio, a clear pricing structure, new collector and institutional relationships, exhibition pathways, and a career strategy for the next one to three years.",
-  },
-  {
-    q: "How can I get involved?",
-    a: "Teach, mentor, introduce, host, commission, acquire, or fund. The question worth asking is what you have access to that could create motion for an artist.",
-  },
-];
+const FOUNDER = {
+  name: "Zakiyya White",
+  role: "Founder",
+  linkedin: "https://www.linkedin.com/in/zakiyyawhite/",
+};
+
+const ADVISORY_BOARD_SIZE = 6;
 
 const COHORT_SIZE = 7;
 
-function Pill({
-  href,
+/** Verbatim from the talking points. */
+const DETAILS = [
+  {
+    q: "Why does LMV exist?",
+    a: [
+      "An artist can create incredible work and still be several relationships away from the curator who might exhibit it, the collector who might acquire it, the organization looking to commission an artist, or simply someone who can explain how these opportunities actually happen.",
+      "LMV is designed to shorten that distance.",
+      "We’re building the bridge between making strong work and having the relationships, knowledge, visibility, and professional infrastructure needed to move a career forward.",
+    ],
+  },
+  {
+    q: "Why Miami Art Week?",
+    a: [
+      "Miami is an international arts destination. We’re turning Miami Art Week into a live classroom.",
+      "Every December, an extraordinary concentration of galleries, collectors, museums, artists, brands, and art-world capital comes to Miami. We want our fellows to do more than attend. We want them to understand how the rooms work.",
+      "They’ll learn about collecting, gallery relationships, commissions, pricing, intellectual property, institutional pathways, and the economics behind the art world while experiencing those systems in real time.",
+      "And Art Week isn’t the end of LMV. The rest of the fellowship gives artists time and support to build on what they learned, follow up with the people they met, and pursue the opportunities that surfaced during December.",
+    ],
+  },
+  {
+    q: "How can someone get involved?",
+    a: [
+      "We’re building a circle around the artists, not simply a list of sponsors. Funding matters, but money isn’t the only valuable resource in this ecosystem.",
+      "There are many ways to contribute: Teach something. Make an introduction. Mentor an artist. Open a space. Host an experience. Commission work. Acquire work. Create an exhibition opportunity. Provide a professional service. Fund part of the fellowship. Bring another person into the circle.",
+      "A collector, artist, curator, museum professional, gallerist, foundation officer, attorney, hospitality partner, business owner, or simply someone who loves art can all contribute differently.",
+      "The question we want people asking themselves is: “What do I have access to that could create motion for an artist?”",
+    ],
+  },
+];
+
+/** Brand slate-blue, used the way the reference uses its accent rule. */
+const ACCENT = "#6f7c99";
+
+function AccentRule() {
+  return (
+    <div className="mt-5 h-[3px] w-24" style={{ backgroundColor: ACCENT }} />
+  );
+}
+
+function SectionHeading({
   children,
-  solid = false,
+  center = false,
 }: {
-  href: string;
   children: React.ReactNode;
-  solid?: boolean;
+  center?: boolean;
 }) {
   return (
-    <a
-      href={href}
-      className={`inline-flex h-12 items-center justify-center rounded-full px-7 font-sans text-sm tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 ${
-        solid
-          ? "bg-white text-black hover:bg-white/85"
-          : "border border-white/50 text-white hover:border-white"
+    <h2
+      className={`font-display text-2xl font-light uppercase leading-snug tracking-[0.2em] sm:text-3xl ${
+        center ? "text-center" : ""
       }`}
     >
       {children}
-    </a>
+    </h2>
+  );
+}
+
+/** A reserved portrait frame: a slot awaiting a photograph, not a failure. */
+function PersonSlot({
+  label,
+  name,
+  caption,
+  href,
+}: {
+  label: string;
+  name?: string;
+  caption: string;
+  href?: string;
+}) {
+  return (
+    <div>
+      <div className="flex aspect-[4/5] items-center justify-center border border-white/15 bg-white/[0.06]">
+        <span className="font-display text-xs uppercase tracking-[0.2em] text-white/25">
+          {label}
+        </span>
+      </div>
+      {name ? (
+        <p className="mt-4 text-base text-white">
+          {href ? (
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-white/30 underline-offset-4 transition-colors hover:decoration-white"
+            >
+              {name}
+            </a>
+          ) : (
+            name
+          )}
+        </p>
+      ) : null}
+      <p className={`text-sm text-white/45 ${name ? "mt-1" : "mt-4"}`}>
+        {caption}
+      </p>
+    </div>
   );
 }
 
 export default function HomePage() {
   return (
     <div className="flex-1">
-      {/* Nav */}
+      <Splash />
+
+      {/* Masthead */}
       <header className="border-b border-white/15">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-5">
           <Link href="/" className="shrink-0">
             <Image
               src="/lmv-mark.png"
-              alt="LMV — Love Made Visible"
+              alt="LMV Love Made Visible"
               width={448}
               height={159}
               priority
               className="h-8 w-auto sm:h-10"
             />
           </Link>
-          <nav className="flex items-center gap-6">
-            <a
-              href="#details"
-              className="hidden font-display text-[11px] uppercase tracking-[0.2em] text-white/70 transition-colors hover:text-white sm:block"
-            >
-              Fellowship
-            </a>
-            <a
-              href="#cohort"
-              className="hidden font-display text-[11px] uppercase tracking-[0.2em] text-white/70 transition-colors hover:text-white sm:block"
-            >
-              Cohort
-            </a>
-            <a
-              href={`mailto:${CONTACT_EMAIL}`}
-              className="inline-flex h-10 items-center rounded-full bg-white px-5 font-display text-[11px] uppercase tracking-[0.2em] text-black transition-colors hover:bg-white/85"
-            >
-              Get involved
-            </a>
-          </nav>
+          <a
+            href={`mailto:${CONTACT_EMAIL}`}
+            className="inline-flex h-10 items-center rounded-full bg-white px-5 font-display text-[11px] uppercase tracking-[0.2em] text-black transition-colors hover:bg-white/85"
+          >
+            Get involved
+          </a>
         </div>
       </header>
 
       <main>
-        {/* Hero */}
-        <section className="mx-auto max-w-6xl px-6 pb-20 pt-16 sm:pb-28 sm:pt-24">
-          {/* The animated wordmark is the page title; its alt text carries
-              the heading for screen readers and search engines. */}
-          <h1>
-            <Logo className="h-auto w-full max-w-[880px]" />
-          </h1>
-
-          <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-20">
-            <p className="max-w-2xl text-lg leading-relaxed text-white/75 sm:text-xl sm:leading-relaxed">
-              A year-long fellowship built for artists, by artists — helping a
-              curated cohort of emerging visual artists in Miami turn talent
-              into motion.
+        {/* Hero: the animated wordmark stands in for the reference's video */}
+        <section className="px-6 pb-16 pt-16 sm:pb-20 sm:pt-24">
+          <div className="mx-auto flex max-w-5xl flex-col items-center text-center">
+            <h1>
+              <Logo className="h-auto w-full max-w-[820px]" />
+            </h1>
+            <p className="mt-10 max-w-2xl text-lg leading-relaxed text-white/75 sm:text-xl sm:leading-relaxed">
+              A year-long fellowship built for artists, by artists.
             </p>
-
-            <div className="flex flex-wrap gap-3">
-              <Pill href="#details" solid>
-                The fellowship
-              </Pill>
-              <Pill href="#stay-updated">Stay updated</Pill>
-            </div>
           </div>
-
-          {/* Facts */}
-          <dl className="mt-16 grid grid-cols-3 border-t border-white/15 sm:mt-20">
-            {FACTS.map((fact) => (
-              <div
-                key={fact.label}
-                className="border-r border-white/15 py-7 pr-4 last:border-r-0"
-              >
-                <dt className="font-display text-[10px] uppercase tracking-[0.25em] text-white/45">
-                  {fact.label}
-                </dt>
-                <dd className="mt-2 font-condensed text-4xl leading-none tracking-tight sm:text-5xl">
-                  {fact.value}
-                </dd>
-              </div>
-            ))}
-          </dl>
         </section>
 
-        {/* Details accordion */}
-        <section id="details" className="border-t border-white/15">
+        {/* Sticky anchor bar. Opaque, because content scrolls beneath it. */}
+        <nav className="sticky top-0 z-50 border-y border-white/15 bg-background">
+          {/* One scrollable row on phones. Wrapping six items there cost
+              three lines (14% of the viewport) permanently, since the bar
+              is sticky. */}
+          <ul className="mx-auto flex max-w-6xl items-center gap-x-6 overflow-x-auto px-6 py-4 [-ms-overflow-style:none] [scrollbar-width:none] sm:flex-wrap sm:justify-center sm:gap-x-10 sm:gap-y-2 sm:overflow-visible [&::-webkit-scrollbar]:hidden">
+            {SECTION_NAV.map((item) => (
+              <li key={item.href} className="shrink-0">
+                <a
+                  href={item.href}
+                  className="whitespace-nowrap font-display text-[11px] uppercase tracking-[0.2em] text-white/70 transition-colors hover:text-white"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        {/* About */}
+        <section id="about" className="scroll-mt-24 px-6 py-20 sm:py-28">
+          <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[300px_1fr] lg:gap-20">
+            <div>
+              <SectionHeading>About</SectionHeading>
+              <AccentRule />
+            </div>
+            <div className="space-y-6 text-lg leading-relaxed text-white/75 sm:text-xl sm:leading-relaxed">
+              <p>
+                Love Made Visible is a year-long fellowship built for artists,
+                by artists, designed to help emerging visual artists advance
+                their careers.
+              </p>
+              <p>
+                We’re starting with a curated cohort of 7 artists and
+                surrounding them with education on the business-of-art,
+                relationships, cultural experiences, and real opportunities.
+              </p>
+              <p>
+                That means helping artists strengthen the infrastructure around
+                their talent while creating pathways toward exhibitions,
+                commissions, acquisitions, collector relationships,
+                institutional opportunities, and other meaningful additions to
+                their CV.
+              </p>
+              <p
+                className="border-l pl-6 font-display text-2xl font-light leading-snug text-white sm:text-3xl"
+                style={{ borderColor: ACCENT }}
+              >
+                The talent is already there. We’re here to give it motion.
+              </p>
+
+              {/* Facts sit at the foot of About, unboxed. */}
+              <dl className="mt-4 grid grid-cols-3 border-t border-white/15 pt-8">
+                {NUMBERS.map((stat) => (
+                  <div key={stat.label}>
+                    <dd className="font-display text-4xl font-light leading-none sm:text-5xl">
+                      {stat.value}
+                    </dd>
+                    <dt className="mt-3 font-display text-[10px] uppercase tracking-[0.25em] text-white/50">
+                      {stat.label}
+                    </dt>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </div>
+        </section>
+
+        {/* What fellows get */}
+        <section
+          id="fellows-get"
+          className="scroll-mt-24 border-t border-white/15"
+        >
           <div className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
-            <h2 className="font-condensed text-[clamp(2.25rem,6vw,4.5rem)] leading-[0.95] tracking-[-0.01em]">
-              Fellowship details
-            </h2>
+            <SectionHeading>What fellows get</SectionHeading>
+            <AccentRule />
+
+            <p className="mt-8 max-w-3xl text-lg leading-relaxed text-white/75 sm:text-xl sm:leading-relaxed">
+              We measure success by what changes for an artist over the course
+              of the fellowship. We want artists to leave with tangible
+              progress. Depending on where an artist begins, that could mean:
+            </p>
+
+            <ol className="mt-12 grid gap-x-16 sm:grid-cols-2">
+              {OUTCOMES.map((outcome, i) => (
+                <li
+                  key={outcome}
+                  className="flex gap-5 border-t border-white/15 py-5"
+                >
+                  <span
+                    className="mt-1 font-display text-xs tracking-[0.2em]"
+                    style={{ color: ACCENT }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-base leading-relaxed text-white/85 sm:text-lg">
+                    {outcome}
+                  </span>
+                </li>
+              ))}
+            </ol>
+
+            <p className="mt-12 max-w-3xl text-base leading-relaxed text-white/60 sm:text-lg">
+              Not every fellow will need the same support or achieve the same
+              milestones. That’s why we’re intentionally starting with only 7
+              artists. We want to understand what each artist needs and help
+              them take meaningful next steps.
+            </p>
+          </div>
+        </section>
+
+
+        {/* Meet the team */}
+        <section id="team" className="scroll-mt-24 border-t border-white/15">
+          <div className="mx-auto max-w-6xl px-6 py-20 text-center sm:py-28">
+            <SectionHeading center>Meet the team</SectionHeading>
+            <div className="mx-auto mt-5 h-[3px] w-24" style={{ backgroundColor: ACCENT }} />
+
+            <div className="mx-auto mt-14 w-full max-w-[260px]">
+              <PersonSlot
+                label="Portrait"
+                name={FOUNDER.name}
+                caption={FOUNDER.role}
+                href={FOUNDER.linkedin}
+              />
+            </div>
+
+            <h3 className="mt-20 font-display text-xs uppercase tracking-[0.25em] text-white/55">
+              Advisory board
+            </h3>
+            {/* Six members as two rows of three. */}
+            <ul className="mx-auto mt-10 grid max-w-3xl grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3">
+              {Array.from({ length: ADVISORY_BOARD_SIZE }, (_, i) => (
+                <li key={i}>
+                  <PersonSlot
+                    label={String(i + 1).padStart(2, "0")}
+                    caption="To be announced"
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* Cohort */}
+        <section id="cohort" className="scroll-mt-24 border-t border-white/15">
+          <div className="mx-auto max-w-6xl px-6 py-20 text-center sm:py-28">
+            <SectionHeading center>The inaugural cohort</SectionHeading>
+            <div className="mx-auto mt-5 h-[3px] w-24" style={{ backgroundColor: ACCENT }} />
+            <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-white/70">
+              7 artists. Announced soon.
+            </p>
+
+            <ul className="mx-auto mt-14 grid max-w-5xl grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-4 lg:grid-cols-7">
+              {Array.from({ length: COHORT_SIZE }, (_, i) => (
+                <li key={i}>
+                  <PersonSlot
+                    label={String(i + 1).padStart(2, "0")}
+                    caption="To be announced"
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        {/* Fellowship details */}
+        <section id="details" className="scroll-mt-24 border-t border-white/15">
+          <div className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
+            <SectionHeading>Fellowship details</SectionHeading>
+            <AccentRule />
 
             <div className="mt-12 border-t border-white/20">
               {DETAILS.map((item) => (
@@ -173,9 +389,11 @@ export default function HomePage() {
                       <span className="absolute left-1/2 top-0 h-5 w-px -translate-x-1/2 bg-white transition-transform group-open:scale-y-0" />
                     </span>
                   </summary>
-                  <p className="max-w-3xl pb-7 text-base leading-relaxed text-white/70 sm:text-lg sm:leading-relaxed">
-                    {item.a}
-                  </p>
+                  <div className="max-w-3xl space-y-4 pb-7 text-base leading-relaxed text-white/70 sm:text-lg sm:leading-relaxed">
+                    {item.a.map((para) => (
+                      <p key={para}>{para}</p>
+                    ))}
+                  </div>
                 </details>
               ))}
             </div>
@@ -190,49 +408,15 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Cohort */}
-        <section id="cohort" className="border-t border-white/15">
-          <div className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
-            <h2 className="font-condensed text-[clamp(2.25rem,6vw,4.5rem)] leading-[0.95] tracking-[-0.01em]">
-              The inaugural cohort
-            </h2>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/70">
-              Seven artists. Announced soon.
-            </p>
-          </div>
-
-          <ul className="grid grid-cols-2 border-t border-white/15 sm:grid-cols-3 lg:grid-cols-5">
-            {Array.from({ length: COHORT_SIZE }, (_, i) => (
-              <li
-                key={i}
-                className="border-b border-r border-white/15 p-5 last:border-r-0"
-              >
-                {/* Deliberate empty frame — reads as a reserved slot rather
-                    than a failed image until the cohort is announced. */}
-                <div className="flex aspect-[4/5] items-center justify-center border border-white/15 bg-white/[0.06]">
-                  <span className="font-condensed text-3xl text-white/25">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                </div>
-                <p className="mt-4 text-sm text-white/45">To be announced</p>
-              </li>
-            ))}
-          </ul>
-        </section>
-
         {/* Signup */}
-        <section id="stay-updated" className="border-t border-white/15">
+        <section
+          id="stay-updated"
+          className="scroll-mt-24 border-t border-white/15"
+        >
           <div className="mx-auto grid max-w-6xl gap-12 px-6 py-20 sm:py-28 lg:grid-cols-2 lg:gap-20">
             <div>
-              <h2 className="font-condensed text-[clamp(2.25rem,6vw,4.5rem)] leading-[0.95] tracking-[-0.01em]">
-                Sign up
-                <br />
-                for updates
-              </h2>
-              <p className="mt-6 max-w-md text-lg leading-relaxed text-white/70">
-                Be the first to hear about the cohort, the programming, and ways
-                to get involved.
-              </p>
+              <SectionHeading>Stay updated</SectionHeading>
+              <AccentRule />
             </div>
             <div className="lg:pt-3">
               <SignupForm />
@@ -243,9 +427,13 @@ export default function HomePage() {
 
       <footer className="border-t border-white/15">
         <div className="mx-auto flex max-w-6xl flex-col items-start gap-4 px-6 py-10 sm:flex-row sm:items-center sm:justify-between">
-          <p className="font-script text-2xl leading-none">
-            <span aria-hidden="true">_</span>love made visible
-          </p>
+          <Image
+            src="/lmv-mark.png"
+            alt="LMV Love Made Visible"
+            width={448}
+            height={159}
+            className="h-7 w-auto"
+          />
           <a
             href={`mailto:${CONTACT_EMAIL}`}
             className="font-sans text-sm text-white/60 transition-colors hover:text-white"

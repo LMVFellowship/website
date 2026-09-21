@@ -40,7 +40,7 @@ async function postToWebhook(signup: Signup) {
  *
  * The webhook and the notification to the fellowship's inbox are the two
  * channels that actually record a signup, so the visitor is only shown an
- * error when every configured one of them failed — losing the address is the
+ * error when every configured one of them failed. Losing the address is the
  * thing worth retrying for. The thank-you note is a courtesy on top: if it
  * bounces, the signup still stands and we only log it.
  */
@@ -51,7 +51,7 @@ async function deliverSignup(signup: Signup) {
 
   if (!process.env.LMV_SIGNUP_WEBHOOK_URL && !emailConfigured) {
     console.warn(
-      `No signup delivery is configured — the signup for ${signup.email} was not recorded anywhere. ` +
+      `No signup delivery is configured. The signup for ${signup.email} was not recorded anywhere. ` +
         "Set LMV_SIGNUP_WEBHOOK_URL, or RESEND_API_KEY and LMV_FROM_EMAIL.",
     );
     return;
@@ -134,7 +134,7 @@ export async function subscribe(
   return {
     status: "success",
     message:
-      "You're on the list — check your inbox for a note from us. We'll be in touch soon.",
+      "You're on the list. Check your inbox for a note from us, and we'll be in touch soon.",
     errors: {},
     values: { name: "", email: "", consent: false },
   };

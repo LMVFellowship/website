@@ -5,10 +5,18 @@
  *   1. a notification to the fellowship so a human knows someone signed up
  *   2. a thank-you to the person who just subscribed
  *
- * Everything is configured through environment variables — see the README.
+ * Everything is configured through environment variables, see the README.
  */
 
 const RESEND_ENDPOINT = "https://api.resend.com/emails";
+
+/**
+ * Email clients can't resolve relative URLs, so images have to be absolute.
+ * Override with LMV_SITE_URL if the canonical host ever changes.
+ */
+const SITE_URL = (
+  process.env.LMV_SITE_URL ?? "https://www.lmvfellowship.com"
+).replace(/\/$/, "");
 
 export const NOTIFICATION_RECIPIENT =
   process.env.LMV_NOTIFICATION_EMAIL ?? "contact@lmvfellowship.com";
@@ -74,7 +82,7 @@ export async function sendSignupNotification(signup: Signup) {
     subject: `New signup: ${signup.name}`,
     replyTo: signup.email,
     text: [
-      "Someone just signed up on the LMV Creative Fellowship site.",
+      "Someone just signed up on the LMV Fellowship site.",
       "",
       `Name:  ${signup.name}`,
       `Email: ${signup.email}`,
@@ -84,7 +92,7 @@ export async function sendSignupNotification(signup: Signup) {
     ].join("\n"),
     html: `
       <div style="font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:15px;line-height:1.6;color:#111;">
-        <p>Someone just signed up on the LMV Creative Fellowship site.</p>
+        <p>Someone just signed up on the LMV Fellowship site.</p>
         <table cellpadding="0" cellspacing="0" style="margin:16px 0;">
           <tr><td style="padding:2px 16px 2px 0;color:#666;">Name</td><td>${name}</td></tr>
           <tr><td style="padding:2px 16px 2px 0;color:#666;">Email</td><td><a href="mailto:${email}">${email}</a></td></tr>
@@ -108,30 +116,37 @@ export async function sendWelcomeEmail(signup: Signup) {
     text: [
       `Hi ${firstName},`,
       "",
-      "Thank you for staying updated with the LMV Creative Fellowship.",
+      "Thank you for staying updated with the LMV Fellowship.",
       "",
-      "You're on the list. We'll be in touch as soon as we have news to share —",
-      "no noise in between, just the moments worth knowing about.",
+      "You're on the list. We'll be in touch as soon as we have news to share.",
+      "No noise in between, just the moments worth knowing about.",
       "",
-      "_love made visible",
-      "LMV Creative Fellowship",
+      "With love,",
+      "Zakiyya White",
+      "Founder, LMV Fellowship",
     ].join("\n"),
     html: `
       <div style="background:#000;padding:40px 24px;">
         <div style="max-width:520px;margin:0 auto;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:16px;line-height:1.7;color:#fff;">
-          <p style="margin:0 0 28px;font-family:'Sacramento','Brush Script MT',cursive;font-size:40px;line-height:1;color:#fff;">
-            _love made visible
-          </p>
+          <img
+            src="${SITE_URL}/email-wordmark.gif"
+            alt="love made visible"
+            width="242"
+            height="26"
+            style="display:block;border:0;outline:none;margin:0 0 28px;width:242px;height:auto;"
+          />
           <p style="margin:0 0 20px;">Hi ${name},</p>
           <p style="margin:0 0 20px;">
-            Thank you for staying updated with the LMV Creative Fellowship.
+            Thank you for staying updated with the LMV Fellowship.
           </p>
           <p style="margin:0 0 32px;">
             You're on the list. We'll be in touch as soon as we have news to
-            share — no noise in between, just the moments worth knowing about.
+            share. No noise in between, just the moments worth knowing about.
           </p>
-          <p style="margin:0;color:rgba(255,255,255,0.6);font-size:14px;">
-            LMV Creative Fellowship
+          <p style="margin:0 0 4px;">With love,</p>
+          <p style="margin:0;">Zakiyya White</p>
+          <p style="margin:2px 0 0;color:rgba(255,255,255,0.6);font-size:14px;">
+            Founder, LMV Fellowship
           </p>
         </div>
       </div>
