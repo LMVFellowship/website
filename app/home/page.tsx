@@ -30,8 +30,8 @@ const SECTION_NAV = [
   { href: "#about", label: "About" },
   { href: "#fellows-get", label: "What Fellows Get" },
   { href: "#numbers", label: "By The Numbers" },
-  { href: "#team", label: "Meet The Team" },
   { href: "#cohort", label: "The Cohort" },
+  { href: "#team", label: "Meet The Team" },
   { href: "#stay-updated", label: "Stay Updated" },
 ];
 
@@ -313,6 +313,32 @@ export default function HomePage() {
         </section>
 
 
+        {/* Cohort */}
+        <section id="cohort" className="scroll-mt-24 border-t border-white/15">
+          <div className="mx-auto max-w-6xl px-6 py-20 text-center sm:py-28">
+            <SectionHeading center>The inaugural cohort</SectionHeading>
+            <div className="mx-auto mt-5 h-[3px] w-24" style={{ backgroundColor: ACCENT }} />
+            <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-white/70">
+              7 artists. Announced soon.
+            </p>
+
+            {/* Four then three. Wrapping flex rather than grid so the short
+                second row centres instead of hugging the left edge. */}
+            <ul className="mx-auto mt-14 flex max-w-4xl flex-wrap justify-center gap-6">
+              {Array.from({ length: COHORT_SIZE }, (_, i) => (
+                <li
+                  key={i}
+                  className="basis-[calc(50%-0.75rem)] md:basis-[calc(25%-1.125rem)]"
+                >
+                  <PersonSlot
+                    label={String(i + 1).padStart(2, "0")}
+                    caption="To be announced"
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
         {/* Meet the team */}
         <section id="team" className="scroll-mt-24 border-t border-white/15">
           <div className="mx-auto max-w-6xl px-6 py-20 text-center sm:py-28">
@@ -334,28 +360,6 @@ export default function HomePage() {
             {/* Six members as two rows of three. */}
             <ul className="mx-auto mt-10 grid max-w-3xl grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3">
               {Array.from({ length: ADVISORY_BOARD_SIZE }, (_, i) => (
-                <li key={i}>
-                  <PersonSlot
-                    label={String(i + 1).padStart(2, "0")}
-                    caption="To be announced"
-                  />
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        {/* Cohort */}
-        <section id="cohort" className="scroll-mt-24 border-t border-white/15">
-          <div className="mx-auto max-w-6xl px-6 py-20 text-center sm:py-28">
-            <SectionHeading center>The inaugural cohort</SectionHeading>
-            <div className="mx-auto mt-5 h-[3px] w-24" style={{ backgroundColor: ACCENT }} />
-            <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-white/70">
-              7 artists. Announced soon.
-            </p>
-
-            <ul className="mx-auto mt-14 grid max-w-5xl grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-4 lg:grid-cols-7">
-              {Array.from({ length: COHORT_SIZE }, (_, i) => (
                 <li key={i}>
                   <PersonSlot
                     label={String(i + 1).padStart(2, "0")}
