@@ -12,11 +12,59 @@
      matching the brand spec. See app/layout.tsx. */
   --font-sans: var(--font-figtree);
   --font-display: var(--font-figtree);
-  /* Retro Signature stand-in. */
-  --font-script: var(--font-sacramento);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+}
+
+/*
+ * Splash screen (app/splash.tsx).
+ *
+ * The wordmark GIF runs ~5s and plays once. The sheet holds while the
+ * lettering writes on, then fades and takes itself out of the flow.
+ * `forwards` matters: without it the overlay would snap back to opaque and
+ * cover the site permanently.
+ */
+.lmv-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.5rem;
+  background: var(--background);
+  animation: lmv-splash-out 600ms ease 2600ms forwards;
+}
+
+.lmv-splash__mark {
+  width: 100%;
+  max-width: 620px;
+  animation: lmv-splash-mark 400ms ease 2600ms forwards;
+}
+
+@keyframes lmv-splash-out {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+@keyframes lmv-splash-mark {
+  to {
+    transform: translateY(-8px);
+  }
+}
+
+/* Someone who has asked for less motion gets the page, not a performance. */
+@media (prefers-reduced-motion: reduce) {
+  .lmv-splash {
+    animation: lmv-splash-out 1ms linear 1ms forwards;
+  }
+  .lmv-splash__mark {
+    animation: none;
+  }
 }

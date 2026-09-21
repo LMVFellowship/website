@@ -35,7 +35,7 @@ export default async function Logo({ className }: { className?: string } = {}) {
 
   if (!logo) {
     return (
-      <p className="text-center font-script text-6xl font-normal leading-none [word-spacing:0.35em] sm:text-7xl">
+      <p className="text-center font-display text-3xl font-light uppercase leading-snug tracking-[0.2em] sm:text-4xl">
         <span aria-hidden="true">_</span>love made visible
       </p>
     );

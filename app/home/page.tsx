@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Logo from "../logo";
 import SignupForm from "../signup-form";
+import Splash from "../splash";
 
 export const metadata: Metadata = {
   title: "Love Made Visible — LMV Fellowship",
@@ -96,46 +97,21 @@ function AccentRule() {
   );
 }
 
-function SectionHeading({ children }: { children: React.ReactNode }) {
-  return (
-    <h2 className="font-display text-2xl font-light uppercase leading-snug tracking-[0.2em] sm:text-3xl">
-      {children}
-    </h2>
-  );
-}
-
-/**
- * A bordered panel whose heading breaks through the top edge — the
- * reference's signature device for "Member Benefits" / "By The Numbers".
- */
-function FramedPanel({
-  id,
-  title,
+function SectionHeading({
   children,
+  center = false,
 }: {
-  id: string;
-  title: string;
   children: React.ReactNode;
+  center?: boolean;
 }) {
   return (
-    <section id={id} className="scroll-mt-24 px-6 py-10 sm:py-14">
-      <div className="mx-auto max-w-6xl">
-        <div
-          className="relative border-[3px] px-6 pb-12 pt-14 sm:px-10 sm:pb-14 sm:pt-16"
-          style={{ borderColor: ACCENT }}
-        >
-          {/* Sits on the border line, with the page background knocking it
-              out. It must stay on ONE line — a wrapped heading straddles the
-              border and reads as broken — so it scales down instead. */}
-          <div className="absolute -top-px left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background px-4 sm:px-8">
-            <h2 className="whitespace-nowrap text-center font-display text-base font-light uppercase leading-none tracking-[0.2em] sm:text-xl lg:text-3xl">
-              {title}
-            </h2>
-          </div>
-          {children}
-        </div>
-      </div>
-    </section>
+    <h2
+      className={`font-display text-2xl font-light uppercase leading-snug tracking-[0.2em] sm:text-3xl ${
+        center ? "text-center" : ""
+      }`}
+    >
+      {children}
+    </h2>
   );
 }
 
@@ -167,6 +143,8 @@ function PersonSlot({
 export default function HomePage() {
   return (
     <div className="flex-1">
+      <Splash />
+
       {/* Masthead */}
       <header className="border-b border-white/15">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-5">
@@ -247,68 +225,80 @@ export default function HomePage() {
                 their CV.
               </p>
               <p
-                className="border-l pl-6 font-script text-3xl leading-tight text-white sm:text-4xl"
+                className="border-l pl-6 font-display text-2xl font-light leading-snug text-white sm:text-3xl"
                 style={{ borderColor: ACCENT }}
               >
                 The talent is already there. We’re here to give it motion.
               </p>
+
+              {/* Facts sit at the foot of About, unboxed. */}
+              <dl className="mt-4 grid grid-cols-3 border-t border-white/15 pt-8">
+                {NUMBERS.map((stat) => (
+                  <div key={stat.label}>
+                    <dd className="font-display text-4xl font-light leading-none sm:text-5xl">
+                      {stat.value}
+                    </dd>
+                    <dt className="mt-3 font-display text-[10px] uppercase tracking-[0.25em] text-white/50">
+                      {stat.label}
+                    </dt>
+                  </div>
+                ))}
+              </dl>
             </div>
           </div>
         </section>
 
         {/* What fellows get */}
-        <FramedPanel id="fellows-get" title="What Fellows Get">
-          <p className="mx-auto max-w-3xl text-center text-base leading-relaxed text-white/70 sm:text-lg">
-            We measure success by what changes for an artist over the course of
-            the fellowship. We want artists to leave with tangible progress.
-            Depending on where an artist begins, that could mean:
-          </p>
-          <ul className="mx-auto mt-10 max-w-3xl border-t border-white/15">
-            {OUTCOMES.map((outcome) => (
-              <li
-                key={outcome}
-                className="border-b border-white/15 py-4 text-base text-white/85 sm:text-lg"
-              >
-                {outcome}
-              </li>
-            ))}
-          </ul>
-          <p className="mx-auto mt-10 max-w-3xl text-center text-base leading-relaxed text-white/60">
-            Not every fellow will need the same support or achieve the same
-            milestones. That’s why we’re intentionally starting with only 7
-            artists. We want to understand what each artist needs and help them
-            take meaningful next steps.
-          </p>
-        </FramedPanel>
+        <section
+          id="fellows-get"
+          className="scroll-mt-24 border-t border-white/15"
+        >
+          <div className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
+            <SectionHeading>What fellows get</SectionHeading>
+            <AccentRule />
 
-        {/* By the numbers */}
-        <FramedPanel id="numbers" title="By The Numbers">
-          <dl className="grid grid-cols-1 gap-y-10 sm:grid-cols-3">
-            {NUMBERS.map((stat, i) => (
-              <div
-                key={stat.label}
-                className={`px-4 text-center sm:px-7 ${
-                  i > 0 ? "sm:border-l sm:border-white/20" : ""
-                }`}
-              >
-                <dd className="font-display text-4xl font-light leading-none sm:text-5xl">
-                  {stat.value}
-                </dd>
-                <dt className="mt-3 font-display text-[10px] uppercase tracking-[0.25em] text-white/50">
-                  {stat.label}
-                </dt>
-              </div>
-            ))}
-          </dl>
-        </FramedPanel>
+            <p className="mt-8 max-w-3xl text-lg leading-relaxed text-white/75 sm:text-xl sm:leading-relaxed">
+              We measure success by what changes for an artist over the course
+              of the fellowship. We want artists to leave with tangible
+              progress. Depending on where an artist begins, that could mean:
+            </p>
+
+            <ol className="mt-12 grid gap-x-16 sm:grid-cols-2">
+              {OUTCOMES.map((outcome, i) => (
+                <li
+                  key={outcome}
+                  className="flex gap-5 border-t border-white/15 py-5"
+                >
+                  <span
+                    className="mt-1 font-display text-xs tracking-[0.2em]"
+                    style={{ color: ACCENT }}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-base leading-relaxed text-white/85 sm:text-lg">
+                    {outcome}
+                  </span>
+                </li>
+              ))}
+            </ol>
+
+            <p className="mt-12 max-w-3xl text-base leading-relaxed text-white/60 sm:text-lg">
+              Not every fellow will need the same support or achieve the same
+              milestones. That’s why we’re intentionally starting with only 7
+              artists. We want to understand what each artist needs and help
+              them take meaningful next steps.
+            </p>
+          </div>
+        </section>
+
 
         {/* Meet the team */}
         <section id="team" className="scroll-mt-24 border-t border-white/15">
-          <div className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
-            <SectionHeading>Meet the team</SectionHeading>
-            <AccentRule />
+          <div className="mx-auto max-w-6xl px-6 py-20 text-center sm:py-28">
+            <SectionHeading center>Meet the team</SectionHeading>
+            <div className="mx-auto mt-5 h-[3px] w-24" style={{ backgroundColor: ACCENT }} />
 
-            <div className="mt-12 w-full max-w-[240px]">
+            <div className="mx-auto mt-14 w-full max-w-[260px]">
               <PersonSlot
                 label="Portrait"
                 name={FOUNDER.name}
@@ -316,10 +306,11 @@ export default function HomePage() {
               />
             </div>
 
-            <h3 className="mt-16 font-display text-xs uppercase tracking-[0.25em] text-white/55">
+            <h3 className="mt-20 font-display text-xs uppercase tracking-[0.25em] text-white/55">
               Advisory board
             </h3>
-            <ul className="mt-8 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 lg:grid-cols-6">
+            {/* Six members as two rows of three. */}
+            <ul className="mx-auto mt-10 grid max-w-3xl grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3">
               {Array.from({ length: ADVISORY_BOARD_SIZE }, (_, i) => (
                 <li key={i}>
                   <PersonSlot
@@ -334,28 +325,24 @@ export default function HomePage() {
 
         {/* Cohort */}
         <section id="cohort" className="scroll-mt-24 border-t border-white/15">
-          <div className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
-            <SectionHeading>The inaugural cohort</SectionHeading>
-            <AccentRule />
-            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-white/70">
+          <div className="mx-auto max-w-6xl px-6 py-20 text-center sm:py-28">
+            <SectionHeading center>The inaugural cohort</SectionHeading>
+            <div className="mx-auto mt-5 h-[3px] w-24" style={{ backgroundColor: ACCENT }} />
+            <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-white/70">
               7 artists. Announced soon.
             </p>
-          </div>
 
-          {/* Seven across on wide screens so the row completes. */}
-          <ul className="grid grid-cols-2 border-t border-white/15 sm:grid-cols-4 lg:grid-cols-7">
-            {Array.from({ length: COHORT_SIZE }, (_, i) => (
-              <li
-                key={i}
-                className="border-b border-r border-white/15 p-5 last:border-r-0"
-              >
-                <PersonSlot
-                  label={String(i + 1).padStart(2, "0")}
-                  caption="To be announced"
-                />
-              </li>
-            ))}
-          </ul>
+            <ul className="mx-auto mt-14 grid max-w-5xl grid-cols-2 gap-x-6 gap-y-12 sm:grid-cols-4 lg:grid-cols-7">
+              {Array.from({ length: COHORT_SIZE }, (_, i) => (
+                <li key={i}>
+                  <PersonSlot
+                    label={String(i + 1).padStart(2, "0")}
+                    caption="To be announced"
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
 
         {/* Fellowship details */}
@@ -418,9 +405,13 @@ export default function HomePage() {
 
       <footer className="border-t border-white/15">
         <div className="mx-auto flex max-w-6xl flex-col items-start gap-4 px-6 py-10 sm:flex-row sm:items-center sm:justify-between">
-          <p className="font-script text-2xl leading-none">
-            <span aria-hidden="true">_</span>love made visible
-          </p>
+          <Image
+            src="/lmv-mark.png"
+            alt="LMV — Love Made Visible"
+            width={448}
+            height={159}
+            className="h-7 w-auto"
+          />
           <a
             href={`mailto:${CONTACT_EMAIL}`}
             className="font-sans text-sm text-white/60 transition-colors hover:text-white"

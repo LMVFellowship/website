@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Figtree, Sacramento } from "next/font/google";
+import { Figtree } from "next/font/google";
 import "./globals.css";
 
 /**
@@ -7,22 +7,20 @@ import "./globals.css";
  *
  * The brand specifies Proxima Nova for subheaders and body copy, and Retro
  * Signature as the script accent. Both are commercial licences, so the site
- * currently ships free stand-ins: Figtree for Proxima Nova (the nearest
- * geometric-humanist sans) and Sacramento for Retro Signature. Swapping in
- * the real faces is a change to these two declarations and nothing else,
- * because everything downstream uses the --font-sans / --font-display /
- * --font-script tokens.
+ * currently ships a free stand-in for Proxima Nova: Figtree, the nearest
+ * geometric-humanist sans. Swapping in the real face is a change to this one
+ * declaration and nothing else, because everything downstream uses the
+ * --font-sans / --font-display tokens.
+ *
+ * Retro Signature is not loaded as a webfont at all. The script only ever
+ * appears as the wordmark, which ships as artwork (public/logo.gif and
+ * public/lmv-mark.png), so no licensed script face is needed on the page.
  */
 const figtree = Figtree({
   variable: "--font-figtree",
   subsets: ["latin"],
 });
 
-const sacramento = Sacramento({
-  variable: "--font-sacramento",
-  weight: "400",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "LMV Fellowship — Coming Soon",
@@ -44,7 +42,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${figtree.variable} ${sacramento.variable} h-full antialiased`}
+      className={`${figtree.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         {children}
