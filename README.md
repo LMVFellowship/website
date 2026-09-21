@@ -68,6 +68,13 @@ The request body looks like:
 Point this at the mailing list provider's inbound hook (Mailchimp, Beehiiv,
 Zapier, a Google Apps Script, etc.).
 
+`scripts/sheets-webhook.gs` is a ready-made Google Apps Script that appends
+each signup to a Google Sheet. Setup steps are in the comments at the top of
+that file. Two things to know going in: the Apps Script editor is desktop web
+only and is not available in the mobile Sheets app, and a web app deployed to
+"Anyone" is a public endpoint, so the script requires a shared secret passed
+as a `?token=` query parameter on the webhook URL.
+
 #### How failures are handled
 
 The webhook and the notification email are the two channels that actually
