@@ -14,6 +14,13 @@ export const metadata: Metadata = {
     description:
       "A year-long fellowship built for artists, by artists, designed to help emerging visual artists advance their careers.",
     type: "website",
+    // Declaring openGraph here drops the image inherited from the root
+    // opengraph-image file, so it has to be named again.
+    images: ["/opengraph-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/twitter-image.png"],
   },
 };
 

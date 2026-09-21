@@ -23,13 +23,17 @@ const figtree = Figtree({
 
 
 export const metadata: Metadata = {
-  title: "LMV Fellowship | Coming Soon",
+  // Without this, Next resolves the share image against localhost in
+  // development and against the per-deployment Vercel URL in production,
+  // rather than the canonical host.
+  metadataBase: new URL("https://www.lmvfellowship.com"),
+  title: "LMV Fellowship",
   description:
-    "Love made visible. The LMV Fellowship is coming soon. Sign up to be notified when we launch.",
+    "Love made visible. A year-long fellowship built for artists, by artists, designed to help emerging visual artists advance their careers.",
   openGraph: {
-    title: "LMV Fellowship | Coming Soon",
+    title: "LMV Fellowship",
     description:
-      "Love made visible. The LMV Fellowship is coming soon. Sign up to be notified when we launch.",
+      "Love made visible. A year-long fellowship built for artists, by artists, designed to help emerging visual artists advance their careers.",
     type: "website",
   },
 };
