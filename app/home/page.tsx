@@ -6,11 +6,11 @@ import SignupForm from "../signup-form";
 import Splash from "../splash";
 
 export const metadata: Metadata = {
-  title: "Love Made Visible — LMV Fellowship",
+  title: "Love Made Visible | LMV Fellowship",
   description:
     "A year-long fellowship built for artists, by artists, designed to help emerging visual artists advance their careers.",
   openGraph: {
-    title: "Love Made Visible — LMV Fellowship",
+    title: "Love Made Visible | LMV Fellowship",
     description:
       "A year-long fellowship built for artists, by artists, designed to help emerging visual artists advance their careers.",
     type: "website",
@@ -22,7 +22,7 @@ const CONTACT_EMAIL = "contact@lmvfellowship.com";
 /**
  * All prose on this page is taken verbatim from the fellowship's talking
  * points, with one exception: the cohort size is seven, not the ten the
- * document states. Nothing here is written from scratch — if a section
+ * document states. Nothing here is written from scratch. If a section
  * needs new wording, it has to come from the document.
  */
 
@@ -52,7 +52,11 @@ const NUMBERS = [
   { value: "Miami", label: "Based in" },
 ];
 
-const FOUNDER = { name: "Zakiyya White", role: "Founder" };
+const FOUNDER = {
+  name: "Zakiyya White",
+  role: "Founder",
+  linkedin: "https://www.linkedin.com/in/zakiyyawhite/",
+};
 
 const ADVISORY_BOARD_SIZE = 6;
 
@@ -115,15 +119,17 @@ function SectionHeading({
   );
 }
 
-/** A reserved portrait frame — a slot awaiting a photograph, not a failure. */
+/** A reserved portrait frame: a slot awaiting a photograph, not a failure. */
 function PersonSlot({
   label,
   name,
   caption,
+  href,
 }: {
   label: string;
   name?: string;
   caption: string;
+  href?: string;
 }) {
   return (
     <div>
@@ -132,7 +138,22 @@ function PersonSlot({
           {label}
         </span>
       </div>
-      {name ? <p className="mt-4 text-base text-white">{name}</p> : null}
+      {name ? (
+        <p className="mt-4 text-base text-white">
+          {href ? (
+            <a
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-white/30 underline-offset-4 transition-colors hover:decoration-white"
+            >
+              {name}
+            </a>
+          ) : (
+            name
+          )}
+        </p>
+      ) : null}
       <p className={`text-sm text-white/45 ${name ? "mt-1" : "mt-4"}`}>
         {caption}
       </p>
@@ -151,7 +172,7 @@ export default function HomePage() {
           <Link href="/" className="shrink-0">
             <Image
               src="/lmv-mark.png"
-              alt="LMV — Love Made Visible"
+              alt="LMV Love Made Visible"
               width={448}
               height={159}
               priority
@@ -168,7 +189,7 @@ export default function HomePage() {
       </header>
 
       <main>
-        {/* Hero — the animated wordmark stands in for the reference's video */}
+        {/* Hero: the animated wordmark stands in for the reference's video */}
         <section className="px-6 pb-16 pt-16 sm:pb-20 sm:pt-24">
           <div className="mx-auto flex max-w-5xl flex-col items-center text-center">
             <h1>
@@ -183,7 +204,7 @@ export default function HomePage() {
         {/* Sticky anchor bar. Opaque, because content scrolls beneath it. */}
         <nav className="sticky top-0 z-50 border-y border-white/15 bg-background">
           {/* One scrollable row on phones. Wrapping six items there cost
-              three lines — 14% of the viewport, permanently, since the bar
+              three lines (14% of the viewport) permanently, since the bar
               is sticky. */}
           <ul className="mx-auto flex max-w-6xl items-center gap-x-6 overflow-x-auto px-6 py-4 [-ms-overflow-style:none] [scrollbar-width:none] sm:flex-wrap sm:justify-center sm:gap-x-10 sm:gap-y-2 sm:overflow-visible [&::-webkit-scrollbar]:hidden">
             {SECTION_NAV.map((item) => (
@@ -303,6 +324,7 @@ export default function HomePage() {
                 label="Portrait"
                 name={FOUNDER.name}
                 caption={FOUNDER.role}
+                href={FOUNDER.linkedin}
               />
             </div>
 
@@ -407,7 +429,7 @@ export default function HomePage() {
         <div className="mx-auto flex max-w-6xl flex-col items-start gap-4 px-6 py-10 sm:flex-row sm:items-center sm:justify-between">
           <Image
             src="/lmv-mark.png"
-            alt="LMV — Love Made Visible"
+            alt="LMV Love Made Visible"
             width={448}
             height={159}
             className="h-7 w-auto"

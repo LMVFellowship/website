@@ -16,7 +16,7 @@ async function readLogo() {
     const header = (await readFile(LOGO_PATH)).subarray(0, 10);
 
     if (header.length < 10 || header.subarray(0, 3).toString("latin1") !== "GIF") {
-      console.warn(`public/${LOGO_FILE} is not a GIF — falling back to the wordmark.`);
+      console.warn(`public/${LOGO_FILE} is not a GIF, falling back to the wordmark.`);
       return null;
     }
 
@@ -25,7 +25,7 @@ async function readLogo() {
       height: header.readUInt16LE(8),
     };
   } catch {
-    // No logo dropped in yet — the text wordmark stands in for it.
+    // No logo dropped in yet, the text wordmark stands in for it.
     return null;
   }
 }

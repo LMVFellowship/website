@@ -1,6 +1,6 @@
 # LMV Fellowship
 
-The "coming soon" site for the LMV Fellowship — a single landing page
+The "coming soon" site for the LMV Fellowship, a single landing page
 with the `_love made visible` wordmark and a notify-me signup form.
 
 Built with [Next.js](https://nextjs.org) (App Router) and Tailwind CSS v4.
@@ -49,7 +49,7 @@ messages (`app/emails.ts`):
 
 1. **A notification** to `LMV_NOTIFICATION_EMAIL` with the name, email, and
    timestamp. `Reply-To` is the subscriber, so replying reaches them directly.
-2. **A thank-you** to the subscriber — "Thank you for staying updated" — with
+2. **A thank-you** to the subscriber, "Thank you for staying updated", with
    `Reply-To` set to the fellowship's address.
 
 #### Webhook
@@ -73,7 +73,7 @@ Zapier, a Google Apps Script, etc.).
 The webhook and the notification email are the two channels that actually
 *record* a signup; the thank-you is a courtesy on top. All three are attempted
 in parallel, and the visitor only sees an error when **every** configured
-recording channel failed — a thank-you that bounces never costs you the
+recording channel failed, a thank-you that bounces never costs you the
 address. Failures are logged either way.
 
 > **With none of these variables set, signups are not stored anywhere.**
@@ -95,7 +95,7 @@ app/
   page.tsx          the landing page
   logo.tsx          the logo (public/logo.gif, or the wordmark fallback)
   signup-form.tsx   client component for the form (useActionState)
-  actions.ts        "use server" — validation + delivery
+  actions.ts        "use server", validation + delivery
   emails.ts         notification + thank-you email via Resend
   signup-state.ts   shared form state type shared by the two above
   globals.css       Tailwind theme tokens

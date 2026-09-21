@@ -23,13 +23,13 @@ const figtree = Figtree({
 
 
 export const metadata: Metadata = {
-  title: "LMV Fellowship — Coming Soon",
+  title: "LMV Fellowship | Coming Soon",
   description:
-    "Love made visible. The LMV Fellowship is coming soon — sign up to be notified when we launch.",
+    "Love made visible. The LMV Fellowship is coming soon. Sign up to be notified when we launch.",
   openGraph: {
-    title: "LMV Fellowship — Coming Soon",
+    title: "LMV Fellowship | Coming Soon",
     description:
-      "Love made visible. The LMV Fellowship is coming soon — sign up to be notified when we launch.",
+      "Love made visible. The LMV Fellowship is coming soon. Sign up to be notified when we launch.",
     type: "website",
   },
 };
