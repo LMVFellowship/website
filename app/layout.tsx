@@ -25,13 +25,13 @@ const sacramento = Sacramento({
 });
 
 export const metadata: Metadata = {
-  title: "LMV Creative Fellowship — Coming Soon",
+  title: "LMV Fellowship — Coming Soon",
   description:
-    "Love made visible. The LMV Creative Fellowship is coming soon — sign up to be notified when we launch.",
+    "Love made visible. The LMV Fellowship is coming soon — sign up to be notified when we launch.",
   openGraph: {
-    title: "LMV Creative Fellowship — Coming Soon",
+    title: "LMV Fellowship — Coming Soon",
     description:
-      "Love made visible. The LMV Creative Fellowship is coming soon — sign up to be notified when we launch.",
+      "Love made visible. The LMV Fellowship is coming soon — sign up to be notified when we launch.",
     type: "website",
   },
 };

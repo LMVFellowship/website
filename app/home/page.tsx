@@ -5,11 +5,11 @@ import Logo from "../logo";
 import SignupForm from "../signup-form";
 
 export const metadata: Metadata = {
-  title: "Love Made Visible — LMV Creative Fellowship",
+  title: "Love Made Visible — LMV Fellowship",
   description:
     "A year-long fellowship built for artists, by artists. Love Made Visible helps emerging visual artists in Miami advance their careers.",
   openGraph: {
-    title: "Love Made Visible — LMV Creative Fellowship",
+    title: "Love Made Visible — LMV Fellowship",
     description:
       "A year-long fellowship built for artists, by artists. Love Made Visible helps emerging visual artists in Miami advance their careers.",
     type: "website",
@@ -18,10 +18,39 @@ export const metadata: Metadata = {
 
 const CONTACT_EMAIL = "contact@lmvfellowship.com";
 
-const FACTS = [
+/** The anchor bar that sits directly under the hero. */
+const SECTION_NAV = [
+  { href: "#about", label: "About" },
+  { href: "#benefits", label: "What Fellows Get" },
+  { href: "#numbers", label: "By The Numbers" },
+  { href: "#cohort", label: "The Cohort" },
+  { href: "#stay-updated", label: "Stay Updated" },
+];
+
+const BENEFITS = [
+  {
+    title: "Business of art",
+    body: "Education on pricing, contracts, intellectual property, and the economics behind the art world.",
+  },
+  {
+    title: "Relationships",
+    body: "Introductions to curators, collectors, gallerists, and institutions — the people who move a career forward.",
+  },
+  {
+    title: "Real opportunities",
+    body: "Pathways toward exhibitions, commissions, acquisitions, and meaningful additions to a CV.",
+  },
+  {
+    title: "Miami Art Week",
+    body: "Every December, an international art market arrives. Fellows learn how those rooms actually work.",
+  },
+];
+
+const NUMBERS = [
   { value: "7", label: "Artists" },
   { value: "1", label: "Year" },
   { value: "Miami", label: "Based in" },
+  { value: "Dec", label: "Art Week" },
 ];
 
 /** Short answers only — the page should skim, not read. */
@@ -46,33 +75,66 @@ const DETAILS = [
 
 const COHORT_SIZE = 7;
 
-function Pill({
-  href,
+/** Brand slate-blue, used the way the reference uses its accent rule. */
+const ACCENT = "#6f7c99";
+
+function SectionHeading({
   children,
-  solid = false,
+  center = false,
 }: {
-  href: string;
   children: React.ReactNode;
-  solid?: boolean;
+  center?: boolean;
 }) {
   return (
-    <a
-      href={href}
-      className={`inline-flex h-12 items-center justify-center rounded-full px-7 font-sans text-sm tracking-wide transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 ${
-        solid
-          ? "bg-white text-black hover:bg-white/85"
-          : "border border-white/50 text-white hover:border-white"
+    <h2
+      className={`font-display text-2xl font-light uppercase leading-snug tracking-[0.2em] sm:text-3xl ${
+        center ? "text-center" : ""
       }`}
     >
       {children}
-    </a>
+    </h2>
+  );
+}
+
+/**
+ * A bordered panel whose heading breaks through the top edge — the
+ * reference's signature device for "Member Benefits" / "By The Numbers".
+ */
+function FramedPanel({
+  id,
+  title,
+  children,
+}: {
+  id: string;
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section id={id} className="px-6 py-10 sm:py-14">
+      <div className="mx-auto max-w-6xl">
+        <div
+          className="relative border-[3px] px-6 pb-12 pt-14 sm:px-10 sm:pb-14 sm:pt-16"
+          style={{ borderColor: ACCENT }}
+        >
+          {/* Sits on the border line, with the page background knocking it
+              out. It must stay on ONE line — a wrapped heading straddles the
+              border and reads as broken — so it scales down instead. */}
+          <div className="absolute -top-px left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background px-4 sm:px-8">
+            <h2 className="whitespace-nowrap text-center font-display text-base font-light uppercase leading-none tracking-[0.2em] sm:text-xl lg:text-3xl">
+              {title}
+            </h2>
+          </div>
+          {children}
+        </div>
+      </div>
+    </section>
   );
 }
 
 export default function HomePage() {
   return (
     <div className="flex-1">
-      {/* Nav */}
+      {/* Masthead */}
       <header className="border-b border-white/15">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-5">
           <Link href="/" className="shrink-0">
@@ -85,90 +147,129 @@ export default function HomePage() {
               className="h-8 w-auto sm:h-10"
             />
           </Link>
-          <nav className="flex items-center gap-6">
-            <a
-              href="#details"
-              className="hidden font-display text-[11px] uppercase tracking-[0.2em] text-white/70 transition-colors hover:text-white sm:block"
-            >
-              Fellowship
-            </a>
-            <a
-              href="#cohort"
-              className="hidden font-display text-[11px] uppercase tracking-[0.2em] text-white/70 transition-colors hover:text-white sm:block"
-            >
-              Cohort
-            </a>
-            <a
-              href={`mailto:${CONTACT_EMAIL}`}
-              className="inline-flex h-10 items-center rounded-full bg-white px-5 font-display text-[11px] uppercase tracking-[0.2em] text-black transition-colors hover:bg-white/85"
-            >
-              Get involved
-            </a>
-          </nav>
+          <a
+            href={`mailto:${CONTACT_EMAIL}`}
+            className="inline-flex h-10 items-center rounded-full bg-white px-5 font-display text-[11px] uppercase tracking-[0.2em] text-black transition-colors hover:bg-white/85"
+          >
+            Get involved
+          </a>
         </div>
       </header>
 
       <main>
-        {/* Hero */}
-        <section className="mx-auto max-w-6xl px-6 pb-20 pt-16 sm:pb-28 sm:pt-24">
-          {/* The animated wordmark is the page title; its alt text carries
-              the heading for screen readers and search engines. */}
-          <h1>
-            <Logo className="h-auto w-full max-w-[880px]" />
-          </h1>
-
-          <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end lg:gap-20">
-            <p className="max-w-2xl text-lg leading-relaxed text-white/75 sm:text-xl sm:leading-relaxed">
-              A year-long fellowship built for artists, by artists — helping a
-              curated cohort of emerging visual artists in Miami turn talent
-              into motion.
+        {/* Hero — the animated wordmark stands in for the reference's video */}
+        <section className="px-6 pb-16 pt-16 sm:pb-20 sm:pt-24">
+          <div className="mx-auto flex max-w-5xl flex-col items-center text-center">
+            <h1>
+              <Logo className="h-auto w-full max-w-[820px]" />
+            </h1>
+            <p className="mt-10 max-w-2xl text-lg leading-relaxed text-white/75 sm:text-xl sm:leading-relaxed">
+              A year-long fellowship built for artists, by artists.
             </p>
+          </div>
+        </section>
 
-            <div className="flex flex-wrap gap-3">
-              <Pill href="#details" solid>
-                The fellowship
-              </Pill>
-              <Pill href="#stay-updated">Stay updated</Pill>
+        {/* Anchor bar, as the reference places directly below its video */}
+        <nav className="border-y border-white/15 bg-white/[0.03]">
+          <ul className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-8 gap-y-3 px-6 py-5 sm:gap-x-12">
+            {SECTION_NAV.map((item) => (
+              <li key={item.href}>
+                <a
+                  href={item.href}
+                  className="font-display text-[11px] uppercase tracking-[0.2em] text-white/70 transition-colors hover:text-white"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        {/* About — heading left with accent rule, body right */}
+        <section id="about" className="px-6 py-20 sm:py-28">
+          <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[300px_1fr] lg:gap-20">
+            <div>
+              <SectionHeading>About</SectionHeading>
+              <div
+                className="mt-5 h-[3px] w-24"
+                style={{ backgroundColor: ACCENT }}
+              />
+            </div>
+            <div className="space-y-6 text-lg leading-relaxed text-white/75 sm:text-xl sm:leading-relaxed">
+              <p>
+                Love Made Visible surrounds a curated cohort of seven emerging
+                visual artists with education on the business of art,
+                relationships, cultural experiences, and real opportunities —
+                helping them strengthen the infrastructure around their talent.
+              </p>
+              <p className="text-white/60">
+                There isn’t a shortage of talent in Miami. There’s a shortage of
+                access. LMV is designed to shorten that distance.
+              </p>
             </div>
           </div>
+        </section>
 
-          {/* Facts */}
-          <dl className="mt-16 grid grid-cols-3 border-t border-white/15 sm:mt-20">
-            {FACTS.map((fact) => (
-              <div
-                key={fact.label}
-                className="border-r border-white/15 py-7 pr-4 last:border-r-0"
+        {/* What fellows get — framed panel, rule-divided columns */}
+        <div className="pt-8 sm:pt-10" />
+        <FramedPanel id="benefits" title="What Fellows Get">
+          <ul className="grid gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+            {BENEFITS.map((benefit, i) => (
+              <li
+                key={benefit.title}
+                // At 2-up the divider belongs on the right-hand column; at
+                // 4-up it belongs on every column but the first.
+                className={`border-white/20 px-0 sm:px-7 ${
+                  i % 2 === 1 ? "sm:border-l" : ""
+                } ${i > 0 ? "lg:border-l" : ""}`}
               >
-                <dt className="font-display text-[10px] uppercase tracking-[0.25em] text-white/45">
-                  {fact.label}
-                </dt>
-                <dd className="mt-3 font-display text-4xl font-light leading-none sm:text-5xl">
-                  {fact.value}
+                <h3 className="font-display text-xs uppercase tracking-[0.2em] text-white">
+                  {benefit.title}
+                </h3>
+                <p className="mt-4 text-base leading-relaxed text-white/65">
+                  {benefit.body}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </FramedPanel>
+
+        {/* By the numbers — framed stat block */}
+        <FramedPanel id="numbers" title="By The Numbers">
+          <dl className="grid grid-cols-2 gap-y-10 lg:grid-cols-4">
+            {NUMBERS.map((stat, i) => (
+              <div
+                key={stat.label}
+                className={`px-4 text-center sm:px-7 ${
+                  i > 0 ? "lg:border-l lg:border-white/20" : ""
+                } ${i % 2 === 1 ? "border-l border-white/20 lg:border-l" : ""}`}
+              >
+                <dd className="font-display text-4xl font-light leading-none sm:text-5xl">
+                  {stat.value}
                 </dd>
+                <dt className="mt-3 font-display text-[10px] uppercase tracking-[0.25em] text-white/50">
+                  {stat.label}
+                </dt>
               </div>
             ))}
           </dl>
-        </section>
+        </FramedPanel>
 
-        {/* Details accordion */}
+        {/* Fellowship details */}
         <section id="details" className="border-t border-white/15">
           <div className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
-            <h2 className="font-display text-2xl font-light uppercase leading-snug tracking-[0.2em] sm:text-3xl">
-              Fellowship details
-            </h2>
+            <SectionHeading>Fellowship details</SectionHeading>
+            <div
+              className="mt-5 h-[3px] w-24"
+              style={{ backgroundColor: ACCENT }}
+            />
 
             <div className="mt-12 border-t border-white/20">
               {DETAILS.map((item) => (
-                <details
-                  key={item.q}
-                  className="group border-b border-white/20"
-                >
+                <details key={item.q} className="group border-b border-white/20">
                   <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-6 text-lg text-white transition-colors hover:text-white/70 sm:text-xl [&::-webkit-details-marker]:hidden">
                     {item.q}
-                    <span
-                      aria-hidden="true"
-                      className="relative size-5 shrink-0"
-                    >
+                    <span aria-hidden="true" className="relative size-5 shrink-0">
                       <span className="absolute left-0 top-1/2 h-px w-5 -translate-y-1/2 bg-white" />
                       <span className="absolute left-1/2 top-0 h-5 w-px -translate-x-1/2 bg-white transition-transform group-open:scale-y-0" />
                     </span>
@@ -193,24 +294,24 @@ export default function HomePage() {
         {/* Cohort */}
         <section id="cohort" className="border-t border-white/15">
           <div className="mx-auto max-w-6xl px-6 py-20 sm:py-28">
-            <h2 className="font-display text-2xl font-light uppercase leading-snug tracking-[0.2em] sm:text-3xl">
-              The inaugural cohort
-            </h2>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/70">
+            <SectionHeading>The inaugural cohort</SectionHeading>
+            <div
+              className="mt-5 h-[3px] w-24"
+              style={{ backgroundColor: ACCENT }}
+            />
+            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-white/70">
               Seven artists. Announced soon.
             </p>
           </div>
 
-          {/* Seven across on wide screens so the row completes — a 5-up grid
-              leaves a ragged half-empty second row. */}
+          {/* Seven across on wide screens so the row completes. */}
           <ul className="grid grid-cols-2 border-t border-white/15 sm:grid-cols-4 lg:grid-cols-7">
             {Array.from({ length: COHORT_SIZE }, (_, i) => (
               <li
                 key={i}
                 className="border-b border-r border-white/15 p-5 last:border-r-0"
               >
-                {/* Deliberate empty frame — reads as a reserved slot rather
-                    than a failed image until the cohort is announced. */}
+                {/* Deliberate empty frame — a reserved slot, not a failed image. */}
                 <div className="flex aspect-[4/5] items-center justify-center border border-white/15 bg-white/[0.06]">
                   <span className="font-display text-2xl font-light tracking-[0.1em] text-white/25">
                     {String(i + 1).padStart(2, "0")}
@@ -226,10 +327,12 @@ export default function HomePage() {
         <section id="stay-updated" className="border-t border-white/15">
           <div className="mx-auto grid max-w-6xl gap-12 px-6 py-20 sm:py-28 lg:grid-cols-2 lg:gap-20">
             <div>
-              <h2 className="font-display text-2xl font-light uppercase leading-snug tracking-[0.2em] sm:text-3xl">
-                Sign up for updates
-              </h2>
-              <p className="mt-6 max-w-md text-lg leading-relaxed text-white/70">
+              <SectionHeading>Stay updated</SectionHeading>
+              <div
+                className="mt-5 h-[3px] w-24"
+                style={{ backgroundColor: ACCENT }}
+              />
+              <p className="mt-8 max-w-md text-lg leading-relaxed text-white/70">
                 Be the first to hear about the cohort, the programming, and ways
                 to get involved.
               </p>

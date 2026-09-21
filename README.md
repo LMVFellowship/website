@@ -1,6 +1,6 @@
-# LMV Creative Fellowship
+# LMV Fellowship
 
-The "coming soon" site for the LMV Creative Fellowship — a single landing page
+The "coming soon" site for the LMV Fellowship — a single landing page
 with the `_love made visible` wordmark and a notify-me signup form.
 
 Built with [Next.js](https://nextjs.org) (App Router) and Tailwind CSS v4.
@@ -35,7 +35,7 @@ Delivery is configured with environment variables:
 | Variable                  | Description                                                                                  |
 | ------------------------- | -------------------------------------------------------------------------------------------- |
 | `RESEND_API_KEY`          | [Resend](https://resend.com) API key. Required to send either email.                           |
-| `LMV_FROM_EMAIL`          | Sender, e.g. `LMV Creative Fellowship <hello@lmvfellowship.com>`. Required to send either email. |
+| `LMV_FROM_EMAIL`          | Sender, e.g. `LMV Fellowship <hello@lmvfellowship.com>`. Required to send either email. |
 | `LMV_NOTIFICATION_EMAIL`  | Who gets told about new signups. Defaults to `contact@lmvfellowship.com`.                       |
 | `LMV_SIGNUP_WEBHOOK_URL`  | Optional endpoint that receives a `POST` with the signup as JSON.                               |
 
