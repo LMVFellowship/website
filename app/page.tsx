@@ -73,16 +73,16 @@ const ADVISORY_BOARD_SIZE = 6;
  */
 const COHORT = [
   {
-    name: "Zoray Cyrus",
+    name: "Zoraye Cyrus",
     practice: "Muralist",
     handle: "zorayecyrus1",
-    photo: "/cohort/zoray-cyrus.jpg",
+    photo: "/cohort/zoraye-cyrus.jpg",
   },
   {
-    name: "Leisure Bedasse",
+    name: "Kristen Bedasse",
     practice: "Painter / Sculptor",
     handle: "knicolestyle",
-    photo: "/cohort/leisure-bedasse.jpg",
+    photo: "/cohort/kristen-bedasse.jpg",
   },
   {
     name: "Rezia Hayes",
@@ -175,6 +175,7 @@ function PersonSlot({
   href,
   photo,
   handle,
+  polaroid = false,
 }: {
   label: string;
   name?: string;
@@ -182,7 +183,43 @@ function PersonSlot({
   href?: string;
   photo?: string;
   handle?: string;
+  /** Framed like the cohort posts on Instagram, for use on the paper section. */
+  polaroid?: boolean;
 }) {
+  if (polaroid && photo) {
+    return (
+      <figure className="lmv-polaroid text-left">
+        <div className="relative aspect-square overflow-hidden border border-black/10">
+          <Image
+            src={photo}
+            alt={name ? `Portrait of ${name}` : label}
+            fill
+            sizes="(min-width: 768px) 280px, 50vw"
+            className="object-cover"
+          />
+        </div>
+        <figcaption className="px-1 pb-4 pt-4 text-center">
+          {name ? (
+            <p className="font-display text-xs font-bold uppercase tracking-[0.12em] text-[var(--ink)] sm:text-sm">
+              {name}
+            </p>
+          ) : null}
+          <p className="mt-1 text-xs text-black/55 sm:text-sm">{caption}</p>
+          {handle ? (
+            <a
+              href={`https://www.instagram.com/${handle}/`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-1 inline-block text-xs text-black/60 underline decoration-black/20 underline-offset-4 transition-colors hover:text-black hover:decoration-black sm:text-sm"
+            >
+              @{handle}
+            </a>
+          ) : null}
+        </figcaption>
+      </figure>
+    );
+  }
+
   return (
     <div>
       {photo ? (
@@ -264,8 +301,10 @@ export default function HomePage() {
 
       <main>
         {/* Hero: the animated wordmark stands in for the reference's video */}
-        <section className="px-6 pb-16 pt-16 sm:pb-20 sm:pt-24">
-          <div className="mx-auto flex max-w-5xl flex-col items-center text-center">
+        <section className="relative overflow-hidden px-6 pb-16 pt-16 sm:pb-20 sm:pt-24">
+          {/* Halftone fade behind the wordmark, after the launch invite. */}
+          <div aria-hidden="true" className="lmv-halftone pointer-events-none absolute inset-0" />
+          <div className="relative mx-auto flex max-w-5xl flex-col items-center text-center">
             <h1>
               <Logo className="h-auto w-full max-w-[820px]" />
             </h1>
@@ -388,16 +427,23 @@ export default function HomePage() {
 
 
         {/* Cohort */}
-        <section id="cohort" className="scroll-mt-24 border-t border-white/15">
+        <section id="cohort" className="lmv-paper scroll-mt-24">
           <div className="mx-auto max-w-6xl px-6 py-20 text-center sm:py-28">
             <SectionHeading center>The inaugural cohort</SectionHeading>
             <div className="mx-auto mt-5 h-[3px] w-24" style={{ backgroundColor: ACCENT }} />
-            <p className="mx-auto mt-8 max-w-2xl font-display text-xs uppercase tracking-[0.25em] text-white/55">
+            {/* The white wordmark, inverted to ink for the paper ground. */}
+            <div aria-hidden="true" className="mx-auto mt-10 flex max-w-md justify-center invert">
+              <Logo className="h-auto w-full max-w-[420px]" />
+            </div>
+            <p className="mx-auto mt-4 max-w-2xl font-display text-xs uppercase tracking-[0.25em] text-black/55">
               Cohort 001
             </p>
 
-            {/* Two per row on phones, three per row from md up. */}
-            <ul className="mx-auto mt-14 grid max-w-4xl grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-3">
+            {/*
+              Two per row on phones, three per row from md up. On wide screens
+              the middle column drops, like the staggered cohort post.
+            */}
+            <ul className="mx-auto mt-14 grid max-w-4xl grid-cols-2 gap-x-5 gap-y-10 sm:gap-x-8 md:grid-cols-3 md:gap-y-14 md:pb-12 md:[&>li:nth-child(3n+2)]:translate-y-12">
               {COHORT.map((artist, i) => (
                 <li key={artist.handle}>
                   <PersonSlot
@@ -406,6 +452,7 @@ export default function HomePage() {
                     caption={artist.practice}
                     photo={artist.photo}
                     handle={artist.handle}
+                    polaroid
                   />
                 </li>
               ))}
