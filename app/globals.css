@@ -68,3 +68,47 @@ body {
     animation: none;
   }
 }
+
+/*
+ * Textures taken from the fellowship's Instagram posts: film grain over the
+ * whole page, speckled recycled paper behind the cohort, polaroid frames for
+ * the portraits, and the halftone fade used on the launch invite. All of it
+ * is drawn with CSS and inline SVG noise, so there are no image files to load.
+ */
+
+/* Fine grain over everything. Sits under the splash screen (z-index 100). */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1.4 -0.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Off-white recycled paper with dark flecks, as on the cohort posts. */
+.lmv-paper {
+  --ink: #1d1d1b;
+  background-color: #e9e8e4;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='1' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 16 -11.6'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.34 0 0 0 0 0.32 0 0 0 0.22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
+  color: var(--ink);
+}
+
+/* A polaroid: pale frame, hairline edge, deeper bottom margin for the name. */
+.lmv-polaroid {
+  background: #f3f2ee;
+  border: 1px solid #b8b6b0;
+  padding: 0.6rem 0.6rem 0;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.08), 0 8px 20px -12px rgb(0 0 0 / 0.35);
+}
+
+/* Halftone dots that fade out from the centre, after the launch invite. */
+.lmv-halftone {
+  background-image: radial-gradient(circle, rgb(255 255 255 / 0.5) 0.9px, transparent 1.5px);
+  background-size: 6px 6px;
+  -webkit-mask-image: radial-gradient(ellipse 60% 55% at 50% 45%, #000 0%, transparent 75%);
+  mask-image: radial-gradient(ellipse 60% 55% at 50% 45%, #000 0%, transparent 75%);
+}
