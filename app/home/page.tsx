@@ -103,10 +103,10 @@ const COHORT = [
     photo: "/cohort/jethro-gedeon.jpg",
   },
   {
-    name: "Jed-Lee Matayer",
+    name: "Jed-Lee Metayer",
     practice: "Abstract Expressionist",
     handle: "jedleemetayer",
-    photo: "/cohort/jed-lee-matayer.jpg",
+    photo: "/cohort/jed-lee-metayer.jpg",
   },
 ];
 
