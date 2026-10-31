@@ -2,8 +2,8 @@
 
 ## `logo.gif`, the animated wordmark
 
-The `_love made visible` wordmark, animated as handwriting. Used as the logo on
-the landing page (`/`) and as the page title on `/home`, via `app/logo.tsx`:
+The `_love made visible` wordmark, animated as handwriting. Used as the page title
+on the landing page (`/`), via `app/logo.tsx`:
 
 - The intrinsic size is read from the GIF's own header, so the file can be
   swapped for a different one without touching code.
@@ -19,5 +19,5 @@ Cropped from the supplied export, which carried a large transparent margin
 
 ## `lmv-mark.png`, the corner monogram
 
-The `_lmv` mark used in the top-left of the `/home` nav. Transparent
+The `_lmv` mark used in the top-left of the landing page nav. Transparent
 background, white artwork, so it needs a dark surface behind it.
