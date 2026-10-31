@@ -28,7 +28,7 @@ const CONTACT_EMAIL = "contact@lmvfellowship.com";
 
 /**
  * All prose on this page is taken verbatim from the fellowship's talking
- * points, with one exception: the cohort size is seven, not the ten the
+ * points, with one exception: the cohort size is six, not the ten the
  * document states. Nothing here is written from scratch. If a section
  * needs new wording, it has to come from the document.
  */
@@ -54,7 +54,7 @@ const OUTCOMES = [
 ];
 
 const NUMBERS = [
-  { value: "7", label: "Artists" },
+  { value: "6", label: "Artists" },
   { value: "1", label: "Year" },
   { value: "Miami", label: "Based in" },
 ];
@@ -308,7 +308,7 @@ export default function HomePage() {
                 their careers.
               </p>
               <p>
-                We’re starting with a curated cohort of 7 artists and
+                We’re starting with a curated cohort of 6 artists and
                 surrounding them with education on the business-of-art,
                 relationships, cultural experiences, and real opportunities.
               </p>
@@ -379,7 +379,7 @@ export default function HomePage() {
 
             <p className="mt-12 max-w-3xl text-base leading-relaxed text-white/60 sm:text-lg">
               Not every fellow will need the same support or achieve the same
-              milestones. That’s why we’re intentionally starting with only 7
+              milestones. That’s why we’re intentionally starting with only 6
               artists. We want to understand what each artist needs and help
               them take meaningful next steps.
             </p>
