@@ -99,7 +99,7 @@ script wordmark. See `public/README.md` and `app/logo.tsx`.
 ```
 app/
   layout.tsx        root layout, fonts, metadata
-  page.tsx          the landing page
+  page.tsx          the landing page (/home redirects here)
   logo.tsx          the logo (public/logo.gif, or the wordmark fallback)
   signup-form.tsx   client component for the form (useActionState)
   actions.ts        "use server", validation + delivery
