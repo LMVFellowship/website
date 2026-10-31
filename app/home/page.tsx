@@ -28,7 +28,7 @@ const CONTACT_EMAIL = "contact@lmvfellowship.com";
 
 /**
  * All prose on this page is taken verbatim from the fellowship's talking
- * points, with one exception: the cohort size is seven, not the ten the
+ * points, with one exception: the cohort size is six, not the ten the
  * document states. Nothing here is written from scratch. If a section
  * needs new wording, it has to come from the document.
  */
@@ -54,7 +54,7 @@ const OUTCOMES = [
 ];
 
 const NUMBERS = [
-  { value: "7", label: "Artists" },
+  { value: "6", label: "Artists" },
   { value: "1", label: "Year" },
   { value: "Miami", label: "Based in" },
 ];
@@ -67,7 +67,48 @@ const FOUNDER = {
 
 const ADVISORY_BOARD_SIZE = 6;
 
-const COHORT_SIZE = 7;
+/**
+ * Cohort 001, as listed in the founder's edits doc: name, practice, and
+ * Instagram handle. Photos were supplied with the list.
+ */
+const COHORT = [
+  {
+    name: "Zoray Cyrus",
+    practice: "Muralist",
+    handle: "zorayecyrus1",
+    photo: "/cohort/zoray-cyrus.jpg",
+  },
+  {
+    name: "Leisure Bedasse",
+    practice: "Painter / Sculptor",
+    handle: "knicolestyle",
+    photo: "/cohort/leisure-bedasse.jpg",
+  },
+  {
+    name: "Rezia Hayes",
+    practice: "Photographer",
+    handle: "reziahayes",
+    photo: "/cohort/rezia-hayes.jpg",
+  },
+  {
+    name: "Symphonii Smith-Kennedy",
+    practice: "Painter / Mixed Media",
+    handle: "symphoniisk",
+    photo: "/cohort/symphonii-smith-kennedy.jpg",
+  },
+  {
+    name: "Jethro Gedeon",
+    practice: "Painter",
+    handle: "jet_artist",
+    photo: "/cohort/jethro-gedeon.jpg",
+  },
+  {
+    name: "Jed-Lee Metayer",
+    practice: "Abstract Expressionist",
+    handle: "jedleemetayer",
+    photo: "/cohort/jed-lee-metayer.jpg",
+  },
+];
 
 /** Verbatim from the talking points. */
 const DETAILS = [
@@ -132,19 +173,35 @@ function PersonSlot({
   name,
   caption,
   href,
+  photo,
+  handle,
 }: {
   label: string;
   name?: string;
   caption: string;
   href?: string;
+  photo?: string;
+  handle?: string;
 }) {
   return (
     <div>
-      <div className="flex aspect-[4/5] items-center justify-center border border-white/15 bg-white/[0.06]">
-        <span className="font-display text-xs uppercase tracking-[0.2em] text-white/25">
-          {label}
-        </span>
-      </div>
+      {photo ? (
+        <div className="relative aspect-[4/5] overflow-hidden border border-white/15 bg-white/[0.06]">
+          <Image
+            src={photo}
+            alt={name ? `Portrait of ${name}` : label}
+            fill
+            sizes="(min-width: 768px) 280px, 50vw"
+            className="object-cover"
+          />
+        </div>
+      ) : (
+        <div className="flex aspect-[4/5] items-center justify-center border border-white/15 bg-white/[0.06]">
+          <span className="font-display text-xs uppercase tracking-[0.2em] text-white/25">
+            {label}
+          </span>
+        </div>
+      )}
       {name ? (
         <p className="mt-4 text-base text-white">
           {href ? (
@@ -164,6 +221,16 @@ function PersonSlot({
       <p className={`text-sm text-white/45 ${name ? "mt-1" : "mt-4"}`}>
         {caption}
       </p>
+      {handle ? (
+        <a
+          href={`https://www.instagram.com/${handle}/`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-1 inline-block text-sm text-white/60 underline decoration-white/20 underline-offset-4 transition-colors hover:text-white hover:decoration-white"
+        >
+          @{handle}
+        </a>
+      ) : null}
     </div>
   );
 }
@@ -241,7 +308,7 @@ export default function HomePage() {
                 their careers.
               </p>
               <p>
-                We’re starting with a curated cohort of 7 artists and
+                We’re starting with a curated cohort of 6 artists and
                 surrounding them with education on the business-of-art,
                 relationships, cultural experiences, and real opportunities.
               </p>
@@ -312,7 +379,7 @@ export default function HomePage() {
 
             <p className="mt-12 max-w-3xl text-base leading-relaxed text-white/60 sm:text-lg">
               Not every fellow will need the same support or achieve the same
-              milestones. That’s why we’re intentionally starting with only 7
+              milestones. That’s why we’re intentionally starting with only 6
               artists. We want to understand what each artist needs and help
               them take meaningful next steps.
             </p>
@@ -325,21 +392,20 @@ export default function HomePage() {
           <div className="mx-auto max-w-6xl px-6 py-20 text-center sm:py-28">
             <SectionHeading center>The inaugural cohort</SectionHeading>
             <div className="mx-auto mt-5 h-[3px] w-24" style={{ backgroundColor: ACCENT }} />
-            <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-white/70">
-              7 artists. Announced soon.
+            <p className="mx-auto mt-8 max-w-2xl font-display text-xs uppercase tracking-[0.25em] text-white/55">
+              Cohort 001
             </p>
 
-            {/* Four then three. Wrapping flex rather than grid so the short
-                second row centres instead of hugging the left edge. */}
-            <ul className="mx-auto mt-14 flex max-w-4xl flex-wrap justify-center gap-6">
-              {Array.from({ length: COHORT_SIZE }, (_, i) => (
-                <li
-                  key={i}
-                  className="basis-[calc(50%-0.75rem)] md:basis-[calc(25%-1.125rem)]"
-                >
+            {/* Two per row on phones, three per row from md up. */}
+            <ul className="mx-auto mt-14 grid max-w-4xl grid-cols-2 gap-x-6 gap-y-12 md:grid-cols-3">
+              {COHORT.map((artist, i) => (
+                <li key={artist.handle}>
                   <PersonSlot
                     label={String(i + 1).padStart(2, "0")}
-                    caption="To be announced"
+                    name={artist.name}
+                    caption={artist.practice}
+                    photo={artist.photo}
+                    handle={artist.handle}
                   />
                 </li>
               ))}
