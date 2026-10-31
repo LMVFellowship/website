@@ -73,16 +73,16 @@ const ADVISORY_BOARD_SIZE = 6;
  */
 const COHORT = [
   {
-    name: "Zoray Cyrus",
+    name: "Zoraye Cyrus",
     practice: "Muralist",
     handle: "zorayecyrus1",
-    photo: "/cohort/zoray-cyrus.jpg",
+    photo: "/cohort/zoraye-cyrus.jpg",
   },
   {
-    name: "Leisure Bedasse",
+    name: "Kristen Bedasse",
     practice: "Painter / Sculptor",
     handle: "knicolestyle",
-    photo: "/cohort/leisure-bedasse.jpg",
+    photo: "/cohort/kristen-bedasse.jpg",
   },
   {
     name: "Rezia Hayes",
