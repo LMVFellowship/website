@@ -1,7 +1,8 @@
 # LMV Fellowship
 
-The "coming soon" site for the LMV Fellowship, a single landing page
-with the `_love made visible` wordmark and a notify-me signup form.
+The site for the LMV Fellowship. `/` is the signup page, carrying the
+`_love made visible` wordmark and a notify-me form. `/home` is the full
+fellowship page.
 
 Built with [Next.js](https://nextjs.org) (App Router) and Tailwind CSS v4.
 
@@ -89,7 +90,7 @@ address. Failures are logged either way.
 
 ## The logo
 
-The landing page renders `public/logo.gif` when that file exists, reading its
+Both pages render `public/logo.gif` when that file exists, reading its
 dimensions from the GIF header and rendering it `unoptimized` so the animation
 is preserved. Without it, the page falls back to the `_love made visible`
 script wordmark. See `public/README.md` and `app/logo.tsx`.
@@ -99,7 +100,8 @@ script wordmark. See `public/README.md` and `app/logo.tsx`.
 ```
 app/
   layout.tsx        root layout, fonts, metadata
-  page.tsx          the landing page (/home redirects here)
+  page.tsx          the signup page (/)
+  home/page.tsx     the full fellowship page (/home)
   logo.tsx          the logo (public/logo.gif, or the wordmark fallback)
   signup-form.tsx   client component for the form (useActionState)
   actions.ts        "use server", validation + delivery
