@@ -1,0 +1,1247 @@
+<!DOCTYPE html><html lang="en" data-8b-contract="4"><head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Miami &lt;&gt; Newark | LMV Fellowship</title>
+<link rel="icon" href="/icon.png" type="image/png">
+<link rel="apple-touch-icon" href="/apple-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Antonio:wght@300..600&display=swap">
+<style data-8b-part="layers">
+@layer tokens, base, atoms, layout, sections, scenes, lmv;
+</style>
+<style data-8b-part="tokens">
+@layer tokens {
+/*! @tokens
+{
+  "--color-1": "Role: the dusk ground of the first screen, the programme and the footer, currently a hot orange. Pairs: carries --color-6 text at any size and --color-5 only for large type. Keep: the most saturated warm colour, lighter than --color-3 and --color-2.",
+  "--color-2": "Role: the night ground of the opening's second screen, the journey and the late events. Pairs: carries --color-5 and --color-7 text. Keep: the darkest colour of the palette, strong contrast with --color-5.",
+  "--color-3": "Role: the violet field of the dome and the schools, and the cool half of every gradient. Pairs: carries --color-5 text. Keep: between --color-2 and --color-1 in lightness, the only cool saturated colour.",
+  "--color-4": "Role: the magenta glow at the edges of the fields and the colour bands of the programme. Pairs: carries --color-6 text. Keep: lighter than --color-3, about as light as --color-1, warmer than --color-3.",
+  "--color-5": "Role: type on dark and saturated grounds, the white pill of the navigation and the light buttons. Pairs: text on --color-2 and --color-3; --color-6 text on it. Keep: the lightest colour.",
+  "--color-6": "Role: ink for text on light and orange grounds and the dark pill buttons. Pairs: text on --color-5, --color-1 and --color-4. Keep: nearly as dark as --color-2, strong contrast with --color-5.",
+  "--color-7": "Role: small accent type on night grounds such as captions and step numbers. Pairs: text on --color-2 and --color-3. Keep: light, close to --color-5, tinted toward --color-4. Avoid: orange grounds.",
+  "--color-8": "Role: the ember shade that deepens the corners of the dusk field and the left roof panel. Pairs: carries --color-5 text. Keep: darker than --color-1 in the same warm family.",
+  "--font-1": "Role: the only family, for display, captions and body copy. Keep: a neutral neo-grotesque whose display lines rely on tight negative tracking at a medium weight and light numerals. Load: wght 300..600.",
+  "--shadow-1": "Role: the dark halo around the focus outline of pills and fields, so focus reads on light and dark grounds alike.",
+  "--radius-1": "Role: the pill shape of the navigation, buttons and fields, the brand's defining soft edge.",
+  "--space-1": "Role: the page gutter shared by every section and the header.",
+  "--space-2": "Role: the vertical breathing room above and below ordinary sections."
+}
+*/
+:root {
+  --color-1: #86877d;
+  --color-2: #0e0f08;
+  --color-3: #1b382d;
+  --color-4: #8a8971;
+  --color-5: #fcfdef;
+  --color-6: #0e0f08;
+  --color-7: #c6d8af;
+  --color-8: #1b1a0f;
+  --font-1: "Antonio", "Antonio Fallback", Arial, sans-serif;
+  --radius-1: 999px;
+  --shadow-1: 0 0 0 5px var(--color-6);
+  --space-1: clamp(16px, 3vw, 44px);
+  --space-2: clamp(88px, 13vh, 168px);
+}
+}
+</style>
+<style data-8b-part="base">
+@layer base {
+@font-face { font-family: "Geist Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"), local("Helvetica Bold"); font-weight: 550 799; size-adjust: 96.3%; ascent-override: 104.9%; descent-override: 31.1%; line-gap-override: 0%; }
+@font-face { font-family: "Geist Fallback"; src: local("Arial"), local("ArialMT"), local("Helvetica"); font-weight: 100 549; size-adjust: 101.1%; ascent-override: 99.9%; descent-override: 29.7%; line-gap-override: 0%; }
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+html.lenis, html.lenis body { height: auto; }
+.lenis-stopped { overflow: clip; }
+[data-lenis-prevent] { overscroll-behavior: contain; }
+body {
+  margin: 0;
+  background: var(--color-2);
+  color: var(--color-5);
+  font-family: var(--font-1);
+  font-size: 17px;
+  line-height: 1.45;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+button, input, textarea, select { font: inherit; color: inherit; }
+h1, h2, h3, h4, p, ul, ol, dl, dd, figure, blockquote { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+::selection { background: var(--color-4); color: var(--color-6); }
+}
+</style>
+<style data-8b-part="system">
+@layer atoms {
+/*! @atom {"selector":".m-text","use":"Use: body copy and short descriptive paragraphs. Tags: p, li, dd. Surfaces: every ground; inherits its colour from the section. Limits: paragraphs of up to about sixty words. Frequency: any. Avoid: headings or labels."} */
+.m-text { font-family: var(--font-1); font-size: 17px; line-height: 1.45; font-weight: 400; letter-spacing: -0.01em; text-transform: none; font-style: normal; }
+/*! @atom {"selector":".m-text-2","use":"Use: the giant scattered words of the first screen, each word or pair set apart at the left edge, the centre or the right edge. Tags: span inside the page h1. Rank: above .m-text-3. Surfaces: the dusk and night fields. Limits: one to two short words per piece. Frequency: the first screen only."} */
+.m-text-2 { font-family: var(--font-1); font-size: clamp(60px, 9.6vw, 176px); line-height: 0.84; font-weight: 500; letter-spacing: -0.065em; text-transform: none; font-style: normal; }
+/*! @atom {"selector":".m-text-3","use":"Use: section headings and large statements, often split into scattered words. Tags: h2, or span words inside one. Rank: below .m-text-2, above .m-text-8. Surfaces: every ground. Limits: up to about eight words. Frequency: one per section."} */
+.m-text-3 { font-family: var(--font-1); font-size: clamp(46px, 6.6vw, 116px); line-height: 0.88; font-weight: 500; letter-spacing: -0.055em; text-transform: none; font-style: normal; }
+/*! @atom {"selector":".m-text-4","use":"Use: an uppercase lead of a few short lines that states the promise of a screen. Tags: p. Surfaces: dusk and night fields. Limits: about fifteen words. Frequency: once or twice per page. Pairing: under .m-text-2 or .m-text-3."} */
+.m-text-4 { font-family: var(--font-1); font-size: clamp(17px, 1.6vw, 25px); line-height: 1.06; font-weight: 400; letter-spacing: -0.015em; text-transform: uppercase; font-style: normal; }
+/*! @atom {"selector":".m-text-5","use":"Use: small labels, captions, meta lines and stop names. Tags: span, p, dt, small. Surfaces: every ground. Limits: a few words per line. Frequency: any. Avoid: body paragraphs."} */
+.m-text-5 { font-family: var(--font-1); font-size: 14px; line-height: 1.28; font-weight: 400; letter-spacing: -0.005em; text-transform: none; font-style: normal; }
+/*! @atom {"selector":".m-text-6","use":"Use: light step numbers of stops on a line and dates. Tags: span, time. Surfaces: every ground. Limits: a number or a short date. Frequency: one per stop. Avoid: decorative numbering; only real steps or dates."} */
+.m-text-6 { font-family: var(--font-1); font-size: clamp(22px, 1.9vw, 30px); line-height: 1; font-weight: 300; letter-spacing: -0.03em; text-transform: none; font-style: normal; }
+/*! @atom {"selector":".m-text-7","use":"Use: lead paragraphs that open a section or a screen. Tags: p. Rank: between .m-text-8 and .m-text. Surfaces: every ground. Limits: up to about forty-five words. Frequency: one or two per section."} */
+.m-text-7 { font-family: var(--font-1); font-size: clamp(20px, 1.85vw, 28px); line-height: 1.2; font-weight: 400; letter-spacing: -0.03em; text-transform: none; font-style: normal; }
+/*! @atom {"selector":".m-text-8","use":"Use: titles of stops, shows, events and stages inside a section. Tags: h3, strong. Rank: below .m-text-3. Surfaces: every ground. Limits: up to five words. Frequency: one per item."} */
+.m-text-8 { font-family: var(--font-1); font-size: clamp(28px, 3vw, 48px); line-height: 0.96; font-weight: 500; letter-spacing: -0.045em; text-transform: none; font-style: normal; }
+
+/*! @atom {"selector":".m-btn","use":"Use: the main action of a section, a light pill whose hover fills it from the centre with a dark disc, like the sky closing over the dome. Tags: a with href, or button with type. Surfaces: dark, violet and saturated grounds. Limits: up to four short words. Frequency: one or two per action group. Pairing: .m-btn-2 for the alternative.","markup":"<a class=\"m-btn\" href=\"{{href}}\"><span class=\"m-btn__label\">{{label}}</span></a>"} */
+.m-btn { position: relative; display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 24px; border: 0; border-radius: var(--radius-1); background: var(--color-5); color: var(--color-6); font-family: var(--font-1); font-size: 16px; line-height: 1; font-weight: 500; letter-spacing: -0.02em; text-decoration: none; white-space: nowrap; cursor: pointer; overflow: hidden; isolation: isolate; }
+.m-btn::before { content: ""; position: absolute; left: 50%; top: 50%; width: 140%; aspect-ratio: 1; margin: -70% 0 0 -70%; border-radius: 50%; background: var(--color-6); transform: scale(0); transition: transform .5s cubic-bezier(.3, .7, .2, 1); z-index: -1; }
+.m-btn__label { position: relative; transition: color .35s; }
+/*! @atom {"selector":".m-btn-2","use":"Use: a dark pill action, the booking action of the header and actions on light or orange grounds; the hover fills it from the centre with a light disc. Tags: a with href, or button with type. Surfaces: light, orange and magenta grounds, and the header over any field. Limits: up to four short words. Frequency: one per action group.","markup":"<a class=\"m-btn-2\" href=\"{{href}}\"><span class=\"m-btn-2__label\">{{label}}</span></a>"} */
+.m-btn-2 { position: relative; display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 24px; border: 0; border-radius: var(--radius-1); background: var(--color-6); color: var(--color-5); font-family: var(--font-1); font-size: 16px; line-height: 1; font-weight: 500; letter-spacing: -0.02em; text-decoration: none; white-space: nowrap; cursor: pointer; overflow: hidden; isolation: isolate; }
+.m-btn-2::before { content: ""; position: absolute; left: 50%; top: 50%; width: 140%; aspect-ratio: 1; margin: -70% 0 0 -70%; border-radius: 50%; background: var(--color-5); transform: scale(0); transition: transform .5s cubic-bezier(.3, .7, .2, 1); z-index: -1; }
+.m-btn-2__label { position: relative; transition: color .35s; }
+@media (hover: hover) {
+  .m-btn:hover::before, .m-btn-2:hover::before { transform: scale(1); }
+  .m-btn:hover .m-btn__label { color: var(--color-5); }
+  .m-btn-2:hover .m-btn-2__label { color: var(--color-6); }
+}
+.m-btn:focus-visible, .m-btn-2:focus-visible { outline: 2px solid var(--color-5); outline-offset: 3px; box-shadow: var(--shadow-1); }
+
+/*! @atom {"selector":".m-link","use":"Use: inline and standalone text links; on hover a hairline runs under the words with a dot at its head, like a stop travelling along the line. Tags: a with href. Surfaces: every ground; takes the colour of its text. Limits: a few words. Frequency: any. Pairing: beside .m-btn as the secondary action.","markup":"<a class=\"m-link\" href=\"{{href}}\">{{label}}</a>"} */
+.m-link { position: relative; display: inline-block; padding-bottom: 3px; color: inherit; font-weight: 500; text-decoration: none; background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat; }
+.m-link::after { content: ""; position: absolute; left: 0; bottom: -2px; width: 6px; height: 6px; margin-left: -3px; border-radius: 50%; background: currentColor; opacity: 0; transition: left .5s cubic-bezier(.3, .7, .2, 1), opacity .2s; }
+/*! @atom {"selector":".m-link-2","use":"Use: the links inside the white navigation pill and other compact link lists on light pills. Tags: a with href. Surfaces: the white navigation pill and other light pills only. Limits: one or two words. Frequency: up to six in a row. Avoid: running text.","markup":"<a class=\"m-link-2\" href=\"{{href}}\">{{label}}</a>"} */
+.m-link-2 { position: relative; display: inline-block; padding: 4px 0; color: var(--color-6); font-family: var(--font-1); font-size: 16px; line-height: 1.1; font-weight: 500; letter-spacing: -0.025em; text-decoration: none; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .5s cubic-bezier(.3, .7, .2, 1); }
+.m-link-2::after { content: ""; position: absolute; left: 0; bottom: -2px; width: 5px; height: 5px; margin-left: -2.5px; border-radius: 50%; background: currentColor; opacity: 0; transition: left .5s cubic-bezier(.3, .7, .2, 1), opacity .2s; }
+@media (hover: hover) {
+  .m-link { transition: background-size .5s cubic-bezier(.3, .7, .2, 1); }
+  .m-link:hover { background-size: 0 1px; background-position: 100% 100%; }
+  .m-link:hover::after { left: 100%; opacity: 1; }
+  .m-link-2:hover { background-size: 100% 1px; }
+  .m-link-2:hover::after { left: 100%; opacity: 1; }
+}
+
+/*! @atom {"selector":".m-icon","use":"Use: round icon-only buttons such as closing the menu; on hover the icon turns a quarter, like the sky wheeling overhead. Tags: button with type and aria-label. Surfaces: night and violet grounds. Contains: one inline svg icon. Frequency: one per control.","markup":"<button class=\"m-icon\" type=\"button\" aria-label=\"{{label}}\"><svg class=\"m-icon__glyph\" viewBox=\"0 0 24 24\" aria-hidden=\"true\">{{icon}}</svg></button>"} */
+.m-icon { display: inline-grid; place-items: center; width: 52px; height: 52px; padding: 0; border: 1px solid currentColor; border-radius: var(--radius-1); background: transparent; color: inherit; cursor: pointer; }
+.m-icon__glyph { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.5; transition: transform .6s cubic-bezier(.3, .7, .2, 1); }
+@media (hover: hover) { .m-icon:hover .m-icon__glyph { transform: rotate(90deg); } }
+
+/*! @atom {"selector":".m-field","use":"Use: text inputs and text areas of forms, a white pill or rounded field with dark text and a label above it. Tags: input, textarea, inside a label with a .m-text-5 caption. Surfaces: night, violet and dawn grounds. Limits: one value per field. Frequency: as the form needs. Pairing: the second markup is the multi-line message field.","markup":["<label class=\"m-field\"><span class=\"m-field__label\">{{label}}</span><input class=\"m-field__input\" name=\"{{name}}\" type=\"{{type}}\"></label>","<label class=\"m-field\"><span class=\"m-field__label\">{{label}}</span><textarea class=\"m-field__input\" name=\"{{name}}\"></textarea></label>"]} */
+.m-field { display: grid; gap: 8px; }
+.m-field__label { font-family: var(--font-1); font-size: 14px; line-height: 1.28; font-weight: 400; letter-spacing: -0.005em; }
+.m-field__input { width: 100%; min-height: 52px; padding: 14px 22px; border: 1px solid transparent; border-radius: 26px; background: var(--color-5); color: var(--color-6); font-family: var(--font-1); font-size: 17px; line-height: 1.3; letter-spacing: -0.01em; }
+textarea.m-field__input { min-height: 132px; resize: vertical; }
+.m-field__input:focus-visible { outline: 2px solid var(--color-5); outline-offset: 3px; box-shadow: var(--shadow-1); }
+}
+</style>
+<style data-8b-part="layout">
+@layer layout {
+.u-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+}
+</style>
+<style data-8b-part="section:navigation">
+@layer sections {
+#navigation { position: fixed; inset: 0 0 auto; z-index: 50; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: clamp(12px, 1.6vw, 20px) var(--space-1); pointer-events: none; transition: transform .55s cubic-bezier(.3, .7, .2, 1); }
+#navigation[data-hidden] { transform: translateY(-130%); }
+#navigation > * { pointer-events: auto; }
+#navigation .nav__logo { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 14px 0 8px; margin-left: -8px; border-radius: var(--radius-1); color: var(--color-5); text-decoration: none; transition: background-color .4s; }
+#navigation[data-scrolled] .nav__logo { background: color-mix(in oklab, var(--color-2) 82%, transparent); }
+#navigation .nav__mark { width: 30px; height: 30px; fill: currentColor; }
+#navigation .nav__word { font-family: var(--font-1); font-size: 19px; line-height: 1; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+#navigation .nav__menu { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+#navigation .nav__list { display: flex; gap: clamp(18px, 2.2vw, 34px); padding: 10px 26px; border-radius: var(--radius-1); background: var(--color-5); }
+#navigation .nav__end { display: flex; gap: 8px; align-items: center; }
+#navigation .nav__toggle { display: none; }
+#navigation .nav__overlay { position: fixed; inset: 0; z-index: 60; display: grid; grid-template-rows: auto 1fr auto; gap: 24px; padding: clamp(14px, 1.6vw, 20px) var(--space-1) 32px; background: var(--color-3); color: var(--color-5); overflow-y: auto; }
+#navigation .nav__overlay[hidden] { display: none; }
+#navigation .nav__overlay-top { display: flex; justify-content: space-between; align-items: center; }
+#navigation .nav__overlay-list { align-self: center; display: grid; gap: 6px; }
+#navigation .nav__overlay-link { display: inline-block; padding: 4px 0; color: var(--color-5); font-size: clamp(44px, 12vw, 72px); line-height: 1; font-weight: 500; letter-spacing: -0.05em; text-decoration: none; }
+@media (max-width: 900px) {
+  #navigation .nav__menu, #navigation .nav__cta-wide { display: none; }
+  #navigation .nav__toggle { display: inline-flex; }
+}
+@media (max-width: 380px) {
+  #navigation .nav__word { font-size: 16px; letter-spacing: 0.1em; }
+  #navigation .nav__end .m-btn-2, #navigation .nav__end .m-btn { padding: 0 18px; }
+}
+}
+</style>
+<style data-8b-part="section:opening">
+@layer sections {
+#opening { position: relative; overflow-x: clip; background: var(--color-2); color: var(--color-5); }
+#opening .op__stage { position: relative; z-index: 0; height: 100lvh; margin-bottom: -100lvh; overflow: hidden; isolation: isolate; }
+#opening .op__ground { position: absolute; inset: 0; background:
+  radial-gradient(max(42vw, 300px) max(26vh, 200px) at 0% 0%, color-mix(in oklab, var(--color-8) 90%, transparent) 0%, color-mix(in oklab, var(--color-8) 70%, transparent) 45%, transparent 100%),
+  radial-gradient(60% 60% at 100% 0%, color-mix(in oklab, var(--color-8) 55%, transparent) 0%, transparent 60%),
+  radial-gradient(64% 54% at 50% 30%, color-mix(in oklab, var(--color-1) 84%, var(--color-5)) 0%, transparent 72%),
+  var(--color-1); }
+#opening .op__photo { position: absolute; inset: -5%; mix-blend-mode: difference; }
+#opening .op__photo-in { width: 100%; height: 100%; }
+#opening .op__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 58% 38%; filter: grayscale(1) invert(1) brightness(.62) contrast(2) blur(6px); }
+#opening .op__glow { position: absolute; border-radius: 50%; }
+#opening .op__glow--a { right: -22vw; bottom: -38vw; width: 78vw; height: 78vw; background: radial-gradient(closest-side, color-mix(in oklab, var(--color-4) 92%, transparent) 0%, color-mix(in oklab, var(--color-4) 40%, transparent) 55%, transparent 100%); }
+#opening .op__glow--b { left: 18vw; bottom: -40vw; width: 64vw; height: 64vw; background: radial-gradient(closest-side, color-mix(in oklab, var(--color-3) 75%, transparent) 0%, transparent 100%); }
+#opening .op__night { position: absolute; inset: 0; opacity: 0; background:
+  radial-gradient(90% 60% at 50% 100%, color-mix(in oklab, var(--color-3) 62%, var(--color-2)) 0%, transparent 100%),
+  var(--color-2); }
+#opening .op__stars { position: absolute; inset: -4%; opacity: .42;
+  background-image:
+    radial-gradient(circle at 17% 23%, var(--color-5) 0 0.8px, transparent 1.4px),
+    radial-gradient(circle at 63% 71%, var(--color-5) 0 0.6px, transparent 1.2px),
+    radial-gradient(circle at 88% 12%, var(--color-7) 0 1px, transparent 1.7px),
+    radial-gradient(circle at 34% 54%, var(--color-5) 0 0.7px, transparent 1.3px),
+    radial-gradient(circle at 76% 38%, var(--color-5) 0 1.2px, transparent 2px),
+    radial-gradient(circle at 8% 87%, var(--color-7) 0 0.6px, transparent 1.2px),
+    radial-gradient(circle at 51% 9%, var(--color-5) 0 0.8px, transparent 1.4px);
+  background-size: 173px 191px, 241px 223px, 307px 281px, 389px 353px, 457px 419px, 127px 139px, 211px 263px;
+  -webkit-mask-image: radial-gradient(38% 34% at 34% 34%, currentColor 0%, transparent 100%), radial-gradient(34% 30% at 72% 58%, currentColor 0%, transparent 100%);
+  mask-image: radial-gradient(38% 34% at 34% 34%, currentColor 0%, transparent 100%), radial-gradient(34% 30% at 72% 58%, currentColor 0%, transparent 100%); }
+#opening .op__sky { position: absolute; inset: -4%; opacity: 0;
+  background-image:
+    radial-gradient(circle at 17% 23%, var(--color-5) 0 0.9199999999999999px, transparent 1.6099999999999999px),
+    radial-gradient(circle at 63% 71%, var(--color-5) 0 0.69px, transparent 1.38px),
+    radial-gradient(circle at 88% 12%, var(--color-7) 0 1.15px, transparent 1.9549999999999998px),
+    radial-gradient(circle at 34% 54%, var(--color-5) 0 0.8049999999999999px, transparent 1.4949999999999999px),
+    radial-gradient(circle at 76% 38%, var(--color-5) 0 1.38px, transparent 2.3px),
+    radial-gradient(circle at 8% 87%, var(--color-7) 0 0.69px, transparent 1.38px),
+    radial-gradient(circle at 51% 9%, var(--color-5) 0 0.9199999999999999px, transparent 1.6099999999999999px);
+  background-size: 173px 191px, 241px 223px, 307px 281px, 389px 353px, 457px 419px, 127px 139px, 211px 263px; }
+#opening .op__ring { position: absolute; left: 50%; top: 21%; width: min(47vw, 760px); aspect-ratio: 1; margin-left: max(-23.5vw, -380px); margin-top: max(-23.5vw, -380px); }
+#opening .op__ring-in { position: absolute; inset: 0; border: 1px solid color-mix(in oklab, var(--color-5) 60%, transparent); border-radius: 50%; }
+#opening .op__orbit { position: absolute; inset: 0; }
+#opening .op__dot { position: absolute; left: 50%; top: 0; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; background: radial-gradient(closest-side, var(--color-5) 0 22%, color-mix(in oklab, var(--color-5) 30%, transparent) 40%, transparent 100%); }
+#opening .op__rays { position: absolute; left: 50%; bottom: 0; width: 44vw; height: 34vw; margin-left: -22vw; transform-origin: 50% 100%;
+  background: repeating-conic-gradient(from -90deg at 50% 100%, color-mix(in oklab, var(--color-5) 85%, transparent) 0deg .32deg, transparent .32deg 6deg);
+  -webkit-mask-image: radial-gradient(34% 46% at 50% 100%, currentColor 0%, transparent 100%);
+  mask-image: radial-gradient(34% 46% at 50% 100%, currentColor 0%, transparent 100%); }
+
+#opening .op__screen { position: relative; z-index: 1; }
+#opening .op__screen--1 { min-height: 100svh; display: grid; grid-template-rows: minmax(120px, 1fr) auto auto minmax(28px, .38fr) auto; padding: 0 var(--space-1) clamp(16px, 2.8vh, 30px); }
+#opening .op__title { grid-row: 2; display: grid; grid-template-columns: 1fr auto 1fr; align-items: end; }
+#opening .hw { display: block; white-space: nowrap; }
+#opening .hw__in { display: block; padding-bottom: .08em; }
+#opening .hw--1 { grid-area: 1 / 1; }
+#opening .hw--2 { grid-area: 2 / 1; }
+#opening .hw--3 { grid-area: 2 / 2; }
+#opening .hw--4 { grid-area: 1 / 3; justify-self: end; }
+#opening .hw--5 { grid-area: 2 / 3; justify-self: end; }
+#opening .op__caption { position: absolute; left: 50%; top: 35%; width: 9em; margin-left: -4.5em; color: var(--color-7); text-align: center; text-decoration: none; }
+#opening .op__caption span { display: block; }
+#opening .op__lead { grid-row: 3; justify-self: center; width: min(22ch, 100%); margin-top: clamp(28px, 6vh, 64px); text-align: center; }
+#opening .op__stops { grid-row: 5; position: relative; display: grid; grid-template-columns: repeat(4, 1fr); }
+#opening .op__stops::before { content: ""; position: absolute; left: 0; right: 0; top: 30px; height: 1px; background: color-mix(in oklab, var(--color-5) 60%, transparent); }
+#opening .op__stop { display: grid; grid-template-rows: 18px 26px auto; justify-items: start; align-items: center; }
+#opening .op__stop-label { white-space: nowrap; line-height: 18px; }
+#opening .op__stop-dot { width: 8px; height: 8px; margin-top: 4px; border-radius: 50%; background: var(--color-5); }
+#opening .op__stop-num { margin-top: 2px; }
+#opening .op__stop:nth-child(1) { grid-area: 1 / 1; }
+#opening .op__stop:nth-child(2) { grid-area: 1 / 2; }
+#opening .op__stop:nth-child(3) { grid-area: 1 / 3; justify-items: center; justify-self: start; transform: translateX(-50%); }
+#opening .op__stop:nth-child(4) { grid-area: 1 / 4; }
+#opening .op__stop:nth-child(5) { grid-area: 1 / 4; justify-self: end; justify-items: end; }
+
+#opening .op__screen--2 { min-height: 100svh; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); align-content: center; gap: clamp(32px, 6vh, 72px) 20px; padding: clamp(96px, 16vh, 160px) var(--space-1) clamp(72px, 12vh, 128px);
+  background: linear-gradient(180deg, color-mix(in oklab, var(--color-3) 55%, var(--color-4)) 0%, color-mix(in oklab, var(--color-3) 60%, var(--color-2)) 30%, var(--color-2) 70%); }
+#opening .op__statement { grid-column: 1 / span 10; max-width: 13em; }
+#opening .op__more { grid-column: 7 / span 6; display: grid; gap: 28px; }
+#opening .op__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  #opening .op__photo-in { animation: op-settle 1.2s cubic-bezier(.2, .7, .2, 1) backwards; }
+  #opening .op__ring-in { animation: op-ring 1.1s cubic-bezier(.2, .7, .2, 1) backwards; }
+  #opening .hw__in { animation: op-rise .9s cubic-bezier(.2, .7, .2, 1) backwards; }
+  #opening .hw--2 .hw__in, #opening .hw--5 .hw__in { animation-delay: .08s; }
+  #opening .hw--3 .hw__in { animation-delay: .14s; }
+  #opening .op__lead, #opening .op__stops { animation: op-lift 1s .15s cubic-bezier(.2, .7, .2, 1) backwards; }
+  #opening .op__glow--a { animation: op-drift-a 9s ease-in-out infinite alternate; }
+  #opening .op__glow--b { animation: op-drift-b 11s ease-in-out infinite alternate; }
+  #opening .op__orbit { animation: op-orbit 42s linear infinite; }
+  #opening[data-offscreen] .op__glow, #opening[data-offscreen] .op__orbit { animation-play-state: paused; }
+}
+@keyframes op-settle { from { transform: scale(1.08); } }
+@keyframes op-ring { from { transform: scale(.9); } }
+@keyframes op-rise { from { transform: translateY(.32em); } }
+@keyframes op-lift { from { transform: translateY(18px); } }
+@keyframes op-drift-a { from { transform: translate(-7vw, 3vh); } to { transform: translate(5vw, -6vh); } }
+@keyframes op-drift-b { from { transform: translate(-6vw, 0); } to { transform: translate(8vw, -5vh); } }
+@keyframes op-orbit { to { transform: rotate(360deg); } }
+
+@media (max-width: 760px) {
+  #opening .op__screen--1 { grid-template-rows: minmax(96px, 1fr) auto auto minmax(24px, .3fr) auto; }
+  #opening .op__title { grid-template-columns: 1fr 1fr; row-gap: 0; }
+  #opening .m-text-2 { font-size: clamp(54px, 17.5vw, 96px); }
+  #opening .hw--1 { grid-area: 1 / 1; }
+  #opening .hw--2 { grid-area: 2 / 1 / 3 / 3; }
+  #opening .hw--3 { grid-area: 3 / 1; }
+  #opening .hw--4 { grid-area: 3 / 2; justify-self: end; }
+  #opening .hw--5 { grid-area: 4 / 2; justify-self: end; }
+  #opening .op__ring { top: 24%; width: 86vw; margin-left: -43vw; margin-top: -43vw; }
+  #opening .op__caption { top: 28%; }
+  #opening .op__lead { width: min(24ch, 100%); margin-top: 28px; }
+  #opening .op__stops::before { top: 39px; }
+  #opening .op__stop { grid-template-rows: 30px 18px auto; }
+  #opening .op__stop-label { white-space: normal; width: 8ch; font-size: 12px; line-height: 15px; }
+  #opening .op__stop:nth-child(3) .op__stop-label { text-align: center; }
+  #opening .op__stop:nth-child(5) .op__stop-label { text-align: right; }
+  #opening .op__stop-num { font-size: 20px; }
+  #opening .op__rays { width: 110vw; height: 80vw; margin-left: -55vw; }
+  #opening .op__screen--2 { grid-template-columns: minmax(0, 1fr); }
+  #opening .op__statement, #opening .op__more { grid-column: 1; }
+}
+}
+</style>
+<style data-8b-part="scene-style:opening">
+@layer scenes {
+@media (prefers-reduced-motion: no-preference) {
+  #opening[data-staged] .op__stage { position: sticky; top: 0; }
+  #opening[data-staged] .op__screen--2 { background: none; }
+}
+}
+</style>
+<style data-8b-part="section:journey">
+@layer sections {
+#journey { position: relative; background: var(--color-2); color: var(--color-5); }
+#journey .jr__pin { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(36px, 6vh, 64px); padding: var(--space-2) var(--space-1); }
+#journey .jr__head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px; align-items: end; }
+#journey .jr__title { grid-column: 1 / span 6; }
+#journey .jr__intro { grid-column: 7 / span 6; max-width: 34em; justify-self: end; }
+#journey .jr__track { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; }
+#journey .jr__stop { display: grid; gap: 18px; align-content: start; }
+#journey .jr__media { position: relative; aspect-ratio: 3 / 4; overflow: hidden; background: var(--color-2); isolation: isolate; }
+#journey .jr__img { width: 100%; height: 100%; object-fit: cover; mix-blend-mode: screen; }
+#journey .jr__text { display: grid; gap: 10px; align-content: start; }
+#journey .jr__num, #journey .jr__far { color: var(--color-7); }
+#journey .jr__progress { position: relative; height: 26px; }
+#journey .jr__line { position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: color-mix(in oklab, var(--color-5) 45%, transparent); }
+#journey .jr__mark { position: absolute; top: 50%; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: var(--color-5); }
+#journey .jr__mark:nth-child(2) { left: 0; }
+#journey .jr__mark:nth-child(3) { left: 25%; }
+#journey .jr__mark:nth-child(4) { left: 50%; }
+#journey .jr__mark:nth-child(5) { left: 75%; }
+#journey .jr__mark:nth-child(6) { left: 100%; }
+#journey .jr__runner { position: absolute; left: 0; top: 50%; width: 30px; height: 30px; margin: -15px 0 0 -15px; border-radius: 50%; background: radial-gradient(closest-side, var(--color-4) 0 30%, color-mix(in oklab, var(--color-4) 35%, transparent) 55%, transparent 100%); }
+@media (max-width: 1100px) {
+  #journey .jr__track { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  #journey .jr__head { grid-template-columns: minmax(0, 1fr); }
+  #journey .jr__title, #journey .jr__intro { grid-column: 1; justify-self: start; }
+  #journey .jr__track { grid-template-columns: minmax(0, 1fr); gap: 44px; }
+  #journey .jr__media { aspect-ratio: 16 / 11; }
+}
+}
+</style>
+<style data-8b-part="scene-style:journey">
+@layer scenes {
+@media (prefers-reduced-motion: no-preference) {
+  #journey[data-track] .jr__pin { height: 100vh; height: 100svh; grid-template-rows: auto minmax(0, 1fr) auto; gap: clamp(20px, 4vh, 44px); padding: clamp(84px, 13vh, 128px) 0 clamp(24px, 5vh, 48px); overflow: hidden; }
+  #journey[data-track] .jr__head, #journey[data-track] .jr__progress { margin: 0 var(--space-1); }
+  #journey[data-track] .jr__track { display: flex; width: max-content; height: 100%; gap: clamp(28px, 4vw, 72px); padding: 0 var(--space-1); }
+  #journey[data-track] .jr__stop { width: min(70vw, 1000px); height: 100%; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); align-items: end; gap: clamp(20px, 3vw, 44px); }
+  #journey[data-track] .jr__media { aspect-ratio: auto; height: 100%; min-height: 0; }
+  #journey[data-track] .jr__img { position: absolute; top: 0; left: -10%; width: 120%; max-width: none; height: 100%; }
+  #journey[data-track] .jr__text { align-content: end; }
+}
+@media (prefers-reduced-motion: no-preference) and (max-width: 760px) {
+  #journey[data-track] .jr__intro { font-size: 17px; line-height: 1.35; }
+  #journey[data-track] .jr__track { gap: 48px; }
+  #journey[data-track] .jr__stop { width: 84vw; grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr) auto; gap: 16px; }
+  #journey[data-track] .jr__media { height: 100%; min-height: 110px; }
+  #journey[data-track] .jr__text { gap: 6px; }
+}
+}
+</style>
+<style data-8b-part="section:dome">
+@layer sections {
+#dome { position: relative; background: var(--color-3); color: var(--color-5); }
+#dome .dm__stage { position: relative; min-height: 100vh; min-height: 100svh; overflow: hidden; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: auto 1fr auto; gap: 24px 20px; padding: clamp(96px, 14vh, 140px) var(--space-1) clamp(40px, 7vh, 72px); isolation: isolate; }
+#dome .dm__sky { position: absolute; inset: 0; z-index: -1; background: color-mix(in oklab, var(--color-3) 72%, var(--color-2)); clip-path: circle(150% at 50% 50%); }
+#dome .dm__sky::after { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 50% at 0% 100%, color-mix(in oklab, var(--color-2) 88%, transparent) 0%, transparent 100%), radial-gradient(48% 46% at 100% 0%, color-mix(in oklab, var(--color-2) 85%, transparent) 0%, transparent 100%); }
+#dome .dm__turn { position: absolute; left: 50%; top: 50%; width: 150vmax; height: 150vmax; margin: -75vmax 0 0 -75vmax; }
+#dome .dm__turn img { width: 100%; height: 100%; object-fit: cover; opacity: .5; filter: grayscale(1) contrast(1.35) brightness(.8); }
+#dome .dm__ring { position: absolute; left: 50%; top: 50%; z-index: -1; width: 30vmax; width: calc(hypot(100vw, 100vh) * 0.198); aspect-ratio: 1; translate: -50% -50%; border: 1px solid color-mix(in oklab, var(--color-5) 70%, transparent); border-radius: 50%; opacity: 0; pointer-events: none; }
+#dome .dm__title { display: contents; }
+#dome .dm__w1 { grid-area: 1 / 1 / 2 / 8; align-self: start; }
+#dome .dm__w2 { grid-area: 2 / 1 / 3 / 13; align-self: center; justify-self: center; }
+#dome .dm__w3 { grid-area: 3 / 6 / 4 / 13; align-self: end; justify-self: end; text-align: right; }
+#dome .dm__p1 { grid-area: 1 / 9 / 2 / 13; align-self: start; max-width: 22em; }
+#dome .dm__p2 { grid-area: 3 / 1 / 4 / 6; align-self: end; max-width: 30em; }
+@media (max-width: 760px) {
+  #dome .dm__stage { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto 1fr auto auto; gap: 18px; }
+  #dome .dm__w1 { grid-area: 1 / 1; }
+  #dome .dm__p1 { grid-area: 2 / 1; }
+  #dome .dm__w2 { grid-area: 3 / 1; }
+  #dome .dm__w3 { grid-area: 4 / 1; }
+  #dome .dm__p2 { grid-area: 5 / 1; }
+  #dome .dm__sky::after { background: linear-gradient(180deg, color-mix(in oklab, var(--color-2) 85%, transparent) 0%, transparent 38%, transparent 58%, color-mix(in oklab, var(--color-2) 88%, transparent) 100%); }
+}
+}
+</style>
+<style data-8b-part="scene-style:dome">
+@layer scenes {
+@media (prefers-reduced-motion: no-preference) {
+  #dome[data-turning] { height: 230vh; }
+  #dome[data-turning] .dm__stage { position: sticky; top: 0; height: 100vh; height: 100svh; }
+}
+}
+</style>
+<style data-8b-part="section:shows">
+@layer sections {
+#shows { position: relative; padding: var(--space-2) var(--space-1); background: var(--color-1); color: var(--color-6); }
+#shows .sh__head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 32px 20px; margin-bottom: clamp(48px, 8vh, 96px); }
+#shows .sh__title { grid-column: 1 / span 12; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0 .3em; }
+#shows .sh__intro { grid-column: 7 / span 6; }
+#shows .sh__row { position: relative; display: grid; grid-template-columns: minmax(80px, 140px) minmax(0, 1.1fr) minmax(0, 1.5fr) minmax(0, .7fr) auto; gap: 16px 28px; align-items: center; padding: 26px 0; }
+#shows .sh__rule { position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--color-6); }
+#shows .sh__band { height: 56px; border-radius: var(--radius-1); }
+#shows .sh__band--1 { background: linear-gradient(90deg, var(--color-8), var(--color-3)); }
+#shows .sh__band--2 { background: linear-gradient(90deg, var(--color-2), var(--color-3)); }
+#shows .sh__band--3 { background: linear-gradient(90deg, var(--color-4), var(--color-7)); }
+#shows .sh__band--4 { background: linear-gradient(90deg, var(--color-2), var(--color-4)); }
+#shows .sh__band--5 { background: radial-gradient(circle at 50% 50%, var(--color-6) 0 30%, var(--color-7) 34%, var(--color-8) 70%); }
+#shows .sh__times { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+#shows .sh__times .m-btn-2 { min-height: 44px; padding: 0 18px; }
+#shows .sh__foot { position: relative; padding-top: 26px; }
+@media (max-width: 1000px) {
+  #shows .sh__row { grid-template-columns: 96px minmax(0, 1fr) auto; }
+  #shows .sh__name { grid-column: 2 / 4; }
+  #shows .sh__band { grid-row: 1 / 3; align-self: start; }
+  #shows .sh__about { grid-column: 2 / 4; }
+  #shows .sh__meta { grid-column: 2; }
+  #shows .sh__times { grid-column: 3; }
+}
+@media (max-width: 760px) {
+  #shows .sh__intro { grid-column: 1 / span 12; }
+  #shows .sh__row { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  #shows .sh__band, #shows .sh__name, #shows .sh__about, #shows .sh__meta, #shows .sh__times { grid-column: 1; grid-row: auto; }
+  #shows .sh__band { height: 14px; width: 100%; }
+  #shows .sh__times { justify-content: flex-start; }
+}
+}
+</style>
+<style data-8b-part="section:live">
+@layer sections {
+#live { position: relative; overflow: hidden; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 40px 20px; padding: var(--space-2) var(--space-1); background: linear-gradient(160deg, var(--color-2) 0%, color-mix(in oklab, var(--color-3) 70%, var(--color-2)) 55%, color-mix(in oklab, var(--color-4) 45%, var(--color-3)) 100%); color: var(--color-5); isolation: isolate; }
+#live .lv__photo { position: absolute; right: -4vw; top: 0; bottom: 0; z-index: -1; width: 62vw; mix-blend-mode: screen; }
+#live .lv__photo img { width: 100%; height: 100%; object-fit: cover; object-position: 30% 40%; filter: grayscale(1) brightness(.9) contrast(1.15); -webkit-mask-image: linear-gradient(90deg, transparent 0%, currentColor 45%); mask-image: linear-gradient(90deg, transparent 0%, currentColor 45%); }
+#live .lv__words { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr auto 1fr; row-gap: .06em; }
+#live .lv__w1 { grid-area: 1 / 1; }
+#live .lv__w2 { grid-area: 1 / 3; justify-self: end; }
+#live .lv__w3 { grid-area: 2 / 2; }
+#live .lv__w4 { grid-area: 3 / 1; }
+#live .lv__w5 { grid-area: 3 / 3; justify-self: end; }
+#live .w { display: block; white-space: nowrap; }
+#live .lv__by { grid-column: 1 / span 5; color: var(--color-7); }
+#live .lv__text { grid-column: 1 / span 5; max-width: 26em; }
+#live .lv__roster { grid-column: 8 / span 5; align-self: end; max-width: 30em; }
+@media (max-width: 760px) {
+  #live .lv__photo { right: -30vw; width: 110vw; }
+  #live .lv__photo img { opacity: .7; }
+  #live .lv__words { grid-template-columns: 1fr 1fr; }
+  #live .lv__w1 { grid-area: 1 / 1 / 2 / 3; }
+  #live .lv__w2 { grid-area: 2 / 1 / 3 / 3; justify-self: end; }
+  #live .lv__w3 { grid-area: 3 / 1; }
+  #live .lv__w4 { grid-area: 4 / 1 / 5 / 3; }
+  #live .lv__w5 { grid-area: 5 / 1 / 6 / 3; justify-self: end; }
+  #live .lv__by, #live .lv__text, #live .lv__roster { grid-column: 1 / -1; }
+}
+}
+</style>
+<style data-8b-part="section:nights">
+@layer sections {
+#nights { position: relative; padding: var(--space-2) var(--space-1); background: var(--color-2); color: var(--color-5); overflow: hidden; }
+#nights .nt__head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 24px 20px; margin-bottom: clamp(56px, 9vh, 104px); }
+#nights .nt__title { grid-column: 1 / span 6; }
+#nights .nt__intro { grid-column: 7 / span 6; align-self: end; max-width: 26em; justify-self: end; }
+#nights .nt__rail { position: relative; }
+#nights .nt__line { position: absolute; left: 0; right: 0; top: 52px; height: 1px; background: color-mix(in oklab, var(--color-5) 55%, transparent); transform-origin: 0 50%; }
+#nights .nt__list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px 20px; }
+#nights .nt__event { display: grid; grid-template-rows: 30px 44px auto auto auto auto; gap: 12px; align-content: start; }
+#nights .nt__date { color: var(--color-7); align-self: end; }
+#nights .nt__dot { align-self: center; width: 11px; height: 11px; border-radius: 50%; background: var(--color-4); }
+#nights .nt__media { aspect-ratio: 4 / 3; overflow: hidden; }
+#nights .nt__media img { width: 100%; height: 100%; object-fit: cover; }
+#nights .nt__meta { color: var(--color-7); }
+@media (max-width: 1000px) {
+  #nights .nt__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  #nights .nt__line { display: none; }
+}
+@media (max-width: 760px) {
+  #nights .nt__head { grid-template-columns: minmax(0, 1fr); }
+  #nights .nt__title, #nights .nt__intro { grid-column: 1; justify-self: start; }
+  #nights .nt__rail { padding-left: 32px; }
+  #nights .nt__line { display: block; left: 5px; right: auto; top: 8px; bottom: 8px; width: 1px; height: auto; transform-origin: 50% 0; }
+  #nights .nt__list { grid-template-columns: minmax(0, 1fr); gap: 48px; }
+  #nights .nt__event { position: relative; grid-template-rows: auto; }
+  #nights .nt__dot { position: absolute; left: -32px; top: 8px; }
+}
+}
+</style>
+<style data-8b-part="section:contact">
+@layer sections {
+#contact { position: relative; overflow: hidden; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 48px 20px; padding: var(--space-2) var(--space-1) clamp(140px, 24vh, 260px); color: var(--color-5); isolation: isolate;
+  background: linear-gradient(180deg, var(--color-2) 0%, color-mix(in oklab, var(--color-3) 75%, var(--color-2)) 46%, color-mix(in oklab, var(--color-3) 55%, var(--color-4)) 82%, color-mix(in oklab, var(--color-4) 50%, var(--color-1)) 100%); }
+#contact .ct__night { position: absolute; inset: 0; z-index: -1; background: var(--color-2); opacity: 0; }
+#contact .ct__head { grid-column: 1 / -1; position: relative; display: grid; justify-items: center; padding: clamp(40px, 8vh, 96px) 0; }
+#contact .ct__ring { position: absolute; left: 50%; top: 50%; width: min(64vw, 760px); aspect-ratio: 1; translate: -50% -50%; border: 1px solid color-mix(in oklab, var(--color-5) 65%, transparent); border-radius: 50%; z-index: -1; pointer-events: none; }
+#contact .ct__title { display: grid; justify-items: center; text-align: center; }
+#contact .ct__facts { grid-column: 1 / span 6; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px 24px; align-content: start; }
+#contact .ct__fact { display: grid; gap: 8px; }
+#contact .ct__fact dt { color: var(--color-7); }
+#contact .ct__fact dd { margin: 0; overflow-wrap: anywhere; }
+#contact .ct__form { grid-column: 8 / span 5; display: grid; gap: 16px; align-content: start; }
+#contact .ct__form .m-btn { justify-self: start; }
+#contact .ct__status { color: var(--color-7); }
+@media (max-width: 900px) {
+  #contact .ct__facts, #contact .ct__form { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) {
+  #contact .ct__facts { grid-template-columns: minmax(0, 1fr); }
+  #contact .ct__ring { width: 92vw; }
+}
+}
+</style>
+<style data-8b-part="section:footer">
+@layer sections {
+#footer { position: relative; padding: clamp(56px, 9vh, 96px) var(--space-1) 28px; background: var(--color-1); color: var(--color-6); }
+#footer .ft__word { display: block; font-family: var(--font-1); font-weight: 500; letter-spacing: -0.07em; line-height: .8; font-size: min(46vw, calc((100vw - 2 * var(--space-1)) / (var(--len) * 0.41))); margin: 0 0 clamp(40px, 7vh, 72px) -0.04em; white-space: nowrap; }
+#footer .ft__cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px 20px; }
+#footer .ft__col { display: grid; gap: 10px; align-content: start; justify-items: start; min-width: 0; }
+#footer .ft__col .m-link { max-width: 100%; overflow-wrap: anywhere; }
+#footer .ft__col h2 { margin-bottom: 6px; }
+#footer .ft__legal { margin-top: clamp(40px, 7vh, 72px); padding-top: 18px; border-top: 1px solid var(--color-6); }
+@media (max-width: 760px) {
+  #footer .ft__cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+}
+</style>
+<style data-8b-part="fonts">
+@font-face { font-family: "Antonio Fallback"; src: local("Arial"), local("ArialMT"), local("Helvetica"); size-adjust: 83.8%; ascent-override: 137.8%; descent-override: 16.6%; line-gap-override: 0%; }
+</style>
+  <meta name="description" content="A week of programming, cultural experiences, and opportunities to connect with Miami&#8217;s arts community, November 29 to December 6.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Miami &lt;&gt; Newark | LMV Fellowship">
+  <meta property="og:image" content="https://www.lmvfellowship.com/opengraph-image.png">
+  <meta property="og:url" content="https://www.lmvfellowship.com/art-week">
+  <meta property="og:description" content="A week of programming, cultural experiences, and opportunities to connect with Miami&#8217;s arts community, November 29 to December 6.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Miami &lt;&gt; Newark | LMV Fellowship">
+  <meta name="twitter:image" content="https://www.lmvfellowship.com/twitter-image.png">
+  <meta name="twitter:description" content="A week of programming, cultural experiences, and opportunities to connect with Miami&#8217;s arts community, November 29 to December 6.">
+<style data-lmv="overrides">
+/*
+ * LMV adjustments to the template, in a layer declared after `scenes` so
+ * they win without specificity games. Kept separate so the template's own
+ * layers stay as supplied.
+ */
+@layer lmv {
+
+/* Navigation: the _lmv mark replaces the template's dot logo and wordmark. */
+#navigation .nav__lmv { display: block; width: auto; height: 30px; }
+#navigation .nav__overlay-top .nav__lmv { height: 34px; }
+
+/* Opening, first screen. Two dates across the top, the cities beneath. */
+#opening .op__caption { pointer-events: none; }
+
+/* Seven days on the line instead of five stops. */
+#opening .op__stops { display: flex; justify-content: space-between; grid-template-columns: none; }
+#opening .op__stop,
+#opening .op__stop:nth-child(n) { grid-area: auto; justify-self: auto; justify-items: center; transform: none; }
+#opening .op__stop:first-child { justify-items: start; }
+#opening .op__stop:last-child { justify-items: end; }
+
+@media (max-width: 760px) {
+  #opening .hw--1 { grid-area: 1 / 1; }
+  #opening .hw--4 { grid-area: 1 / 2; justify-self: end; }
+  #opening .hw--2 { grid-area: 2 / 1 / 3 / 3; }
+  #opening .hw--3 { grid-area: 3 / 1 / 4 / 3; justify-self: center; }
+  #opening .hw--5 { grid-area: 4 / 1 / 5 / 3; justify-self: end; }
+  /* Seven stops will not fit a phone; the full schedule follows below. */
+  #opening .op__stops { display: none; }
+}
+
+/* Journey: six artist portraits. The source photos are small (as little as
+   148px wide), so frames stay modest rather than upscaling them hard. */
+#journey .jr__track { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+#journey .jr__media { aspect-ratio: 4 / 5; max-width: 320px; }
+#journey .jr__img { object-position: 50% 28%; mix-blend-mode: normal; }
+#journey .jr__mark:nth-child(2) { left: 0; }
+#journey .jr__mark:nth-child(3) { left: 20%; }
+#journey .jr__mark:nth-child(4) { left: 40%; }
+#journey .jr__mark:nth-child(5) { left: 60%; }
+#journey .jr__mark:nth-child(6) { left: 80%; }
+#journey .jr__mark:nth-child(7) { left: 100%; }
+@media (max-width: 1100px) { #journey .jr__track { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 760px) { #journey .jr__track { grid-template-columns: minmax(0, 1fr); } }
+
+@media (prefers-reduced-motion: no-preference) {
+  #journey[data-track] .jr__stop { width: min(78vw, 760px); grid-template-columns: clamp(190px, 21vw, 300px) minmax(0, 1fr); }
+  #journey[data-track] .jr__media { height: auto; max-height: 100%; max-width: none; aspect-ratio: 4 / 5; align-self: end; }
+}
+@media (prefers-reduced-motion: no-preference) and (max-width: 760px) {
+  #journey[data-track] .jr__stop { width: 78vw; grid-template-columns: minmax(0, 1fr); }
+  #journey[data-track] .jr__media { width: min(100%, 260px); height: 100%; aspect-ratio: auto; }
+}
+
+/* Shows: who is coming. The counts are labels, not buttons. */
+#shows .sh__pill { display: inline-flex; align-items: center; justify-content: center; min-width: 56px; min-height: 44px; padding: 0 18px; border-radius: var(--radius-1); background: var(--color-6); color: var(--color-5); font-family: var(--font-1); font-size: 20px; line-height: 1; font-weight: 500; letter-spacing: -0.02em; }
+
+/* Nights: seven detailed days read best as a vertical rail at every width,
+   date on the left and the day's plan beside it. */
+#nights .nt__rail { max-width: 1120px; padding-left: 44px; }
+#nights .nt__line { display: block; left: 5px; right: auto; top: 10px; bottom: 10px; width: 1px; height: auto; transform-origin: 50% 0; }
+#nights .nt__list { grid-template-columns: minmax(0, 1fr); gap: clamp(44px, 7vh, 72px); }
+#nights .nt__event { position: relative; grid-template-columns: minmax(110px, .45fr) minmax(0, 1.55fr); grid-template-rows: auto auto; column-gap: clamp(24px, 4vw, 64px); row-gap: 10px; }
+#nights .nt__dot { position: absolute; left: -44px; top: 10px; }
+#nights .nt__date { grid-area: 1 / 1; align-self: start; }
+#nights .nt__meta { grid-area: 2 / 1; align-self: start; }
+#nights .nt__event > h3 { grid-area: 1 / 2; }
+#nights .nt__event > .m-text { grid-area: 2 / 2; max-width: 38em; }
+@media (max-width: 760px) {
+  #nights .nt__rail { padding-left: 32px; }
+  #nights .nt__dot { left: -32px; top: 8px; }
+  #nights .nt__event { grid-template-columns: minmax(0, 1fr); }
+  #nights .nt__date, #nights .nt__meta, #nights .nt__event > h3, #nights .nt__event > .m-text { grid-area: auto; }
+}
+
+/* Contact: the form became a single link to the real signup page. */
+#contact .ct__form { align-content: center; }
+
+/* Footer: three columns instead of four. */
+#footer .ft__cols { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+@media (max-width: 760px) { #footer .ft__cols { grid-template-columns: minmax(0, 1fr); } }
+
+}
+</style>
+
+</head>
+<body>
+<header id="navigation" data-8b-section="navigation">
+  <a class="nav__logo" href="#opening" aria-label="Back to the top of the page">
+    <img class="nav__lmv" src="/lmv-mark.png" alt="LMV" width="448" height="159">
+  </a>
+  <nav class="nav__menu" aria-label="Menu">
+    <ul class="nav__list">
+      <li><a class="m-link-2" href="#journey">The Artists</a></li>
+      <li><a class="m-link-2" href="#shows">The Exchange</a></li>
+      <li><a class="m-link-2" href="#nights">The Week</a></li>
+      <li><a class="m-link-2" href="#contact">Stay Updated</a></li>
+    </ul>
+  </nav>
+  <div class="nav__end">
+    <a class="m-btn-2 nav__cta" href="/"><span class="m-btn-2__label">Sign Up</span></a>
+    <button class="m-btn nav__toggle" type="button" aria-expanded="false" aria-controls="site-menu"><span class="m-btn__label">Menu</span></button>
+  </div>
+  <div class="nav__overlay" id="site-menu" data-8b-page-overlay="" data-lenis-prevent="" hidden="">
+    <div class="nav__overlay-top">
+      <img class="nav__lmv" src="/lmv-mark.png" alt="LMV" width="448" height="159">
+      <button class="m-icon nav__close" type="button" aria-label="Close main menu"><svg class="m-icon__glyph" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"></path></svg></button>
+    </div>
+    <ul class="nav__overlay-list">
+      <li><a class="nav__overlay-link" href="#journey">The Artists</a></li>
+      <li><a class="nav__overlay-link" href="#shows">The Exchange</a></li>
+      <li><a class="nav__overlay-link" href="#nights">The Week</a></li>
+      <li><a class="nav__overlay-link" href="#contact">Stay Updated</a></li>
+    </ul>
+    <p class="m-text-5">Miami Art Week, November 29 to December 6</p>
+  </div>
+</header>
+
+<main>
+<section id="opening" data-8b-section="opening" aria-labelledby="opening-title">
+  <div class="op__stage" aria-hidden="true">
+    <div class="op__ground"></div>
+    <div class="op__photo"><div class="op__photo-in"><img src="/art-week/hero.jpg" alt="" width="1600" height="1067" fetchpriority="high"></div></div>
+    <div class="op__glow op__glow--b"></div>
+    <div class="op__glow op__glow--a"></div>
+    <div class="op__night"></div>
+    <div class="op__stars"></div>
+    <div class="op__sky"></div>
+    <div class="op__ring"><div class="op__ring-in"><div class="op__orbit"><span class="op__dot"></span></div></div></div>
+    <div class="op__rays"></div>
+  </div>
+
+  <div class="op__screen op__screen--1">
+    <h1 class="op__title" id="opening-title" aria-label="Miami and Newark, November 29 to December 6">
+      <span class="hw hw--1" aria-hidden="true"><span class="hw__in m-text-2">Nov 29</span></span>
+      <span class="hw hw--2" aria-hidden="true"><span class="hw__in m-text-2">Miami</span></span>
+      <span class="hw hw--3" aria-hidden="true"><span class="hw__in m-text-2">&lt;&gt;</span></span>
+      <span class="hw hw--4" aria-hidden="true"><span class="hw__in m-text-2">Dec 6</span></span>
+      <span class="hw hw--5" aria-hidden="true"><span class="hw__in m-text-2">Newark</span></span>
+    </h1>
+    <p class="op__caption m-text-5"><span>Love Made</span> <span>Visible</span></p>
+    <p class="op__lead m-text-4">A year-long fellowship built for artists, by artists.</p>
+    <ol class="op__stops" aria-label="The week, day by day">
+      <li class="op__stop"><span class="op__stop-label m-text-5">Sunday</span><span class="op__stop-dot"></span><time class="op__stop-num m-text-6" datetime="2026-11-29">Nov 29</time></li>
+      <li class="op__stop"><span class="op__stop-label m-text-5">Tuesday</span><span class="op__stop-dot"></span><time class="op__stop-num m-text-6" datetime="2026-12-01">Dec 1</time></li>
+      <li class="op__stop"><span class="op__stop-label m-text-5">Wednesday</span><span class="op__stop-dot"></span><time class="op__stop-num m-text-6" datetime="2026-12-02">Dec 2</time></li>
+      <li class="op__stop"><span class="op__stop-label m-text-5">Thursday</span><span class="op__stop-dot"></span><time class="op__stop-num m-text-6" datetime="2026-12-03">Dec 3</time></li>
+      <li class="op__stop"><span class="op__stop-label m-text-5">Friday</span><span class="op__stop-dot"></span><time class="op__stop-num m-text-6" datetime="2026-12-04">Dec 4</time></li>
+      <li class="op__stop"><span class="op__stop-label m-text-5">Saturday</span><span class="op__stop-dot"></span><time class="op__stop-num m-text-6" datetime="2026-12-05">Dec 5</time></li>
+      <li class="op__stop"><span class="op__stop-label m-text-5">Sunday</span><span class="op__stop-dot"></span><time class="op__stop-num m-text-6" datetime="2026-12-06">Dec 6</time></li>
+    </ol>
+  </div>
+
+  <div class="op__screen op__screen--2">
+    <h2 class="op__statement m-text-3">The Miami &lt;&gt; Newark exchange</h2>
+    <div class="op__more">
+      <p class="m-text-7">A week of programming, cultural experiences, and opportunities to connect with Miami&#8217;s arts community.</p>
+      <div class="op__actions">
+        <a class="m-btn" href="#nights"><span class="m-btn__label">See the week</span></a>
+        <a class="m-link" href="#journey">Meet the artists</a>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="journey" data-8b-section="journey" aria-labelledby="journey-title">
+  <div class="jr__pin">
+    <div class="jr__head">
+      <h2 class="jr__title m-text-3" id="journey-title">Cohort 001</h2>
+      <p class="jr__intro m-text-7">Love Made Visible is a year-long fellowship built for artists, by artists, designed to help emerging visual artists advance their careers.</p>
+    </div>
+    <ol class="jr__track">
+      <li class="jr__stop">
+        <figure class="jr__media"><img class="jr__img" src="/cohort/zoraye-cyrus.jpg" alt="Zoraye Cyrus" width="213" height="320" loading="lazy"></figure>
+        <div class="jr__text">
+          <span class="jr__num m-text-6">01</span>
+          <h3 class="m-text-8">Zoraye Cyrus</h3>
+          <p class="jr__far m-text-5">Muralist</p>
+          <p class="m-text"><a class="m-link" href="https://www.instagram.com/zorayecyrus1/">@zorayecyrus1</a></p>
+        </div>
+      </li>
+      <li class="jr__stop">
+        <figure class="jr__media"><img class="jr__img" src="/cohort/kristen-bedasse.jpg" alt="Kristen Bedasse" width="320" height="320" loading="lazy"></figure>
+        <div class="jr__text">
+          <span class="jr__num m-text-6">02</span>
+          <h3 class="m-text-8">Kristen Bedasse</h3>
+          <p class="jr__far m-text-5">Painter / Sculptor</p>
+          <p class="m-text"><a class="m-link" href="https://www.instagram.com/knicolestyle/">@knicolestyle</a></p>
+        </div>
+      </li>
+      <li class="jr__stop">
+        <figure class="jr__media"><img class="jr__img" src="/cohort/rezia-hayes.jpg" alt="Rezia Hayes" width="320" height="213" loading="lazy"></figure>
+        <div class="jr__text">
+          <span class="jr__num m-text-6">03</span>
+          <h3 class="m-text-8">Rezia Hayes</h3>
+          <p class="jr__far m-text-5">Photographer</p>
+          <p class="m-text"><a class="m-link" href="https://www.instagram.com/reziahayes/">@reziahayes</a></p>
+        </div>
+      </li>
+      <li class="jr__stop">
+        <figure class="jr__media"><img class="jr__img" src="/cohort/symphonii-smith-kennedy.jpg" alt="Symphonii Smith-Kennedy" width="320" height="240" loading="lazy"></figure>
+        <div class="jr__text">
+          <span class="jr__num m-text-6">04</span>
+          <h3 class="m-text-8">Symphonii Smith-Kennedy</h3>
+          <p class="jr__far m-text-5">Painter / Mixed Media</p>
+          <p class="m-text"><a class="m-link" href="https://www.instagram.com/symphoniisk/">@symphoniisk</a></p>
+        </div>
+      </li>
+      <li class="jr__stop">
+        <figure class="jr__media"><img class="jr__img" src="/cohort/jethro-gedeon.jpg" alt="Jethro Gedeon" width="240" height="320" loading="lazy"></figure>
+        <div class="jr__text">
+          <span class="jr__num m-text-6">05</span>
+          <h3 class="m-text-8">Jethro Gedeon</h3>
+          <p class="jr__far m-text-5">Painter</p>
+          <p class="m-text"><a class="m-link" href="https://www.instagram.com/jet_artist/">@jet_artist</a></p>
+        </div>
+      </li>
+      <li class="jr__stop">
+        <figure class="jr__media"><img class="jr__img" src="/cohort/jed-lee-metayer.jpg" alt="Jed-Lee Metayer" width="148" height="320" loading="lazy"></figure>
+        <div class="jr__text">
+          <span class="jr__num m-text-6">06</span>
+          <h3 class="m-text-8">Jed-Lee Metayer</h3>
+          <p class="jr__far m-text-5">Abstract Expressionist</p>
+          <p class="m-text"><a class="m-link" href="https://www.instagram.com/jedleemetayer/">@jedleemetayer</a></p>
+        </div>
+      </li>
+    </ol>
+    <div class="jr__progress" aria-hidden="true">
+      <span class="jr__line"></span>
+      <span class="jr__mark"></span><span class="jr__mark"></span><span class="jr__mark"></span><span class="jr__mark"></span><span class="jr__mark"></span><span class="jr__mark"></span>
+      <span class="jr__runner"></span>
+    </div>
+  </div>
+</section>
+
+<section id="dome" data-8b-section="dome" aria-labelledby="dome-title">
+  <div class="dm__stage">
+    <div class="dm__sky" aria-hidden="true"><div class="dm__turn"><img src="/art-week/dome.jpg" alt="" width="1600" height="1067" loading="lazy"></div></div>
+    <div class="dm__ring" aria-hidden="true"></div>
+    <h2 class="dm__title" id="dome-title"><span class="dm__w1 m-text-3">Emerging</span> <span class="dm__w2 m-text-3">Visual</span> <span class="dm__w3 m-text-3">Artists</span></h2>
+    <p class="dm__p1 m-text-7">There isn&#8217;t a shortage of talent in Miami. There&#8217;s a shortage of access.</p>
+    <p class="dm__p2 m-text">LMV is designed to shorten that distance. We&#8217;re building the bridge between making strong work and having the relationships, knowledge, visibility, and professional infrastructure needed to move a career forward.</p>
+  </div>
+</section>
+
+<section id="shows" data-8b-section="shows" aria-labelledby="shows-title">
+  <div class="sh__head">
+    <h2 class="sh__title m-text-3" id="shows-title" data-8b-motion="spread"><span class="w">Miami</span> <span class="w">Broward</span> <span class="w">Newark</span></h2>
+    <p class="sh__intro m-text-7" data-8b-motion="focus">This year, we&#8217;re bringing together:</p>
+  </div>
+  <ul class="sh__list">
+    <li class="sh__row">
+      <span class="sh__rule" data-8b-motion="trace" aria-hidden="true"></span>
+      <span class="sh__band sh__band--1" aria-hidden="true"></span>
+      <h3 class="sh__name m-text-8">LMV Artists</h3>
+      <p class="sh__about m-text">The six LMV artists from Miami/Broward</p>
+      <p class="sh__meta m-text-5">Miami/Broward</p>
+      <div class="sh__times"><span class="sh__pill" aria-label="6 people">6</span></div>
+    </li>
+    <li class="sh__row">
+      <span class="sh__rule" data-8b-motion="trace" aria-hidden="true"></span>
+      <span class="sh__band sh__band--2" aria-hidden="true"></span>
+      <h3 class="sh__name m-text-8">Newark Arts Council</h3>
+      <p class="sh__about m-text">Five arts administrators from Newark Arts Council</p>
+      <p class="sh__meta m-text-5">Newark</p>
+      <div class="sh__times"><span class="sh__pill" aria-label="5 people">5</span></div>
+    </li>
+    <li class="sh__row">
+      <span class="sh__rule" data-8b-motion="trace" aria-hidden="true"></span>
+      <span class="sh__band sh__band--3" aria-hidden="true"></span>
+      <h3 class="sh__name m-text-8">Newark Artists</h3>
+      <p class="sh__about m-text">Two artists and a curator from Newark</p>
+      <p class="sh__meta m-text-5">Newark</p>
+      <div class="sh__times"><span class="sh__pill" aria-label="3 people">3</span></div>
+    </li>
+  </ul>
+  <div class="sh__foot">
+    <span class="sh__rule" data-8b-motion="trace" aria-hidden="true"></span>
+  </div>
+</section>
+
+<section id="live" data-8b-section="live" aria-labelledby="live-title">
+  <div class="lv__photo" aria-hidden="true"><img src="/art-week/live.jpg" alt="" width="1600" height="1060" loading="lazy"></div>
+  <h2 class="lv__words m-text-3" id="live-title"><span class="w lv__w1">Creating</span> <span class="w lv__w2">space</span> <span class="w lv__w3">for some</span> <span class="w lv__w4">meaningful</span> <span class="w lv__w5">connections.</span></h2>
+  <p class="lv__by m-text-5"><a class="m-link" href="https://www.linkedin.com/in/zakiyyawhite/">Zakiyya White</a>, Founder</p>
+  <p class="lv__text m-text-7">&#8220;It&#8217;s SO exciting to see this Miami &lt;&gt; Newark exchange coming together, and I&#8217;m looking forward to introducing everyone and creating space for some meaningful connections.&#8221;</p>
+  <p class="lv__roster m-text">The talent is already there. We&#8217;re here to give it motion.</p>
+</section>
+
+
+
+<section id="nights" data-8b-section="nights" aria-labelledby="nights-title">
+  <div class="nt__head">
+    <h2 class="nt__title m-text-3" id="nights-title">Here&#8217;s a look at what we have planned</h2>
+    <p class="nt__intro m-text-7">We&#8217;re turning Miami Art Week into a live classroom.</p>
+  </div>
+  <div class="nt__rail">
+    <span class="nt__line" aria-hidden="true"></span>
+    <ol class="nt__list">
+      <li class="nt__event">
+        <time class="nt__date m-text-6" datetime="2026-11-29">Nov 29</time>
+        <span class="nt__dot" aria-hidden="true"></span>
+        <p class="nt__meta m-text-5">Sunday</p>
+        <h3 class="m-text-8">The Art of Storytelling</h3>
+        <p class="m-text">We&#8217;re kicking things off at Tomorrowland with an interactive storytelling workshop led by NPR journalist Wilkine Brutus (followed by an R&amp;B party).</p>
+      </li>
+      <li class="nt__event">
+        <time class="nt__date m-text-6" datetime="2026-12-01">Dec 1</time>
+        <span class="nt__dot" aria-hidden="true"></span>
+        <p class="nt__meta m-text-5">Tuesday</p>
+        <h3 class="m-text-8">The Business of Art</h3>
+        <p class="m-text">A hands-on workshop with Google exploring how artists can use Gemini to support the business side of their creative practice.</p>
+      </li>
+      <li class="nt__event">
+        <time class="nt__date m-text-6" datetime="2026-12-02">Dec 2</time>
+        <span class="nt__dot" aria-hidden="true"></span>
+        <p class="nt__meta m-text-5">Wednesday</p>
+        <h3 class="m-text-8">Welcome Dinner</h3>
+        <p class="m-text">Our official Miami Art Week welcome dinner, sponsored by Google, bringing together artists, partners, and supporters.</p>
+      </li>
+      <li class="nt__event">
+        <time class="nt__date m-text-6" datetime="2026-12-03">Dec 3</time>
+        <span class="nt__dot" aria-hidden="true"></span>
+        <p class="nt__meta m-text-5">Thursday</p>
+        <h3 class="m-text-8">Cultural Day + Soul Basel</h3>
+        <p class="m-text">A day exploring the history, art, and culture of Overtown, Brownsville, and Liberty City. We&#8217;ll close out the evening at Soul Basel in Overtown and also experience an exhibition honoring Overtown legend Purvis Young, curated and installed by one of our very own LMV artists.</p>
+      </li>
+      <li class="nt__event">
+        <time class="nt__date m-text-6" datetime="2026-12-04">Dec 4</time>
+        <span class="nt__dot" aria-hidden="true"></span>
+        <p class="nt__meta m-text-5">Friday</p>
+        <h3 class="m-text-8">Art Week Experiences</h3>
+        <p class="m-text">Studio visits, art fairs, exhibitions, and parties! A chance for our artists to experience Miami Art Week and connect with the broader creative community.</p>
+      </li>
+      <li class="nt__event">
+        <time class="nt__date m-text-6" datetime="2026-12-05">Dec 5</time>
+        <span class="nt__dot" aria-hidden="true"></span>
+        <p class="nt__meta m-text-5">Saturday</p>
+        <h3 class="m-text-8">Closing Breakfast + Choose Your Own Adventure</h3>
+        <p class="m-text">We&#8217;ll come together for breakfast before giving everyone the opportunity to explore the city and Art Week at their own pace.</p>
+      </li>
+      <li class="nt__event">
+        <time class="nt__date m-text-6" datetime="2026-12-06">Dec 6</time>
+        <span class="nt__dot" aria-hidden="true"></span>
+        <p class="nt__meta m-text-5">Sunday</p>
+        <h3 class="m-text-8">A LONG exhale</h3>
+        <p class="m-text">A moment to reflect on the week and prepare for the year ahead as we begin our 2027 fellowship journey.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+
+<section id="contact" data-8b-section="contact" aria-labelledby="contact-title">
+  <div class="ct__night" aria-hidden="true"></div>
+  <div class="ct__head">
+    <div class="ct__ring" aria-hidden="true"></div>
+    <h2 class="ct__title m-text-3" id="contact-title"><span>Love Made</span> <span>Visible</span></h2>
+  </div>
+  <dl class="ct__facts">
+    <div class="ct__fact"><dt class="m-text-5">When</dt><dd class="m-text">November 29 to December 6</dd></div>
+    <div class="ct__fact"><dt class="m-text-5">Where</dt><dd class="m-text">Miami</dd></div>
+    <div class="ct__fact"><dt class="m-text-5">Founder</dt><dd class="m-text"><a class="m-link" href="https://www.linkedin.com/in/zakiyyawhite/">Zakiyya White</a></dd></div>
+    <div class="ct__fact"><dt class="m-text-5">Contact</dt><dd class="m-text"><a class="m-link" href="mailto:contact@lmvfellowship.com">contact@lmvfellowship.com</a></dd></div>
+  </dl>
+  <div class="ct__form">
+    <a class="m-btn" href="/"><span class="m-btn__label">Sign up for updates</span></a>
+  </div>
+</section>
+
+</main>
+
+<footer id="footer" data-8b-section="footer">
+  <p class="ft__word" style="--len:14" data-8b-motion="focus">LMV Fellowship</p>
+  <div class="ft__cols">
+    <nav class="ft__col" aria-label="Footer">
+      <h2 class="m-text-5">Miami Art Week</h2>
+      <a class="m-link" href="#nights">The Week</a>
+      <a class="m-link" href="#journey">The Artists</a>
+      <a class="m-link" href="#shows">The Exchange</a>
+    </nav>
+    <div class="ft__col">
+      <h2 class="m-text-5">Stay Updated</h2>
+      <a class="m-link" href="/">Sign up for updates</a>
+    </div>
+    <div class="ft__col">
+      <h2 class="m-text-5">Contact</h2>
+      <a class="m-link" href="mailto:contact@lmvfellowship.com">contact@lmvfellowship.com</a>
+      <a class="m-link" href="https://www.linkedin.com/in/zakiyyawhite/">Zakiyya White, Founder</a>
+    </div>
+  </div>
+  <p class="ft__legal m-text-5">&#169; 2026 LMV Fellowship. All rights reserved.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.4/dist/lenis.min.js"></script>
+<script data-8b-part="section-script:navigation">
+(() => {
+  const nav = document.getElementById('navigation');
+  if (!nav) return;
+  const toggle = nav.querySelector('.nav__toggle');
+  const overlay = nav.querySelector('.nav__overlay');
+  const close = nav.querySelector('.nav__close');
+  let last = window.scrollY;
+  const onScroll = () => {
+    const y = window.scrollY;
+    nav.toggleAttribute('data-scrolled', y > 40);
+    if (y < 80) nav.removeAttribute('data-hidden');
+    else if (y > last + 2) nav.setAttribute('data-hidden', '');
+    else if (y < last - 2) nav.removeAttribute('data-hidden');
+    last = y;
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  const setOpen = open => {
+    overlay.hidden = !open;
+    toggle.setAttribute('aria-expanded', String(open));
+    if (open) { window.lenis?.stop(); close.focus(); }
+    else { window.lenis?.start(); toggle.focus(); }
+  };
+  toggle.addEventListener('click', () => setOpen(true));
+  close.addEventListener('click', () => setOpen(false));
+  overlay.addEventListener('click', event => { if (event.target.closest('a')) { overlay.hidden = true; toggle.setAttribute('aria-expanded', 'false'); window.lenis?.start(); } });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape' && !overlay.hidden) setOpen(false); });
+})();
+</script>
+<script data-8b-part="section-script:opening">
+(() => {
+  const section = document.getElementById('opening');
+  if (!section || !('IntersectionObserver' in window)) return;
+  new IntersectionObserver(([entry]) => section.toggleAttribute('data-offscreen', !entry.isIntersecting)).observe(section);
+})();
+</script>
+<script data-8b-part="motion-queue">
+(() => {
+  'use strict';
+  // The supplied motion queue, inserted by withQueue(); pages never write or edit it. Each setup runs in its own task
+  // after fonts load, in document order, first-screen setups ahead of the rest. A setup that throws is rolled back: its
+  // GSAP work is reverted and every attribute it wrote (classes, flags, inline styles) gets back its value from before
+  // it, so the section shows its readable layout and the other setups run on.
+  const fonts = document.fonts ? document.fonts.ready : Promise.resolve();
+  // The rest waits for the whole document, so a first-screen setup queued further down still runs before it.
+  const parsed = document.readyState === 'loading' ? new Promise(resolve => document.addEventListener('DOMContentLoaded', resolve, { once: true })) : Promise.resolve();
+  const ready = () => Promise.all([fonts, parsed]).then(() => firsts);
+  const nextTask = () => window.scheduler?.yield?.() ?? new Promise(resolve => setTimeout(resolve));
+  const refresh = () => {
+    if (typeof window.refreshScroll === 'function') return window.refreshScroll();
+    window.ScrollTrigger?.sort(); window.ScrollTrigger?.refresh();
+  };
+  const run = (setup, name) => {
+    // Triggers an earlier setup made that wait for GSAP's next tick are refreshed here, one at a time. Refreshed
+    // inside a new trigger's refresh instead, a `once` trigger the page is already past removes itself there and
+    // ScrollTrigger loses its place in its own list (a page opened at an #anchor or reloaded scrolled down).
+    for (const trigger of window.ScrollTrigger?.getAll() || []) if (!trigger.end && window.ScrollTrigger.getAll().includes(trigger)) trigger.refresh(0, 1);
+    const context = window.gsap.context(() => {});
+    const log = new MutationObserver(() => {});
+    log.observe(document.documentElement, { attributes: true, attributeOldValue: true, subtree: true });
+    let failure = null, records;
+    // GSAP restores its current context only when the added function returns, so the error is caught inside it.
+    try { context.add(() => { try { setup(); } catch (error) { failure = error; } }); }
+    finally { records = log.takeRecords(); log.disconnect(); }
+    if (!failure) return true;
+    try { context.revert(); } catch (error) { console.error(name, 'revert failed', error); }
+    for (const { target, attributeName, oldValue } of records.reverse()) {
+      // Reading first also brings an inline style written through element.style into the attribute; removing it
+      // before that would leave style="".
+      const now = target.getAttribute(attributeName);
+      if (oldValue == null) { if (now != null) target.removeAttribute(attributeName); }
+      else if (now !== oldValue) target.setAttribute(attributeName, oldValue);
+    }
+    console.error(name, failure);
+    return false;
+  };
+  let firsts = Promise.resolve(), tail = null, pending = 0, lazy = null, building = 0, firstCount = 0;
+  // Settles once the first-screen setups and the queue have run; before any setup is queued, once fonts and the document
+  // are ready.
+  window.motionReady = ready();
+  // First-screen setups are refreshed with the queue when it drains; when every setup ran first, once after them.
+  parsed.then(() => { if (firstCount && !tail) firsts.then(refresh); });
+  window.queueMotion = (setup, { first = false, near, id } = {}) => {
+    if (!window.gsap || typeof setup !== 'function') return;
+    const name = id || document.currentScript?.getAttribute('data-8b-part') || 'motion';
+    // A heavy part that neither pins nor changes layout is built when its element comes within a viewport of the screen,
+    // with the same rollback, and scroll positions are refreshed after each burst of builds; tools that scroll the page
+    // reach it.
+    if (near instanceof Element && window.IntersectionObserver) {
+      const watch = new IntersectionObserver(entries => {
+        if (!entries.some(entry => entry.isIntersecting)) return;
+        watch.disconnect();
+        building++;
+        lazy = (lazy || ready()).then(nextTask).then(() => run(setup, name)).finally(() => { if (!--building) refresh(); });
+      }, { rootMargin: '100% 0px' });
+      watch.observe(near);
+      return;
+    }
+    // First-screen setups run as soon as fonts are ready, ahead of the queue, so the scene of the first scroll is ready.
+    if (first) { firstCount++; firsts = firsts.then(() => fonts).then(() => { if (!run(setup, name)) refresh(); }); }
+    else {
+      pending++;
+      tail = (tail || ready()).then(nextTask).then(() => run(setup, name))
+        .finally(() => { if (!--pending) refresh(); });
+    }
+    window.motionReady = Promise.all([firsts, tail]);
+  };
+})();
+</script>
+<script data-8b-part="page-init">
+gsap.registerPlugin(ScrollTrigger);
+function navHeight() {
+  const nav = document.getElementById('navigation');
+  return nav ? nav.getBoundingClientRect().height : 0;
+}
+function refreshScroll() {
+  ScrollTrigger.sort();
+  ScrollTrigger.refresh();
+}
+gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+  const lenis = window.lenis = new Lenis({ lerp: 0.075, anchors: { offset: -navHeight() } });
+  const tick = time => lenis.raf(time * 1000);
+  lenis.on('scroll', ScrollTrigger.update);
+  gsap.ticker.add(tick);
+  gsap.ticker.lagSmoothing(0);
+  return () => { gsap.ticker.remove(tick); gsap.ticker.lagSmoothing(500, 33); lenis.destroy(); window.lenis = null; };
+});
+</script>
+<script data-8b-part="motion">
+/*! @motion {"focus":{"use":"A block comes into focus as it arrives: from a soft blur, a slight enlargement and low opacity to sharp, like the eye adjusting to the dark. Blur on large hover screens only."},"spread":{"use":"The words of a scattered heading arrive gathered toward the middle of the heading and spread out to their places at the edges while the heading scrolls in."},"trace":{"use":"A hairline draws itself from its start, with its stop dots appearing as the line reaches them."}} */
+const blurScreens = '(min-width: 1024px) and (hover: hover)';
+const effects = {
+  focus(element, vars = {}) {
+    const from = { opacity: 0.2, scale: 1.04, duration: 1.1, ease: 'power2.out' };
+    if (matchMedia(blurScreens).matches) from.filter = 'blur(14px)';
+    return gsap.timeline(vars).from(element, from);
+  },
+  spread(heading, vars = {}) {
+    const timeline = gsap.timeline(vars);
+    const words = heading.querySelectorAll('.w');
+    words.forEach(word => {
+      timeline.from(word, {
+        x: () => {
+          const box = heading.getBoundingClientRect();
+          const own = word.getBoundingClientRect();
+          return (box.left + box.width / 2 - (own.left + own.width / 2)) * 0.6;
+        },
+        y: () => {
+          const box = heading.getBoundingClientRect();
+          const own = word.getBoundingClientRect();
+          return (box.top + box.height / 2 - (own.top + own.height / 2)) * 0.6;
+        },
+        duration: 1,
+        ease: 'power2.out'
+      }, 0);
+    });
+    return timeline;
+  },
+  trace(line, vars = {}) {
+    const timeline = gsap.timeline(vars);
+    timeline.from(line, { scaleX: 0, transformOrigin: '0% 50%', duration: 1.2, ease: 'power3.inOut' }, 0);
+    const dots = line.querySelectorAll('.dot');
+    if (dots.length) timeline.from(dots, { scale: 0, duration: 0.4, stagger: 0.12, ease: 'back.out(3)' }, 0.3);
+    return timeline;
+  }
+};
+const triggerOptions = {
+  focus: element => ({ trigger: element, start: 'top 88%', once: true }),
+  spread: element => ({ trigger: element, start: 'top 96%', end: 'top 50%', scrub: 0.6, invalidateOnRefresh: true }),
+  trace: element => ({ trigger: element, start: 'top 90%', once: true })
+};
+document.querySelectorAll('[data-8b-section]').forEach(section => {
+  Object.keys(triggerOptions).forEach(name => {
+    const elements = section.querySelectorAll(`[data-8b-motion~="${name}"]`);
+    if (!elements.length) return;
+    const id = `effect:${name}:${section.id}`;
+    queueMotion(() => gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+      elements.forEach((element, index) => {
+        const options = triggerOptions[name](element);
+        ScrollTrigger.create({ id: `${id}:${index}`, ...options, animation: effects[name](element) });
+      });
+    }), { first: section.getBoundingClientRect().top < innerHeight, id });
+  });
+});
+</script>
+<script data-8b-part="scene:opening" data-8b-scene-sections="opening">
+/*! @scene {"use":"Lights down: while the second screen scrolls in, the dusk field of the first screen turns into a night sky. The orange ground darkens to night, the speckle brightens into stars, the photo sinks and fades, the ring widens past the screen edges into the dome's horizon, the rays rise into projector beams behind the statement and the scattered heading words drift out to the edges.","constraints":["The stage is CSS sticky only while the scene runs (data-staged); without it the stage covers the first screen and the second screen keeps its own night ground.","The scene writes .hw, .op__photo, .op__ring, .op__rays, .op__night, .op__stars and .op__sky; the CSS intro animates only .hw__in, .op__photo-in and .op__ring-in, and the loops only .op__glow and .op__orbit.","Phones use smaller horizontal travel for the words and a larger ring scale."]} */
+queueMotion(() => {
+  gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+    const section = document.getElementById('opening');
+    const part = selector => section.querySelector(selector);
+    const all = selector => section.querySelectorAll(selector);
+    const phone = matchMedia('(max-width: 760px)').matches;
+    section.setAttribute('data-staged', '');
+    const timeline = gsap.timeline({
+      defaults: { ease: 'none' },
+      scrollTrigger: { id: 'opening', trigger: section, start: 'top top', end: () => `+=${innerHeight}`, scrub: 0.7, invalidateOnRefresh: true }
+    });
+    timeline
+      .to(part('.op__night'), { opacity: 1, duration: 0.7, ease: 'power1.inOut' }, 0)
+      .to(part('.op__stars'), { opacity: 0, duration: 0.5 }, 0.1)
+      .fromTo(part('.op__sky'), { opacity: 0, scale: 1.12 }, { opacity: 1, scale: 1, duration: 0.8, ease: 'power1.out' }, 0.2)
+      .to(part('.op__photo'), { yPercent: -14, scale: 0.84, opacity: 0, duration: 0.75, ease: 'power1.in' }, 0)
+      .to(part('.op__ring'), { scale: phone ? 2.6 : 2.3, yPercent: 62, duration: 1, ease: 'power1.inOut' }, 0)
+      .to(part('.op__rays'), { scaleY: phone ? 3.4 : 2.9, scaleX: phone ? 1.4 : 1.7, duration: 1, ease: 'power2.out' }, 0);
+    const travel = phone ? 18 : 26;
+    all('.hw--1, .hw--2').forEach(word => timeline.to(word, { xPercent: -travel * 2.2, x: () => -innerWidth * 0.08, duration: 0.6, ease: 'power1.in' }, 0));
+    all('.hw--4, .hw--5').forEach(word => timeline.to(word, { xPercent: travel * 2.2, x: () => innerWidth * 0.08, duration: 0.6, ease: 'power1.in' }, 0));
+    timeline.to(part('.hw--3'), { yPercent: -120, duration: 0.6, ease: 'power1.in' }, 0);
+    return () => section.removeAttribute('data-staged');
+  });
+}, { first: true, id: 'opening' });
+</script>
+<script data-8b-part="scene:journey" data-8b-scene-sections="journey">
+/*! @scene {"use":"The five stops travel past on the hero's stop line: the section pins, the stops slide in from the right one after another as a horizontal road, each photo drifts into place inside its frame, and a glowing runner moves along the line from the first stop to the fifth.","constraints":["The setup sets data-track, which turns the static grid of stops into a single horizontal track; removing it restores the grid.","The scene writes the track's x, the runner's x and each photo's xPercent; the photos reach rest when their stop is centred.","The pin uses GSAP on .jr__pin (not the first section); phones keep the track with narrower stops."]} */
+queueMotion(() => {
+  gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+    const section = document.getElementById('journey');
+    const pin = section.querySelector('.jr__pin');
+    const track = section.querySelector('.jr__track');
+    const line = section.querySelector('.jr__line');
+    const runner = section.querySelector('.jr__runner');
+    section.setAttribute('data-track', '');
+    const distance = () => Math.max(0, track.scrollWidth - pin.clientWidth);
+    const setRunner = gsap.quickSetter(runner, 'x', 'px');
+    const travel = gsap.to(track, {
+      x: () => -distance(),
+      ease: 'none',
+      scrollTrigger: {
+        id: 'journey', trigger: pin, start: 'top top', end: () => `+=${distance()}`, pin: true, scrub: 0.6, invalidateOnRefresh: true,
+        onUpdate: self => setRunner(self.progress * line.offsetWidth),
+        onRefresh: self => setRunner(self.progress * line.offsetWidth)
+      }
+    });
+    section.querySelectorAll('.jr__stop').forEach((stop, index) => {
+      gsap.fromTo(stop.querySelector('.jr__img'), { xPercent: 9 }, {
+        xPercent: 0, ease: 'none',
+        scrollTrigger: { id: `journey:drift-${index + 1}`, trigger: stop, containerAnimation: travel, start: 'left right', end: 'center center', scrub: true }
+      });
+    });
+    return () => { section.removeAttribute('data-track'); gsap.set(runner, { clearProps: 'transform' }); };
+  });
+}, { id: 'journey' });
+</script>
+<script data-8b-part="scene:dome" data-8b-scene-sections="dome">
+/*! @scene {"use":"The sky turns and opens: the section holds on screen while a small porthole of star trails in the middle of the violet field turns like the night sky around the pole and widens until the trails fill the whole screen behind the scattered heading.","constraints":["The setup sets data-turning, which makes the section 230vh tall with a CSS sticky stage; without it the stage is one screen with the full-bleed sky.","The scene writes .dm__sky clip-path, .dm__turn rotation and .dm__ring scale and opacity; the text never moves.","The clip stays a circle in percent at both ends so the end state equals the static circle(150%)."]} */
+queueMotion(() => {
+  gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+    const section = document.getElementById('dome');
+    const sky = section.querySelector('.dm__sky');
+    const turn = section.querySelector('.dm__turn');
+    const ring = section.querySelector('.dm__ring');
+    section.setAttribute('data-turning', '');
+    const timeline = gsap.timeline({
+      defaults: { ease: 'none' },
+      scrollTrigger: { id: 'dome', trigger: section, start: 'top top', end: 'bottom bottom', scrub: 0.6, invalidateOnRefresh: true }
+    });
+    timeline
+      .fromTo(sky, { clipPath: 'circle(14% at 50% 50%)' }, { clipPath: 'circle(150% at 50% 50%)', duration: 1, ease: 'power2.in' }, 0)
+      .fromTo(turn, { rotation: -80 }, { rotation: 0, duration: 1, ease: 'power1.out' }, 0)
+      .fromTo(ring, { scale: 1, opacity: 1 }, { scale: 150 / 14, opacity: 0, duration: 1, ease: 'power2.in' }, 0);
+    return () => section.removeAttribute('data-turning');
+  });
+}, { id: 'dome' });
+</script>
+<script data-8b-part="scene:live" data-8b-scene-sections="live">
+/*! @scene {"use":"The quote opens out: its words arrive packed together in the middle of the section and spread to their places at the edges, while the presenter's face drifts in from the dark and comes into focus behind them.","constraints":["Composes the spread effect on .lv__words and its own move on .lv__photo; no bindings sit on these nodes.","Blur on the photo only on large hover screens."]} */
+queueMotion(() => {
+  gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+    const section = document.getElementById('live');
+    const photo = section.querySelector('.lv__photo');
+    const from = { scale: 1.18, xPercent: 10, opacity: 0.35 };
+    if (matchMedia(blurScreens).matches) from.filter = 'blur(18px)';
+    const to = { scale: 1, xPercent: 0, opacity: 1, duration: 1, ease: 'power2.out' };
+    if (from.filter) to.filter = 'blur(0px)';
+    gsap.timeline({ scrollTrigger: { id: 'live', trigger: section, start: 'top 85%', end: 'top 10%', scrub: 0.6, invalidateOnRefresh: true } })
+      .add(effects.spread(section.querySelector('.lv__words')), 0)
+      .fromTo(photo, from, to, 0);
+  });
+}, { id: 'live' });
+</script>
+<script data-8b-part="scene:nights" data-8b-scene-sections="nights">
+/*! @scene {"use":"The evenings settle onto the line: the four events arrive scattered at different heights and slightly turned, like stars off a chart, and settle onto one line with their dots while the line itself draws out under them.","constraints":["One tween per event (no stagger) so every start state survives a refresh; offsets are vertical on desktop and sideways on phones, where the line is vertical.","The scene owns the transforms of .nt__event and .nt__line."]} */
+queueMotion(() => {
+  gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+    const section = document.getElementById('nights');
+    const rail = section.querySelector('.nt__rail');
+    // The schedule is a vertical rail at every width (see the lmv layer).
+    const phone = true;
+    const lift = [-130, 80, -60, 150];
+    const turn = [-4, 3, -2.5, 4.5];
+    const timeline = gsap.timeline({ scrollTrigger: { id: 'nights', trigger: rail, start: 'top 95%', end: 'top 25%', scrub: 0.6, invalidateOnRefresh: true } });
+    timeline.fromTo(section.querySelector('.nt__line'), phone ? { scaleY: 0.2 } : { scaleX: 0.2 }, phone ? { scaleY: 1, duration: 1 } : { scaleX: 1, duration: 1 }, 0);
+    section.querySelectorAll('.nt__event').forEach((event, index) => {
+      const from = phone ? { x: index % 2 ? 34 : -22, rotation: turn[index % 4] } : { y: lift[index % 4], rotation: turn[index % 4] };
+      const to = phone ? { x: 0, rotation: 0, duration: 1, ease: 'power2.out' } : { y: 0, rotation: 0, duration: 1, ease: 'power2.out' };
+      timeline.fromTo(event, from, to, 0);
+    });
+  });
+}, { id: 'nights' });
+</script>
+<script data-8b-part="scene:contact" data-8b-scene-sections="contact">
+/*! @scene {"use":"House lights up: as the visit section arrives, the night that covers it lifts into the dawn field and the ring closes from far outside the screen back to its first-screen size around the heading, the page's bookend to the opening.","constraints":["The scene writes the opacity of .ct__night and the scale of .ct__ring; the text never moves.","The night starts opaque only inside the scene; without it the dawn field shows."]} */
+queueMotion(() => {
+  gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+    const section = document.getElementById('contact');
+    gsap.timeline({ scrollTrigger: { id: 'contact', trigger: section, start: 'top 90%', end: 'top 5%', scrub: 0.6 } })
+      .fromTo(section.querySelector('.ct__night'), { opacity: 1 }, { opacity: 0, duration: 1, ease: 'power1.inOut' }, 0)
+      .fromTo(section.querySelector('.ct__ring'), { scale: 2.8 }, { scale: 1, duration: 1, ease: 'power2.out' }, 0);
+  });
+}, { id: 'contact' });
+</script>
+
+
+</body></html>
