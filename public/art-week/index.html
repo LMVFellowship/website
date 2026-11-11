@@ -544,15 +544,8 @@ textarea.m-field__input { min-height: 132px; resize: vertical; }
 #navigation .nav__overlay-top .nav__lmv { height: 34px; }
 
 
-/* Seven days on the line instead of five stops. */
-#opening .op__stops { display: flex; justify-content: space-between; grid-template-columns: none; }
-#opening .op__stop,
-#opening .op__stop:nth-child(n) { grid-area: auto; justify-self: auto; justify-items: center; transform: none; }
-#opening .op__stop:first-child { justify-items: start; }
-#opening .op__stop:last-child { justify-items: end; }
 
-/* Seven stops will not fit a phone; the full schedule follows below. */
-@media (max-width: 760px) { #opening .op__stops { display: none; } }
+
 
 /* Journey: six artist portraits. The source photos are small (as little as
    148px wide), so frames stay modest rather than upscaling them hard. */
@@ -623,7 +616,7 @@ body { letter-spacing: 0; }
 #opening .op__ring { top: 47%; width: min(70vw, 84vh); margin-left: max(-35vw, -42vh); margin-top: max(-35vw, -42vh); }
 #opening .op__ring-in { border-color: color-mix(in oklab, var(--color-6) 22%, transparent); }
 #opening .op__dot { width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; background: var(--color-6); }
-#opening .op__screen--1 { color: var(--color-6); grid-template-rows: minmax(110px, 1fr) auto auto auto auto minmax(36px, .7fr) auto; justify-items: center; text-align: center; }
+#opening .op__screen--1 { color: var(--color-6); grid-template-rows: minmax(110px, 1fr) auto auto auto auto minmax(110px, 1fr); justify-items: center; text-align: center; }
 #opening .op__brand { grid-row: 1; align-self: end; display: grid; justify-items: center; gap: 16px; }
 #opening .op__wordmark { width: min(520px, 72vw); height: auto; filter: invert(1); }
 #opening .op__kicker { font-size: 13px; font-weight: 500; letter-spacing: 0.32em; text-transform: uppercase; }
@@ -633,19 +626,35 @@ body { letter-spacing: 0; }
 #opening .hw--3 .m-text-2 { font-weight: 300; letter-spacing: -0.12em; }
 #opening .op__date { grid-row: 3; margin-top: clamp(14px, 2.4vh, 24px); letter-spacing: 0.2em; }
 #opening .op__lead { grid-row: 4; width: auto; margin-top: 14px; font-size: 16px; }
-#opening .op__stops { grid-row: 7; justify-self: stretch; text-align: left; }
-#opening .op__stops::before { background: color-mix(in oklab, var(--color-6) 35%, transparent); }
-#opening .op__stop-dot { background: var(--color-6); }
 @media (max-width: 760px) {
   #opening .op__title { flex-direction: column; align-items: center; gap: 0; }
   #opening .m-text-2 { font-size: clamp(46px, 16vw, 84px); }
   #opening .op__ring { top: 44%; width: 128vw; margin-left: -64vw; margin-top: -64vw; }
   #opening .op__date { letter-spacing: 0.14em; }
-  #opening .op__screen--1 { grid-template-rows: minmax(96px, 1fr) auto auto auto auto minmax(96px, 1fr) auto; }
 }
 
 #contact .ct__wordmark { width: min(440px, 64vw); height: auto; }
 @media (max-width: 760px) { #shows .sh__title { font-size: 26px; } }
+
+/* Opener, as on /home: the wordmark writes itself on a black sheet, then
+   the sheet fades and uncovers the page. CSS only, so it always finishes
+   and can never leave the page covered. The hero's own entrance waits for it. */
+.lmv-splash { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 0 24px; background: #000; animation: lmv-splash-out 600ms ease 2600ms forwards; }
+.lmv-splash__mark { width: 100%; max-width: 620px; animation: lmv-splash-mark 400ms ease 2600ms forwards; }
+.lmv-splash__mark img { width: 100%; height: auto; }
+@keyframes lmv-splash-out { to { opacity: 0; visibility: hidden; pointer-events: none; } }
+@keyframes lmv-splash-mark { to { transform: translateY(-8px); } }
+@media (prefers-reduced-motion: reduce) {
+  .lmv-splash { animation: lmv-splash-out 1ms linear 1ms forwards; }
+  .lmv-splash__mark { animation: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  #opening .op__brand, #opening .op__date, #opening .op__lead { animation: op-lift 1s cubic-bezier(.2, .7, .2, 1) 2.75s backwards; }
+  #opening .op__ring-in { animation-delay: 2.7s; }
+  #opening .hw__in { animation-delay: 2.8s; }
+  #opening .hw--3 .hw__in { animation-delay: 2.94s; }
+  #opening .hw--5 .hw__in { animation-delay: 2.88s; }
+}
 
 /* Contact into footer: a long, even fade from ink to paper that ends on
    exactly the footer's colour and texture, so there is no seam. */
@@ -669,6 +678,7 @@ body { letter-spacing: 0; }
 
 </head>
 <body>
+<div class="lmv-splash" aria-hidden="true"><div class="lmv-splash__mark"><img src="/logo.gif" alt="" width="967" height="103"></div></div>
 <header id="navigation" data-8b-section="navigation">
   <a class="nav__logo" href="#opening" aria-label="Back to the top of the page">
     <img class="nav__lmv" src="/lmv-mark.png" alt="LMV" width="448" height="159">
@@ -726,15 +736,6 @@ body { letter-spacing: 0; }
     </h1>
     <p class="op__date m-text-4">November 29 to December 6</p>
     <p class="op__lead m-text-5">A year-long fellowship built for artists, by artists.</p>
-    <ol class="op__stops" aria-label="The week, day by day">
-      <li class="op__stop"><span class="op__stop-label m-text-5">Sunday</span><span class="op__stop-dot"></span><time class="op__stop-num m-text-6" datetime="2026-11-29">Nov 29</time></li>
-      <li class="op__stop"><span class="op__stop-label m-text-5">Tuesday</span><span class="op__stop-dot"></span><time class="op__stop-num m-text-6" datetime="2026-12-01">Dec 1</time></li>
-      <li class="op__stop"><span class="op__stop-label m-text-5">Wednesday</span><span class="op__stop-dot"></span><time class="op__stop-num m-text-6" datetime="2026-12-02">Dec 2</time></li>
-      <li class="op__stop"><span class="op__stop-label m-text-5">Thursday</span><span class="op__stop-dot"></span><time class="op__stop-num m-text-6" datetime="2026-12-03">Dec 3</time></li>
-      <li class="op__stop"><span class="op__stop-label m-text-5">Friday</span><span class="op__stop-dot"></span><time class="op__stop-num m-text-6" datetime="2026-12-04">Dec 4</time></li>
-      <li class="op__stop"><span class="op__stop-label m-text-5">Saturday</span><span class="op__stop-dot"></span><time class="op__stop-num m-text-6" datetime="2026-12-05">Dec 5</time></li>
-      <li class="op__stop"><span class="op__stop-label m-text-5">Sunday</span><span class="op__stop-dot"></span><time class="op__stop-num m-text-6" datetime="2026-12-06">Dec 6</time></li>
-    </ol>
   </div>
 
   <div class="op__screen op__screen--2">
