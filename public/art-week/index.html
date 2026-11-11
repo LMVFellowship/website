@@ -610,7 +610,6 @@ body { letter-spacing: 0; }
 .m-text-8 { line-height: 1.05; letter-spacing: -0.025em; }
 .m-link-2, .m-btn, .m-btn-2 { letter-spacing: 0; }
 #shows, #footer { background-image: var(--paper); }
-#footer .ft__word { letter-spacing: -0.04em; font-size: min(40vw, calc((100vw - 2 * var(--space-1)) / (var(--len) * 0.6))); }
 
 /* Navigation over the paper hero: dark mark, outlined pills. */
 #navigation:not([data-scrolled]) .nav__logo .nav__lmv { filter: invert(1); }
@@ -647,6 +646,16 @@ body { letter-spacing: 0; }
 
 #contact .ct__wordmark { width: min(440px, 64vw); height: auto; }
 @media (max-width: 760px) { #shows .sh__title { font-size: 26px; } }
+
+/* Contact into footer: a long, even fade from ink to paper that ends on
+   exactly the footer's colour and texture, so there is no seam. */
+#contact { background: linear-gradient(180deg, var(--color-2) 0%, var(--color-2) 30%, color-mix(in oklab, var(--color-2) 80%, var(--color-1)) 52%, color-mix(in oklab, var(--color-2) 45%, var(--color-1)) 72%, color-mix(in oklab, var(--color-2) 15%, var(--color-1)) 88%, var(--color-1) 100%); }
+#contact::after { content: ""; position: absolute; inset: 0; z-index: -2; background: var(--paper), var(--color-1); -webkit-mask-image: linear-gradient(180deg, transparent 60%, #000 100%); mask-image: linear-gradient(180deg, transparent 60%, #000 100%); pointer-events: none; }
+#footer { padding-top: 0; }
+@media (max-width: 900px) {
+  #contact { background: linear-gradient(180deg, var(--color-2) 0%, var(--color-2) 55%, color-mix(in oklab, var(--color-2) 70%, var(--color-1)) 72%, color-mix(in oklab, var(--color-2) 25%, var(--color-1)) 88%, var(--color-1) 100%); }
+  #contact::after { -webkit-mask-image: linear-gradient(180deg, transparent 78%, #000 100%); mask-image: linear-gradient(180deg, transparent 78%, #000 100%); }
+}
 
 /* Contact: the form became a single link to the real signup page. */
 #contact .ct__form { align-content: center; }
@@ -947,7 +956,6 @@ body { letter-spacing: 0; }
 </main>
 
 <footer id="footer" data-8b-section="footer">
-  <p class="ft__word" style="--len:14" data-8b-motion="focus">LMV Fellowship</p>
   <div class="ft__cols">
     <nav class="ft__col" aria-label="Footer">
       <h2 class="m-text-5">Miami Art Week</h2>
