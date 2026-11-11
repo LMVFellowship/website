@@ -22,8 +22,18 @@ The safe path for every change is the same:
 | --- | --- | --- |
 | `/` | `app/page.tsx` | The signup page. Wordmark and the notify-me form. This is the page people are sent to. |
 | `/home` | `app/home/page.tsx` | The full fellowship page. About, what fellows get, the cohort, the team, the signup form. |
+| `/art-week` | `public/art-week/index.html` | The Miami <> Newark Art Week page. A standalone animated page, not part of the Next.js app. |
 
-Nothing links from `/` to `/home`. That is deliberate.
+Nothing links from `/` to `/home` or `/art-week`. That is deliberate.
+
+### The Art Week page
+
+`/art-week` is plain HTML with its own animation scripts, so it is edited
+differently from the other two pages. The words live directly in
+`public/art-week/index.html`: search the file for the sentence you want to
+change and edit it in place. Its photos are in `public/art-week/` and the
+cohort portraits come from `public/cohort/`. The clean URL is mapped onto the
+file in `next.config.ts`.
 
 ## Where the editable content lives
 
