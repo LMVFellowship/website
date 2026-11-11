@@ -6,7 +6,7 @@
 <link rel="apple-touch-icon" href="/apple-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Antonio:wght@300..600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@300..700&display=swap">
 <style data-8b-part="layers">
 @layer tokens, base, atoms, layout, sections, scenes, lmv;
 </style>
@@ -30,15 +30,15 @@
 }
 */
 :root {
-  --color-1: #86877d;
-  --color-2: #0e0f08;
-  --color-3: #1b382d;
-  --color-4: #8a8971;
-  --color-5: #fcfdef;
-  --color-6: #0e0f08;
-  --color-7: #c6d8af;
-  --color-8: #1b1a0f;
-  --font-1: "Antonio", "Antonio Fallback", Arial, sans-serif;
+  --color-1: #e9e8e4;
+  --color-2: #121211;
+  --color-3: #262624;
+  --color-4: #c9c7c1;
+  --color-5: #f4f3ef;
+  --color-6: #121211;
+  --color-7: #bcbab4;
+  --color-8: #d9d7d1;
+  --font-1: "Figtree", "Helvetica Neue", Arial, sans-serif;
   --radius-1: 999px;
   --shadow-1: 0 0 0 5px var(--color-6);
   --space-1: clamp(16px, 3vw, 44px);
@@ -520,7 +520,6 @@ textarea.m-field__input { min-height: 132px; resize: vertical; }
 }
 </style>
 <style data-8b-part="fonts">
-@font-face { font-family: "Antonio Fallback"; src: local("Arial"), local("ArialMT"), local("Helvetica"); size-adjust: 83.8%; ascent-override: 137.8%; descent-override: 16.6%; line-gap-override: 0%; }
 </style>
   <meta name="description" content="A week of programming, cultural experiences, and opportunities to connect with Miami&#8217;s arts community, November 29 to December 6.">
   <meta property="og:type" content="website">
@@ -544,8 +543,6 @@ textarea.m-field__input { min-height: 132px; resize: vertical; }
 #navigation .nav__lmv { display: block; width: auto; height: 30px; }
 #navigation .nav__overlay-top .nav__lmv { height: 34px; }
 
-/* Opening, first screen. Two dates across the top, the cities beneath. */
-#opening .op__caption { pointer-events: none; }
 
 /* Seven days on the line instead of five stops. */
 #opening .op__stops { display: flex; justify-content: space-between; grid-template-columns: none; }
@@ -554,15 +551,8 @@ textarea.m-field__input { min-height: 132px; resize: vertical; }
 #opening .op__stop:first-child { justify-items: start; }
 #opening .op__stop:last-child { justify-items: end; }
 
-@media (max-width: 760px) {
-  #opening .hw--1 { grid-area: 1 / 1; }
-  #opening .hw--4 { grid-area: 1 / 2; justify-self: end; }
-  #opening .hw--2 { grid-area: 2 / 1 / 3 / 3; }
-  #opening .hw--3 { grid-area: 3 / 1 / 4 / 3; justify-self: center; }
-  #opening .hw--5 { grid-area: 4 / 1 / 5 / 3; justify-self: end; }
-  /* Seven stops will not fit a phone; the full schedule follows below. */
-  #opening .op__stops { display: none; }
-}
+/* Seven stops will not fit a phone; the full schedule follows below. */
+@media (max-width: 760px) { #opening .op__stops { display: none; } }
 
 /* Journey: six artist portraits. The source photos are small (as little as
    148px wide), so frames stay modest rather than upscaling them hard. */
@@ -607,6 +597,56 @@ textarea.m-field__input { min-height: 132px; resize: vertical; }
   #nights .nt__event { grid-template-columns: minmax(0, 1fr); }
   #nights .nt__date, #nights .nt__meta, #nights .nt__event > h3, #nights .nt__event > .m-text { grid-area: auto; }
 }
+
+/* Brand. LMV is black ink on off-white recycled paper with a script
+   wordmark and a clean sans, after the invites. The paper texture is the
+   same one the rest of the site uses (.lmv-paper in app/globals.css). */
+:root { --paper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='1' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 18 -14.2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)'/%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.55' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.34 0 0 0 0 0.32 0 0 0 0.22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E"); }
+body { letter-spacing: 0; }
+.m-text-3 { font-size: clamp(36px, 5vw, 88px); line-height: 1; font-weight: 500; letter-spacing: -0.025em; text-transform: uppercase; }
+.m-text-4 { letter-spacing: 0.08em; font-weight: 500; }
+.m-text-6 { letter-spacing: -0.01em; }
+.m-text-7 { letter-spacing: -0.015em; }
+.m-text-8 { line-height: 1.05; letter-spacing: -0.025em; }
+.m-link-2, .m-btn, .m-btn-2 { letter-spacing: 0; }
+#shows, #footer { background-image: var(--paper); }
+#footer .ft__word { letter-spacing: -0.04em; font-size: min(40vw, calc((100vw - 2 * var(--space-1)) / (var(--len) * 0.6))); }
+
+/* Navigation over the paper hero: dark mark, outlined pills. */
+#navigation:not([data-scrolled]) .nav__logo .nav__lmv { filter: invert(1); }
+#navigation .nav__list { box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color-6) 16%, transparent); }
+#navigation .nav__toggle { box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--color-6) 22%, transparent); }
+
+/* Opening: an invitation on paper. Wordmark, the two cities, the dates,
+   and a hairline circle around it all, like the plate on the invite. */
+#opening .op__ground { background: var(--paper), var(--color-1); }
+#opening .op__photo, #opening .op__glow, #opening .op__stars { display: none; }
+#opening .op__ring { top: 47%; width: min(70vw, 84vh); margin-left: max(-35vw, -42vh); margin-top: max(-35vw, -42vh); }
+#opening .op__ring-in { border-color: color-mix(in oklab, var(--color-6) 22%, transparent); }
+#opening .op__dot { width: 9px; height: 9px; margin: -4.5px 0 0 -4.5px; background: var(--color-6); }
+#opening .op__screen--1 { color: var(--color-6); grid-template-rows: minmax(110px, 1fr) auto auto auto auto minmax(36px, .7fr) auto; justify-items: center; text-align: center; }
+#opening .op__brand { grid-row: 1; align-self: end; display: grid; justify-items: center; gap: 16px; }
+#opening .op__wordmark { width: min(520px, 72vw); height: auto; filter: invert(1); }
+#opening .op__kicker { font-size: 13px; font-weight: 500; letter-spacing: 0.32em; text-transform: uppercase; }
+#opening .op__title { grid-row: 2; display: flex; align-items: baseline; justify-content: center; gap: 0 .3em; margin-top: clamp(26px, 5vh, 56px); }
+#opening .hw { grid-area: auto; justify-self: auto; }
+#opening .m-text-2 { font-size: clamp(46px, 8.4vw, 156px); line-height: .92; font-weight: 500; letter-spacing: -0.035em; text-transform: uppercase; }
+#opening .hw--3 .m-text-2 { font-weight: 300; letter-spacing: -0.12em; }
+#opening .op__date { grid-row: 3; margin-top: clamp(14px, 2.4vh, 24px); letter-spacing: 0.2em; }
+#opening .op__lead { grid-row: 4; width: auto; margin-top: 14px; font-size: 16px; }
+#opening .op__stops { grid-row: 7; justify-self: stretch; text-align: left; }
+#opening .op__stops::before { background: color-mix(in oklab, var(--color-6) 35%, transparent); }
+#opening .op__stop-dot { background: var(--color-6); }
+@media (max-width: 760px) {
+  #opening .op__title { flex-direction: column; align-items: center; gap: 0; }
+  #opening .m-text-2 { font-size: clamp(46px, 16vw, 84px); }
+  #opening .op__ring { top: 44%; width: 128vw; margin-left: -64vw; margin-top: -64vw; }
+  #opening .op__date { letter-spacing: 0.14em; }
+  #opening .op__screen--1 { grid-template-rows: minmax(96px, 1fr) auto auto auto auto minmax(96px, 1fr) auto; }
+}
+
+#contact .ct__wordmark { width: min(440px, 64vw); height: auto; }
+@media (max-width: 760px) { #shows .sh__title { font-size: 26px; } }
 
 /* Contact: the form became a single link to the real signup page. */
 #contact .ct__form { align-content: center; }
@@ -666,15 +706,17 @@ textarea.m-field__input { min-height: 132px; resize: vertical; }
   </div>
 
   <div class="op__screen op__screen--1">
+    <div class="op__brand">
+      <img class="op__wordmark" src="/logo.gif" alt="Love Made Visible" width="967" height="103">
+      <p class="op__kicker m-text-5">Miami Art Week</p>
+    </div>
     <h1 class="op__title" id="opening-title" aria-label="Miami and Newark, November 29 to December 6">
-      <span class="hw hw--1" aria-hidden="true"><span class="hw__in m-text-2">Nov 29</span></span>
       <span class="hw hw--2" aria-hidden="true"><span class="hw__in m-text-2">Miami</span></span>
       <span class="hw hw--3" aria-hidden="true"><span class="hw__in m-text-2">&lt;&gt;</span></span>
-      <span class="hw hw--4" aria-hidden="true"><span class="hw__in m-text-2">Dec 6</span></span>
       <span class="hw hw--5" aria-hidden="true"><span class="hw__in m-text-2">Newark</span></span>
     </h1>
-    <p class="op__caption m-text-5"><span>Love Made</span> <span>Visible</span></p>
-    <p class="op__lead m-text-4">A year-long fellowship built for artists, by artists.</p>
+    <p class="op__date m-text-4">November 29 to December 6</p>
+    <p class="op__lead m-text-5">A year-long fellowship built for artists, by artists.</p>
     <ol class="op__stops" aria-label="The week, day by day">
       <li class="op__stop"><span class="op__stop-label m-text-5">Sunday</span><span class="op__stop-dot"></span><time class="op__stop-num m-text-6" datetime="2026-11-29">Nov 29</time></li>
       <li class="op__stop"><span class="op__stop-label m-text-5">Tuesday</span><span class="op__stop-dot"></span><time class="op__stop-num m-text-6" datetime="2026-12-01">Dec 1</time></li>
@@ -889,7 +931,7 @@ textarea.m-field__input { min-height: 132px; resize: vertical; }
   <div class="ct__night" aria-hidden="true"></div>
   <div class="ct__head">
     <div class="ct__ring" aria-hidden="true"></div>
-    <h2 class="ct__title m-text-3" id="contact-title"><span>Love Made</span> <span>Visible</span></h2>
+    <h2 class="ct__title" id="contact-title"><img class="ct__wordmark" src="/logo.gif" alt="Love Made Visible" width="967" height="103" loading="lazy"></h2>
   </div>
   <dl class="ct__facts">
     <div class="ct__fact"><dt class="m-text-5">When</dt><dd class="m-text">November 29 to December 6</dd></div>
